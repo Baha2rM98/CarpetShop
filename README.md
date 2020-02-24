@@ -1,4 +1,4 @@
-# Online Carpet Store
+# Online Carpet Shop
 
 ### Powered By: [Laravel](https://laravel.com)
 
