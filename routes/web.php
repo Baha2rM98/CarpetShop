@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view("welcome");
-});
+//Route::get('/', function () {
+//    return view("welcome");
+//});
 
 Route::prefix('/administrator')->group(function () {
     Route::get('/', 'Backend\MainController@mainPage');
