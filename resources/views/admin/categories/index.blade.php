@@ -15,15 +15,27 @@
                     <table class="table no-margin">
                         <thead>
                         <tr>
-                            <th>شناسه</th>
-                            <th>عنوان</th>
+                            <th class="text-center">شناسه</th>
+                            <th class="text-center">عنوان</th>
+                            <th class="text-center">عملیات</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td><a href="pages/examples/invoice.html"></a></td>
-                            <td></td>
-                        </tr>
+                        @foreach($categories as $category)
+                            <tr>
+                                <td class="text-center">{{$category->id}}</td>
+                                <td>{{$category->name}}</td>
+                                <td class="text-center">
+                                    <a class="btn btn-warning"
+                                       href="{{route('categories.edit', $category->id)}}">ویرایش</a>
+                                    <a class="btn btn-danger"
+                                       href="{{route('categories.destroy', $category->id)}}">حذف</a>
+                                </td>
+                            </tr>
+                            @if(isset($category->children))
+                                @include('admin.partials.categorylist', ['categories' => $category->children, 'level' => 1])
+                            @endif
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
