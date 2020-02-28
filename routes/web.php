@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,4 +15,8 @@
 
 Route::get('/', function () {
     return view("welcome");
+});
+
+Route::prefix('/administrator')->group(function () {
+    Route::get('/', 'Backend\MainController@mainPage');
 });
