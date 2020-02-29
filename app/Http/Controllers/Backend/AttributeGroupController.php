@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\AttributeGroup;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreatAttributeGroupRequest;
+use App\Http\Requests\CreateAttributeGroupRequest;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
@@ -38,11 +38,11 @@ class AttributeGroupController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param CreatAttributeGroupRequest $request
+     * @param CreateAttributeGroupRequest $request
      * @return RedirectResponse|Redirector
      * @throws Throwable
      */
-    public function store(CreatAttributeGroupRequest $request)
+    public function store(CreateAttributeGroupRequest $request)
     {
         $attributeGroup = new AttributeGroup();
         $attributeGroup->title = $request->input('title');
@@ -78,11 +78,11 @@ class AttributeGroupController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param CreatAttributeGroupRequest $request
+     * @param CreateAttributeGroupRequest $request
      * @param int $id
      * @return RedirectResponse|Redirector
      */
-    public function update(CreatAttributeGroupRequest $request, $id)
+    public function update(CreateAttributeGroupRequest $request, $id)
     {
         $attributeGroup = AttributeGroup::findOrFail($id);
         $attributeGroup->title = $request->title;
