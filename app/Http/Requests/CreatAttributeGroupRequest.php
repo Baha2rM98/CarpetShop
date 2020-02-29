@@ -1,0 +1,41 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class CreatAttributeGroupRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            'title' => ['required', 'max:20', 'min:2'],
+            'type' => 'require'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'عنوان گروه بندی ویژگی نمیتواند خالی باشد!',
+            'title.max' => 'عنوان گروه بندی ویژگی نمیتواند بیشتر از 20 کاراکتر باشد!',
+            'title.min' => 'عنوان گروه بندی ویژگی نمیتواند کمتر از 2 کاراکتر باشد!',
+            'type.required' => 'نوع گروه بندی ویژگی نمیتواند خالی باشد!'
+        ];
+    }
+}
