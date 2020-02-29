@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Backend;
 
 use App\Category;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateCategoryRequest;
 use Exception;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
@@ -41,11 +40,11 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param CreateCategoryRequest $request
      * @return RedirectResponse|Redirector
      * @throws Throwable
      */
-    public function store(Request $request)
+    public function store(CreateCategoryRequest $request)
     {
         $category = new Category();
         $category->parent_id = $request->input('category_parent');
@@ -54,19 +53,20 @@ class CategoryController extends Controller
         $category->meta_desc = $request->input('meta_desc');
         $category->meta_keywords = $request->input('meta_keywords');
         $category->saveOrFail();
+        Session::flash('attributes', 'دسته بندی جدید با موفقیت اضافه شد!');
         return redirect('/administrator/categories');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
+//    /**
+//     * Display the specified resource.
+//     *
+//     * @param int $id
+//     * @return Response
+//     */
+//    public function show($id)
+//    {
+//        //
+//    }
 
     /**
      * Show the form for editing the specified resource.
@@ -84,11 +84,11 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param CreateCategoryRequest $request
      * @param int $id
      * @return RedirectResponse|Redirector
      */
-    public function update(Request $request, $id)
+    public function update(CreateCategoryRequest $request, $id)
     {
         $category = Category::findOrFail($id);
         $category->parent_id = $request->parent_id;
@@ -97,6 +97,7 @@ class CategoryController extends Controller
         $category->meta_desc = $request->meta_desc;
         $category->meta_keywords = $request->meta_keywords;
         $category->saveOrFail();
+        Session::flash('attributes', 'دسته بندی با موفقیت به روزرسانی شد!');
         return redirect('/administrator/categories');
     }
 
@@ -111,10 +112,11 @@ class CategoryController extends Controller
     {
         $category = Category::with('children')->where('id', $id)->first();
         if (count($category->children) > 0) {
-            Session::flash('error_category', 'دسته بندی ' . "[$category->name]" . ' دارای زیردسته است، بنابراین حذف آن امکان پذیر نیست.');
+            Session::flash('error_category', 'دسته بندی ' . "[ $category->name ]" . ' دارای زیردسته است، بنابراین حذف آن امکان پذیر نیست.');
             return redirect('/administrator/categories');
         }
         $category->delete();
+        Session::flash('attributes', 'دسته بندی با موفقیت حذف شد!');
         return redirect('/administrator/categories');
     }
 }
