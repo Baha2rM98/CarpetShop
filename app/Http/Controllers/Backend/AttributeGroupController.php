@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreatAttributeGroupRequest;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
@@ -68,11 +67,12 @@ class AttributeGroupController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param int $id
-     * @return Response
+     * @return Factory|View
      */
     public function edit($id)
     {
-        //
+        $attributesGroup = AttributeGroup::findOrFail($id);
+        return view('admin.attributes.edit', compact('attributesGroup'));
     }
 
     /**
@@ -80,21 +80,29 @@ class AttributeGroupController extends Controller
      *
      * @param CreatAttributeGroupRequest $request
      * @param int $id
-     * @return void
+     * @return RedirectResponse|Redirector
      */
     public function update(CreatAttributeGroupRequest $request, $id)
     {
-        //
+        $attributeGroup = AttributeGroup::findOrFail($id);
+        $attributeGroup->title = $request->title;
+        $attributeGroup->type = $request->type;
+        $attributeGroup->saveOrFail();
+        Session::flash('attributes', 'ویژگی با موفقیت به روزرسانی شد!');
+        return redirect('/administrator/attributes-group');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return Response
+     * @return RedirectResponse|Redirector
      */
     public function destroy($id)
     {
-        //
+        $attributeGroup = AttributeGroup::findOrFail($id);
+        $attributeGroup->delete();
+        Session::flash('attributes', 'ویژگی با موفقیت حذف شد!');
+        return redirect('/administrator/attributes-group');
     }
 }
