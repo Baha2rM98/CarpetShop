@@ -11,6 +11,11 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
+                @if(\Illuminate\Support\Facades\Session::has('error_category'))
+                    <div class="alert alert-danger">
+                        <div>{{session('error_category')}}</div>
+                    </div>
+                @endif
                 <div class="table-responsive">
                     <table class="table no-margin">
                         <thead>
@@ -28,8 +33,14 @@
                                 <td class="text-center">
                                     <a class="btn btn-warning"
                                        href="{{route('categories.edit', $category->id)}}">ویرایش</a>
-                                    <a class="btn btn-danger"
-                                       href="{{route('categories.destroy', $category->id)}}">حذف</a>
+                                    <div class="display-inline-block">
+                                        <form method="post" name="_method"
+                                              action="/administrator/categories/{{$category->id}}">
+                                            @csrf
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <button type="submit" class="btn btn-danger">حذف</button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                             @if(isset($category->children))
