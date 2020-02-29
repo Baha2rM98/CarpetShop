@@ -20,4 +20,5 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('/administrator')->group(function () {
     Route::get('/', 'Backend\MainController@mainPage');
     Route::resource('/categories', 'Backend\CategoryController');
+    Route::resource('/attributes-group', 'Backend\AttributeGroupController');
 });
