@@ -30,11 +30,11 @@
                             <div class="form-group">
                                 <label for="name">نوع</label>
                                 <select name="type" id="" class="form-control">
-                                    <option value="select" @if($attributesGroup->title === 'select') selected @endif>
+                                    <option value="select" @if($attributesGroup->type === 'select') selected @endif>
                                         لیست تکی
                                     </option>
                                     <option value="multiple"
-                                            @if($attributesGroup->title === 'multiple') selected @endif>لیست چنتایی
+                                            @if($attributesGroup->type === 'multiple') selected @endif>لیست چنتایی
                                     </option>
                                 </select>
                             </div>
