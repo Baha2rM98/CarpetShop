@@ -1,13 +1,22 @@
 @extends('admin.layout.master')
-<title>یجاد دسته بندی جدید</title>
+<title>ویرایش دسته بندی</title>
 @section('content')
     <section class="content">
         <div class="box box-info">
             <div class="box-header with-border">
-                <h3 class="box-title pull-right">اویرایش دسته بندی {{$category->name}}</h3>
+                <h3 class="box-title pull-right">ویرایش دسته بندی {{$category->name}}</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
+                @if($errors->any())
+                    <ul>
+                        <div class="alert alert-warning">
+                            @foreach($errors->all() as $error)
+                                {{$error}}
+                            @endforeach
+                        </div>
+                    </ul>
+                @endif
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
                         <form method="post" action="/administrator/categories/{{$category->id}}">

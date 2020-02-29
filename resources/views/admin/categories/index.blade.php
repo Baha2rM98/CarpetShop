@@ -11,6 +11,11 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
+                @if(\Illuminate\Support\Facades\Session::has('attributes'))
+                    <div class="alert alert-success">
+                        <div>{{session('attributes')}}</div>
+                    </div>
+                @endif
                 @if(\Illuminate\Support\Facades\Session::has('error_category'))
                     <div class="alert alert-danger">
                         <div>{{session('error_category')}}</div>

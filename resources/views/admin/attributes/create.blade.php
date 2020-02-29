@@ -8,22 +8,23 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                {{--                @if($errors->any())--}}
-                {{--                    <ul>--}}
-                {{--                        <div class="alert alert-warning">--}}
-                {{--                            @foreach($errors->all() as $error)--}}
-                {{--                                {{$error}}--}}
-                {{--                            @endforeach--}}
-                {{--                        </div>--}}
-                {{--                    </ul>--}}
-                {{--                @endif--}}
+                @if($errors->any())
+                    <ul>
+                        <div class="alert alert-warning">
+                            @foreach($errors->all() as $error)
+                                {{$error}}
+                            @endforeach
+                        </div>
+                    </ul>
+                @endif
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
                         <form method="post" action="/administrator/attributes-group">
                             @csrf
                             <div class="form-group">
                                 <label for="name">عنوان</label>
-                                <input type="text" name="title" class="form-control" placeholder="عنوان گروه بندی ویژگی را وارد کنید...">
+                                <input type="text" name="title" class="form-control"
+                                       placeholder="عنوان گروه بندی ویژگی را وارد کنید...">
                             </div>
                             <div class="form-group">
                                 <label for="name">نوع</label>

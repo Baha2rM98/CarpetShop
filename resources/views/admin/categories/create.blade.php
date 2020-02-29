@@ -1,5 +1,5 @@
 @extends('admin.layout.master')
-<title>یجاد دسته بندی جدید</title>
+<title>ایجاد دسته بندی جدید</title>
 @section('content')
     <section class="content">
         <div class="box box-info">
@@ -8,6 +8,15 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
+                @if($errors->any())
+                    <ul>
+                        <div class="alert alert-warning">
+                            @foreach($errors->all() as $error)
+                                {{$error}}
+                            @endforeach
+                        </div>
+                    </ul>
+                @endif
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
                         <form method="post" action="/administrator/categories">
