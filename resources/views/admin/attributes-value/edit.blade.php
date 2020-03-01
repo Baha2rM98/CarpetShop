@@ -1,10 +1,10 @@
 @extends('admin.layout.master')
-<title>ویرایش گروه ویژگی</title>
+<title>ویرایش مقدار ویژگی</title>
 @section('content')
     <section class="content">
         <div class="box box-info">
             <div class="box-header with-border">
-                <h3 class="box-title pull-right">ویرایش گروه ویژگی {{$attributesGroup->title}}</h3>
+                <h3 class="box-title pull-right">ویرایش مقدار ویژگی {{$attributesValue->title}}</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -19,23 +19,21 @@
                 @endif
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
-                        <form method="post" action="/administrator/attributes-group/{{$attributesGroup->id}}">
+                        <form method="post" action="/administrator/attributes-value/{{$attributesValue->id}}">
                             @csrf
                             <input type="hidden" name="_method" value="PATCH">
                             <div class="form-group">
                                 <label for="name">عنوان</label>
-                                <input type="text" name="title" class="form-control" value="{{$attributesGroup->title}}"
-                                       placeholder="عنوان گروه بندی ویژگی را وارد کنید...">
+                                <input type="text" name="title" class="form-control" value="{{$attributesValue->title}}"
+                                       placeholder="عنوان مقدار ویژگی را وارد کنید...">
                             </div>
                             <div class="form-group">
-                                <label for="name">نوع</label>
-                                <select name="type" id="" class="form-control">
-                                    <option value="select" @if($attributesGroup->type === 'select') selected @endif>
-                                        لیست تکی
-                                    </option>
-                                    <option value="multiple"
-                                            @if($attributesGroup->type === 'multiple') selected @endif>لیست چنتایی
-                                    </option>
+                                <label for="name">نوع ویژگی</label>
+                                <select name="attributes_group_id" id="" class="form-control">
+                                    @foreach($attributesGroup as $attribute)
+                                        <option value="{{$attribute->id}}"
+                                                @if($attribute->id === $attributesValue->attributeGroup->id) selected @endif>{{$attribute->title}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-facebook pull-left">ویرایش کردن</button>
