@@ -15,7 +15,7 @@
             </div>
         </td>
     </tr>
-    @if(isset($subCategory->children))
+    @if(count($subCategory->children) > 0)
         @include('admin.partials.categorylist', ['categories' => $subCategory->children, 'level' => $level + 1])
     @endif
 @endforeach

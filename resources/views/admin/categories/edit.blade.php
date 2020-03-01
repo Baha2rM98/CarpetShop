@@ -34,7 +34,7 @@
                                     @foreach($categories as $showParentCategory)
                                         <option value="{{$showParentCategory->id}}"
                                                 @if($category->parent_id === $showParentCategory->id) selected @endif>{{$showParentCategory->name}}</option>
-                                        @if(isset($showParentCategory->children))
+                                        @if(count($showParentCategory->children) > 0)
                                             @include('admin.partials.subcategory', ['categories' => $showParentCategory->children, 'level' => 1, 'selectedCategory' => $category])
                                         @endif
                                     @endforeach
