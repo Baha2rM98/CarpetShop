@@ -1,5 +1,5 @@
 @extends('admin.layout.master')
-<title>دسته بندی ها</title>
+<title>صفحه مدیریت فروشگاه - دسته بندی ها</title>
 @section('content')
     <section class="content">
         <div class="box box-info">

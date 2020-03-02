@@ -1,5 +1,5 @@
 @extends('admin.layout.master')
-<title>ویرایش مقدار ویژگی</title>
+<title>صفحه مدیریت فروشگاه - ویرایش مقدار ویژگی</title>
 @section('content')
     <section class="content">
         <div class="box box-info">
