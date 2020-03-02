@@ -22,6 +22,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        if (!$this->isDatabaseConnected()) {
+            abort(500, 'Database Connection Error');
+        }
         $categories = Category::with('children')->where('parent_id', null)->get();
         return view('admin.categories.index', compact('categories'));
     }
@@ -33,6 +36,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        if (!$this->isDatabaseConnected()) {
+            abort(500, 'Database Connection Error');
+        }
         $categories = Category::with('children')->where('parent_id', null)->get();
         return view('admin.categories.create', compact('categories'));
     }
@@ -46,6 +52,9 @@ class CategoryController extends Controller
      */
     public function store(CreateCategoryRequest $request)
     {
+        if (!$this->isDatabaseConnected()) {
+            abort(500, 'Database Connection Error');
+        }
         $category = new Category();
         $category->parent_id = $request->input('category_parent');
         $category->name = $request->input('name');
@@ -76,6 +85,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
+        if (!$this->isDatabaseConnected()) {
+            abort(500, 'Database Connection Error');
+        }
         $categories = Category::with('children')->where('parent_id', null)->get();
         $category = Category::findOrFail($id);
         return view('admin.categories.edit', compact('categories', 'category'));
@@ -90,8 +102,11 @@ class CategoryController extends Controller
      */
     public function update(CreateCategoryRequest $request, $id)
     {
+        if (!$this->isDatabaseConnected()) {
+            abort(500, 'Database Connection Error');
+        }
         $category = Category::findOrFail($id);
-        $category->parent_id = $request->parent_id;
+        $category->parent_id = $request->category_parent;
         $category->name = $request->name;
         $category->meta_title = $request->meta_title;
         $category->meta_desc = $request->meta_desc;
@@ -110,6 +125,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
+        if (!$this->isDatabaseConnected()) {
+            abort(500, 'Database Connection Error');
+        }
         $category = Category::with('children')->where('id', $id)->first();
         if (count($category->children) > 0) {
             Session::flash('error_category', 'دسته بندی ' . "[ $category->name ]" . ' دارای زیردسته است، بنابراین حذف آن امکان پذیر نیست.');
