@@ -17,7 +17,8 @@ class CreateBrandsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title')->unique();
             $table->text('description');
-            $table->string('img');
+            $table->bigInteger('photo_id')->unsigned();
+            $table->foreign('photo_id')->references('id')->on('photos')->onDelete('cascade');
             $table->timestamps();
         });
     }
