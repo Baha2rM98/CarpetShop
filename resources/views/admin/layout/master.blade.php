@@ -368,12 +368,6 @@
                                 Sidebar</a></li>
                     </ul>
                 </li>
-                <li>
-                    <a href="pages/widgets.html">
-                        <i class="fa fa-th"></i> <span>ویجت ها</span>
-                        <small class="label pull-right bg-green">جدید</small>
-                    </a>
-                </li>
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-database"></i>
@@ -397,6 +391,17 @@
                                 ها</a>
                         <li><a href="{{route('attributes-value.index')}}"><i class="fa fa-circle-o"></i>مقادیر ویژگی ها</a>
                         </li>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-database"></i>
+                        <span>برندها</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{route('brands.index')}}"><i class="fa fa-circle-o"></i>لیست برندها</a>
                         </li>
                     </ul>
                 </li>
