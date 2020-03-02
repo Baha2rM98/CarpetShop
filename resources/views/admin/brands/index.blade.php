@@ -16,17 +16,12 @@
                         <div>{{session('brands')}}</div>
                     </div>
                 @endif
-                @if(\Illuminate\Support\Facades\Session::has('error'))
-                    <div class="alert alert-danger">
-                        <div>{{session('error')}}</div>
-                    </div>
-                @endif
                 <div class="table-responsive">
                     <table class="table no-margin">
                         <thead>
                         <tr>
                             <th class="text-center">شناسه</th>
-                            <th class="text-center">عنوان</th>
+                            <th class="text-center">نام برند</th>
                             <th class="text-center">عملیات</th>
                         </tr>
                         </thead>
@@ -34,7 +29,7 @@
                         @foreach($brands as $brand)
                             <tr>
                                 <td class="text-center">{{$brand->id}}</td>
-                                <td>{{$brand->title}}</td>
+                                <td class="text-center">{{$brand->title}}</td>
                                 <td class="text-center">
                                     <a class="btn btn-warning"
                                        href="{{route('brands.edit', $brand->id)}}">ویرایش</a>
