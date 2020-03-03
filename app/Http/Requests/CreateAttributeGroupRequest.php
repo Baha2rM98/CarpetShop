@@ -24,7 +24,7 @@ class CreateAttributeGroupRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'max:20', 'min:2'],
+            'title' => ['bail', 'required', 'max:20', 'min:2'],
             'type' => 'required'
         ];
     }

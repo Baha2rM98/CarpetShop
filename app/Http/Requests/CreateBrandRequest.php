@@ -24,8 +24,8 @@ class CreateBrandRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'min:2', 'unique:brands'],
-            'description' => ['required', 'max:10000'],
+            'title' => ['bail', 'required', 'min:2', 'unique:brands'],
+            'description' => ['bail', 'required', 'max:10000'],
             'photo_id' => 'required'
         ];
     }
