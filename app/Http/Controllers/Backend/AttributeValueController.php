@@ -63,17 +63,6 @@ class AttributeValueController extends Controller
         return redirect('/administrator/attributes-value');
     }
 
-//    /**
-//     * Display the specified resource.
-//     *
-//     * @param int $id
-//     * @return Response
-//     */
-//    public function show($id)
-//    {
-//        //
-//    }
-
     /**
      * Show the form for editing the specified resource.
      *
