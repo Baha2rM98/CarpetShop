@@ -20,11 +20,6 @@
                         </div>
                     </ul>
                 @endif
-                    {{--                    @if(\Illuminate\Support\Facades\Session::has('errors'))--}}
-                    {{--                        <div class="alert alert-success">--}}
-                    {{--                            <div>{{session('errors')}}</div>--}}
-                    {{--                        </div>--}}
-                    {{--                    @endif--}}
                     <div class="row">
                         <div class="col-md-6 col-md-offset-3">
                             <form method="post" action="/administrator/brands">
@@ -40,7 +35,7 @@
                                               placeholder="توضیحات برند را وارد کنید..."></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="photo">تصویر</label>
+                                    <label for="photo">تصویر (فایل آپلود شده حتما باید از نوع عکس باشد و حجم آن حداکثر 4 مگابایت باشد.)</label>
                                     <input type="hidden" name="photo_id" id="brand-photo">
                                     <div id="photo" class="dropzone"></div>
                                 </div>
