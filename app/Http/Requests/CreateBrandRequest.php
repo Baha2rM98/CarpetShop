@@ -24,7 +24,7 @@ class CreateBrandRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'min:2'],
+            'title' => ['required', 'min:2', 'unique:brands'],
             'description' => ['required', 'max:10000'],
             'photo_id' => 'required'
         ];
@@ -35,6 +35,7 @@ class CreateBrandRequest extends FormRequest
         return [
             'title.required' => 'نام برند نمیتواند خالی باشد!',
             'title.min' => 'نام برند نمیتواند کمتر از 2 کاراکتر باشد!',
+            'title.unique' => 'این برند قبلا ثبت شده است!',
             'description.required' => 'توضیحات برند نمیتواند خالی باشد!',
             'description.max' => 'توضیحات برند نمیتواند بیشتر از 10000 کاراکتر باشد!',
             'photo_id.required' => 'عکس برند نمیتواند خالی باشد!'
