@@ -5,6 +5,11 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
+/**
+ * @property mixed title
+ * @property mixed description
+ * @property mixed photo_id
+ */
 class Brand extends Model
 {
     /**
@@ -13,6 +18,6 @@ class Brand extends Model
      */
     public function photo()
     {
-        return $this->belongsTo(Photo::class);
+        return $this->belongsTo(Photo::class, 'photo_id');
     }
 }
