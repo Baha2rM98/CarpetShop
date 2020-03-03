@@ -13,12 +13,24 @@ use Illuminate\Database\Eloquent\Relations\Relation;
  */
 class Photo extends Model
 {
+    protected $uploads = '/storage/photos/';
+
     /**
      * Creates a one-to-many relation with User
      * @return Relation
      */
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class);
+    }
+
+    /** Returns symbolic link path of the photo
+     *
+     * @param string $photo
+     * @return string
+     */
+    public function getPathAttribute($photo)
+    {
+        return $this->uploads . $photo;
     }
 }
