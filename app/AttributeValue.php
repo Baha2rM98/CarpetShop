@@ -19,6 +19,6 @@ class AttributeValue extends Model
      */
     public function attributeGroup()
     {
-        return $this->belongsTo(AttributeGroup::class, 'attribute_group_id');
+        return $this->belongsTo(AttributeGroup::class);
     }
 }

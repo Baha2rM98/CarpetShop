@@ -18,6 +18,6 @@ class Brand extends Model
      */
     public function photo()
     {
-        return $this->belongsTo(Photo::class, 'photo_id');
+        return $this->belongsTo(Photo::class);
     }
 }
