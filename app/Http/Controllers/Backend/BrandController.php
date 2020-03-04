@@ -82,6 +82,9 @@ class BrandController extends Controller
      */
     public function edit($id)
     {
+        if (!$this->isDatabaseConnected()) {
+            abort(500, 'Database Connection Error');
+        }
         $brand = Brand::with('photo')->whereId($id)->first();
         return view('admin.brands.edit', compact('brand'));
     }
@@ -128,6 +131,9 @@ class BrandController extends Controller
      */
     public function destroy($id)
     {
+        if (!$this->isDatabaseConnected()) {
+            abort(500, 'Database Connection Error');
+        }
         $brand = Brand::with('photo')->whereId($id)->first();
         Storage::disk('local')->delete('public/photos/' . $this->getFileAbsolutePath($brand->photo->path));
         $brand->photo->delete();
