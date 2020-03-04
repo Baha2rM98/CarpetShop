@@ -46,4 +46,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(Photo::class, 'user_id');
     }
+
+    /**
+     * Returns a one-to-many relationship with Product
+     * @return Relation
+     */
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'user_id');
+    }
 }

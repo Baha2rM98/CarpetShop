@@ -22,4 +22,22 @@ class Category extends Model
     {
         return $this->hasMany(Category::class, 'parent_id')->with('children');
     }
+
+    /**
+     * Returns a one-to-many relationship with Product
+     * @return Relation
+     */
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'category_id');
+    }
+
+    /**
+     * Returns a one-to-many relationship with AttributeGroup
+     * @return Relation
+     */
+    public function attributesGroup()
+    {
+        return $this->hasMany(AttributeGroup::class);
+    }
 }

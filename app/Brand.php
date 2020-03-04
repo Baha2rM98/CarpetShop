@@ -20,4 +20,13 @@ class Brand extends Model
     {
         return $this->belongsTo(Photo::class);
     }
+
+    /**
+     * Returns a one-to-many relationship with Product
+     * @return Relation
+     */
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'brand_id');
+    }
 }
