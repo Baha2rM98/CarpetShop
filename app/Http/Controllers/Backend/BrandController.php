@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use Throwable;
@@ -149,6 +150,6 @@ class BrandController extends Controller
      */
     public function getFileAbsolutePath($path)
     {
-        return str_replace('/storage/photos/', null, $path);
+        return Str::replaceArray('/storage/photos/', [''], $path);
     }
 }
