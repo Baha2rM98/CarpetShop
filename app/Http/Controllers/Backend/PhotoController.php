@@ -31,7 +31,8 @@ class PhotoController extends Controller
         $uploadedFile = $request->file('file');
         $fileName = time() . $uploadedFile->getClientOriginalName();
         $originalName = $uploadedFile->getClientOriginalName();
-        Storage::disk('local')->putFileAs('photos', $uploadedFile, $fileName);
+        Storage::disk('local')->putFileAs('public/photos', $uploadedFile, $fileName);
+//        $this->removeDuplicateFiles();
         $photo = new Photo();
         $photo->original_name = $originalName;
         $photo->path = $fileName;
@@ -41,4 +42,22 @@ class PhotoController extends Controller
         $photo->saveOrFail();
         return response()->json(['photo_id' => $photo->id]);
     }
+
+//TODO
+//    /**
+//     * @deprecated
+//     */
+//    private function removeDuplicateFiles()
+//    {
+//        $files = Storage::disk('local')->allFiles('public/photos');
+//        $photos = Photo::all();
+//        foreach ($files as $file) {
+//            foreach ($photos as $photo) {
+//                if ($file === 'public/photos/' . $this->getFileAbsolutePath('photos', $photo->path)) {
+//                    Storage::disk('local')->delete($file);
+//                    $photo->delete();
+//                }
+//            }
+//        }
+//    }
 }
