@@ -17,8 +17,17 @@ class AttributeGroup extends Model
      * Returns a one-to-many relationship with AttributeValue
      * @return Relation
      */
-    public function attributesValue()
+    public function attributeValues()
     {
         return $this->hasMany(AttributeValue::class, 'attribute_group_id');
+    }
+
+    /**
+     * Returns a many-to-many relationship with Category
+     * @return Relation
+     */
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'attributegroup_category', 'attribute_group_id', 'category_id');
     }
 }

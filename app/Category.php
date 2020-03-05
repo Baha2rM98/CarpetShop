@@ -33,11 +33,12 @@ class Category extends Model
     }
 
     /**
-     * Returns a one-to-many relationship with AttributeGroup
+     * Returns a many-to-many relationship with AttributeGroup
      * @return Relation
      */
-    public function attributesGroup()
+    public function attributeGroups()
     {
-        return $this->hasMany(AttributeGroup::class);
+        return $this->belongsToMany(AttributeGroup::class, 'attributegroup_category', 'category_id',
+            'attribute_group_id');
     }
 }
