@@ -2,36 +2,54 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Brand;
+use App\Category;
 use App\Http\Controllers\Controller;
+use App\Product;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Factory|View
      */
     public function index()
     {
-        //
+        if ( ! $this->isDatabaseConnected()) {
+            abort(500, 'Database Connection Error');
+        }
+        $products = Product::paginate(10);
+
+        return view('admin.products.index', compact('products'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Factory|View
      */
     public function create()
     {
-        //
+        if ( ! $this->isDatabaseConnected()) {
+            abort(500, 'Database Connection Error');
+        }
+        $categories = Category::with('children')->where('parent_id', null)->get();
+        $brands     = Brand::all();
+
+        return view('admin.products.create', compact('categories', 'brands'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     *
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -42,7 +60,8 @@ class ProductController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     *
+     * @return Response
      */
     public function show($id)
     {
@@ -53,7 +72,8 @@ class ProductController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     *
+     * @return Response
      */
     public function edit($id)
     {
@@ -63,9 +83,10 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     *
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -76,7 +97,8 @@ class ProductController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     *
+     * @return Response
      */
     public function destroy($id)
     {

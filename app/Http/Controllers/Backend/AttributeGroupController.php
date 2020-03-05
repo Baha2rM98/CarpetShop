@@ -105,7 +105,7 @@ class AttributeGroupController extends Controller
             abort(500, 'Database Connection Error');
         }
         $attributeGroup = AttributeGroup::findOrFail($id);
-        foreach ($attributeGroup->attributesValue as $item) {
+        foreach ($attributeGroup->attributeValues as $item) {
             $item->delete();
         }
         $attributeGroup->delete();
