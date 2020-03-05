@@ -46,6 +46,7 @@
                                             <button type="submit" class="btn btn-danger">حذف</button>
                                         </form>
                                     </div>
+                                    <a class="btn btn-primary" href="{{route('categories.indexSetting', $category->id)}}">تنظیمات</a>
                                 </td>
                             </tr>
                             @if(isset($category->children))
