@@ -354,7 +354,6 @@
                     <ul class="treeview-menu">
                         <li><a href="{{route('categories.index')}}"><i class="fa fa-circle-o"></i>لیست دسته بندی ها</a>
                         </li>
-                        </li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -367,7 +366,6 @@
                         <li><a href="{{route('attributes-group.index')}}"><i class="fa fa-circle-o"></i>لیست ویژگی
                                 ها</a>
                         <li><a href="{{route('attributes-value.index')}}"><i class="fa fa-circle-o"></i>مقادیر ویژگی ها</a>
-                        </li>
                         </li>
                     </ul>
                 </li>
