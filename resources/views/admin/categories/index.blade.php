@@ -21,6 +21,11 @@
                         <div>{{session('error_category')}}</div>
                     </div>
                 @endif
+                @if(\Illuminate\Support\Facades\Session::has('settings'))
+                    <div class="alert alert-success">
+                        <div>{{session('settings')}}</div>
+                    </div>
+                @endif
                 <div class="table-responsive">
                     <table class="table no-margin">
                         <thead>
@@ -46,7 +51,8 @@
                                             <button type="submit" class="btn btn-danger">حذف</button>
                                         </form>
                                     </div>
-                                    <a class="btn btn-primary" href="{{route('categories.indexSetting', $category->id)}}">تنظیمات</a>
+                                    <a class="btn btn-primary"
+                                       href="{{route('categories.indexSetting', $category->id)}}">تنظیمات</a>
                                 </td>
                             </tr>
                             @if(isset($category->children))
