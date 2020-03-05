@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="name">دسته بندی</label>
-                                    <select name="category" id="" class="form-control" multiple>
+                                    <select name="categories[]" id="" class="form-control" multiple>
                                         @foreach($categories as $category)
                                             <option value="{{$category->id}}">{{$category->name}}</option>
                                             @if(isset($category->children))

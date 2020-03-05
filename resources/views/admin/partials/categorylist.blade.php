@@ -13,6 +13,7 @@
                     <button type="submit" class="btn btn-danger">حذف</button>
                 </form>
             </div>
+            <a class="btn btn-primary" href="{{route('categories.indexSetting', $subCategory->id)}}">تنظیمات</a>
         </td>
     </tr>
     @if(count($subCategory->children) > 0)
