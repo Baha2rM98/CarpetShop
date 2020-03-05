@@ -20,6 +20,8 @@ Route::get('/', function () {
 Route::prefix('/administrator')->group(function () {
     Route::get('/', 'Backend\MainController@mainPage');
     Route::resource('/categories', 'Backend\CategoryController');
+    Route::get('/categories/{id}/settings', 'Backend\CategoryController@indexSetting')->name('categories.indexSetting');
+    Route::post('/categories/{id}/settings', 'Backend\CategoryController@saveSetting');
     Route::resource('/attributes-group', 'Backend\AttributeGroupController');
     Route::resource('/attributes-value', 'Backend\AttributeValueController');
     Route::resource('/brands', 'Backend\BrandController');
