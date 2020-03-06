@@ -2,7 +2,7 @@
     <div>
         <div class="form-group">
             <label>برند</label>
-            <select name="category" class="form-control">
+            <select name="brand" class="form-control">
                 <option v-for="brand in brands" :value="brand.id">{{brand.title}}</option>
             </select>
         </div>
@@ -39,7 +39,3 @@
         }
     }
 </script>
-
-<!--<style scoped>-->
-
-<!--</style>-->

@@ -2,10 +2,20 @@
     <div>
         <div class="form-group">
             <label>دسته بندی</label>
-            <select name="categories[]" id="" class="form-control" multiple>
+            <select name="categories[]" id="" class="form-control" multiple v-model="selectedCategories"
+                    @change="onChange($event)">
                 <option v-for="category in categories" :value="category.id">{{category.name}}</option>
             </select>
-
+        </div>
+        <div v-if="flag">
+            <div class="form-group" v-for="attribute in attributes">
+                <label>ویژگی {{attribute.title}}</label>
+                <select name="attribute" class="form-control">
+                    <option v-for="attributeValue in attribute.attribute_values" :value="attributeValue.id">
+                        {{attributeValue.title}}
+                    </option>
+                </select>
+            </div>
         </div>
     </div>
 </template>
@@ -14,7 +24,10 @@
     export default {
         data() {
             return {
-                categories: []
+                categories: [],
+                selectedCategories: [],
+                flag: false,
+                attributes: []
             }
         },
         mounted() {
@@ -40,10 +53,18 @@
                     }
                 }
             },
+            onChange: function (event) {
+                this.flag = false;
+                axios.post('/api/administrator/categories/attributes', this.selectedCategories).then(
+                    res => {
+                        this.attributes = res.data.attributes;
+                        this.flag = true;
+                    }
+                ).catch(err => {
+                    console.log(err);
+                    this.flag = false;
+                });
+            }
         }
     }
 </script>
-
-<!--<style scoped>-->
-
-<!--</style>-->

@@ -8,7 +8,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-import AttributeComponent from "./components/AttributeComponent";
+import CategoryAttributeComponent from "./components/CategoryAttributeComponent";
 import BrandComponent from "./components/BrandComponent";
 
 /**
@@ -22,7 +22,7 @@ import BrandComponent from "./components/BrandComponent";
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('attribute-component', AttributeComponent);
+Vue.component('category-attribute-component', CategoryAttributeComponent);
 Vue.component('brand-component', BrandComponent);
 
 /**
