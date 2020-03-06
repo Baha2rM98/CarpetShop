@@ -34,7 +34,8 @@
                                 <input type="text" name="slug" class="form-control"
                                        placeholder="نام مستعار محصول را وارد کنید...">
                             </div>
-                            <attribute-component :brands="{{$brands}}"></attribute-component>
+                            <attribute-component></attribute-component>
+                            <brand-component></brand-component>
                             <div class="form-group">
                                 <label>وضعیت نشر</label>
                                 <div>
