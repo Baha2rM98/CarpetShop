@@ -6,12 +6,14 @@ use App\AttributeGroup;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCategoryRequest;
+use App\Rules\NoCategoryIsOwnParent;
 use Exception;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use Throwable;
 
@@ -97,12 +99,14 @@ class CategoryController extends Controller
      * @param  int  $id
      *
      * @return RedirectResponse|Redirector
+     * @throws ValidationException
      */
     public function update(CreateCategoryRequest $request, $id)
     {
         if ( ! $this->isDatabaseConnected()) {
             abort(500, 'Database Connection Error');
         }
+        $this->validate($request, ['category_parent' => new NoCategoryIsOwnParent($id)]);
         $category                = Category::findOrFail($id);
         $category->parent_id     = $request->category_parent;
         $category->name          = $request->name;
