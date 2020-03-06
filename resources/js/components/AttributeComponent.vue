@@ -7,12 +7,6 @@
             </select>
 
         </div>
-        <div class="form-group">
-            <label>برند</label>
-            <select name="category" class="form-control">
-                <option v-for="brand in brands" :value="brand.id">{{brand.title}}</option>
-            </select>
-        </div>
     </div>
 </template>
 
@@ -23,19 +17,18 @@
                 categories: []
             }
         },
-        props: ['brands'],
         mounted() {
             console.log("AttributeComponent mounted.");
-            axios.get('/api/categories').then(
+            axios.get('/api/administrator/categories').then(
                 res => {
-                    this.getAllChildren(res.data.categories, 0)
+                    this.getAllCategoriesChildren(res.data.categories, 0)
                 }
             ).catch(err => {
                 console.log(err)
-            })
+            });
         },
         methods: {
-            getAllChildren: function (currentValue, level) {
+            getAllCategoriesChildren: function (currentValue, level) {
                 for (let i = 0; currentValue.length; i++) {
                     let current = currentValue[i];
                     this.categories.push({
@@ -43,10 +36,10 @@
                         name: Array(level + 1).join('>>>') + ' ' + current.name
                     });
                     if (current.children && current.children.length > 0) {
-                        this.getAllChildren(current.children, level + 1)
+                        this.getAllCategoriesChildren(current.children, level + 1)
                     }
                 }
-            }
+            },
         }
     }
 </script>
