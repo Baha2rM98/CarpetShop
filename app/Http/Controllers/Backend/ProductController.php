@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Brand;
-use App\Category;
 use App\Http\Controllers\Controller;
 use App\Product;
 use Illuminate\Contracts\View\Factory;
@@ -30,18 +29,20 @@ class ProductController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
      * @return Factory|View
+     * @see CategoryController
      */
     public function create()
     {
         if ( ! $this->isDatabaseConnected()) {
             abort(500, 'Database Connection Error');
         }
-        $categories = Category::with('children')->where('parent_id', null)->get();
-        $brands     = Brand::all();
 
-        return view('admin.products.create', compact('categories', 'brands'));
+        // We retrieved categories table data by API just for fun :))
+
+        $brands = Brand::all();
+
+        return view('admin.products.create', compact('brands'));
     }
 
     /**

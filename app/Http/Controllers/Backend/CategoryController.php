@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCategoryRequest;
 use Exception;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\Http\Request;
@@ -142,6 +143,8 @@ class CategoryController extends Controller
     }
 
     /**
+     * Displays setting page for each category
+     *
      * @param  int  $id
      *
      * @return Factory|View
@@ -158,6 +161,8 @@ class CategoryController extends Controller
     }
 
     /**
+     * Stores newly request in database
+     *
      * @param  Request  $request
      *
      * @param  int  $id
@@ -172,7 +177,22 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $category->attributeGroups()->sync($request->attributeGroups);
         $category->saveOrFail();
+        Session::flash('settings', 'ویژگی های دسته بندی '." [ $category->name ] ".' با موفقیت ذخیره شدند!');
 
         return redirect('/administrator/categories');
+    }
+
+    /** Retrieves categories table for create product page api
+     *
+     * @return JsonResponse
+     */
+    public function apiVueJsCategories()
+    {
+        if ( ! $this->isDatabaseConnected()) {
+            return response()->json(['errors' => 'Database Connection Error'], 500);
+        }
+        $categories = Category::with('children')->where('parent_id', null)->get();
+
+        return response()->json(['categories' => $categories], 200);
     }
 }
