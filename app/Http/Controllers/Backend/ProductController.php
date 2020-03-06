@@ -32,7 +32,8 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new resource.
      * @return Factory|View
-     * @see CategoryController
+     * @method apiVueJsGetCategories
+     * @method apiVueJsGetBrands
      */
     public function create()
     {
@@ -40,9 +41,7 @@ class ProductController extends Controller
             abort(500, 'Database Connection Error');
         }
 
-        // We retrieved categories table data by API just for fun :))
-
-//        $brands = Brand::all();
+        // We retrieved categories and brands tables data by API just for fun :))
 
         return view('admin.products.create');
     }
@@ -114,9 +113,6 @@ class ProductController extends Controller
      */
     public function apiVueJsGetCategories()
     {
-        if ( ! $this->isDatabaseConnected()) {
-            return response()->json(['errors' => 'Database Connection Error'], 500);
-        }
         $categories = Category::with('children')->where('parent_id', null)->get();
         $brands     = Brand::all();
 
@@ -129,9 +125,6 @@ class ProductController extends Controller
      */
     public function apiVueJsGetBrands()
     {
-        if ( ! $this->isDatabaseConnected()) {
-            return response()->json(['errors' => 'Database Connection Error'], 500);
-        }
         $brands = Brand::all();
 
         return response()->json(['brands' => $brands], 200);
