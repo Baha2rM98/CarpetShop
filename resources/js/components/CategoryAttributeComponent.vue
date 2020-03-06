@@ -31,7 +31,7 @@
             }
         },
         mounted() {
-            console.log("AttributeComponent mounted.");
+            console.log("CategoryAttributeComponent mounted.");
             axios.get('/api/administrator/categories').then(
                 res => {
                     this.getAllCategoriesChildren(res.data.categories, 0)

@@ -1993,7 +1993,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    console.log("AttributeComponent mounted.");
+    console.log("CategoryAttributeComponent mounted.");
     axios.get('/api/administrator/categories').then(function (res) {
       _this.getAllCategoriesChildren(res.data.categories, 0);
     })["catch"](function (err) {
