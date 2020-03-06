@@ -17,15 +17,11 @@ Route::get('/', function () {
     return view("welcome");
 });
 
-//Route::prefix('/api')->group(function () {
-//    Route::get('/categories', 'Backend\CategoryController@apiIndex');
-//});
-
 Route::prefix('/administrator')->group(function () {
     Route::get('/', 'Backend\MainController@mainPage');
     Route::resource('/categories', 'Backend\CategoryController');
-    Route::get('/categories/{id}/settings', 'Backend\CategoryController@indexSetting')->name('categories.indexSetting');
-    Route::post('/categories/{id}/settings', 'Backend\CategoryController@saveSetting');
+    Route::get('/categories/{id}/attributes', 'Backend\CategoryController@indexAttributes')->name('categories.attributes');
+    Route::post('/categories/{id}/attributes', 'Backend\CategoryController@saveAttributes');
     Route::resource('/attributes-group', 'Backend\AttributeGroupController');
     Route::resource('/attributes-value', 'Backend\AttributeValueController');
     Route::resource('/brands', 'Backend\BrandController');

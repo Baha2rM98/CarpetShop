@@ -19,13 +19,14 @@
                 @endif
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
-                        <form method="post" action="/administrator/categories/{{$category->id}}/settings">
+                        <form method="post" action="/administrator/categories/{{$category->id}}/attributes">
                             @csrf
                             <div class="form-group">
                                 <label for="name">ویژگی های دسته بندی {{$category->name}}</label>
                                 <select name="attributeGroups[]" id="" class="form-control" multiple>
                                     @foreach($attributeGroups as $attributeGroup)
-                                        <option value="{{$attributeGroup->id}}" @if(in_array($attributeGroup->id, $category->attributeGroups->pluck('id')->toArray())) selected @endif>{{$attributeGroup->title}}</option>
+                                        <option value="{{$attributeGroup->id}}"
+                                                @if(in_array($attributeGroup->id, $category->attributeGroups->pluck('id')->toArray())) selected @endif>{{$attributeGroup->title}}</option>
                                     @endforeach
                                 </select>
                             </div>

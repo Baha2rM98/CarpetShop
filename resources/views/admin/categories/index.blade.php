@@ -52,7 +52,7 @@
                                         </form>
                                     </div>
                                     <a class="btn btn-primary"
-                                       href="{{route('categories.indexSetting', $category->id)}}">تنظیمات</a>
+                                       href="{{route('categories.attributes', $category->id)}}">تنظیمات</a>
                                 </td>
                             </tr>
                             @if(isset($category->children))
