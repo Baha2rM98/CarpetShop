@@ -148,7 +148,7 @@ class CategoryController extends Controller
      *
      * @return Factory|View
      */
-    public function indexSetting($id)
+    public function indexAttributes($id)
     {
         if ( ! $this->isDatabaseConnected()) {
             abort(500, 'Database Connection Error');
@@ -156,7 +156,7 @@ class CategoryController extends Controller
         $category        = Category::findOrFail($id);
         $attributeGroups = AttributeGroup::all();
 
-        return view('admin.categories.index-setting', compact('category', 'attributeGroups'));
+        return view('admin.categories.index-attribute', compact('category', 'attributeGroups'));
     }
 
     /**
@@ -168,7 +168,7 @@ class CategoryController extends Controller
      *
      * @return RedirectResponse|Redirector
      */
-    public function saveSetting(Request $request, $id)
+    public function saveAttributes(Request $request, $id)
     {
         if ( ! $this->isDatabaseConnected()) {
             abort(500, 'Database Connection Error');
