@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Brand;
+use App\Category;
 use App\Http\Controllers\Controller;
 use App\Product;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
@@ -40,9 +42,9 @@ class ProductController extends Controller
 
         // We retrieved categories table data by API just for fun :))
 
-        $brands = Brand::all();
+//        $brands = Brand::all();
 
-        return view('admin.products.create', compact('brands'));
+        return view('admin.products.create');
     }
 
     /**
@@ -104,5 +106,34 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /** Retrieves categories table for create product page api
+     *
+     * @return JsonResponse
+     */
+    public function apiVueJsGetCategories()
+    {
+        if ( ! $this->isDatabaseConnected()) {
+            return response()->json(['errors' => 'Database Connection Error'], 500);
+        }
+        $categories = Category::with('children')->where('parent_id', null)->get();
+        $brands     = Brand::all();
+
+        return response()->json(['categories' => $categories, 'brands' => $brands], 200);
+    }
+
+    /** Retrieves brands table for create product page api
+     *
+     * @return JsonResponse
+     */
+    public function apiVueJsGetBrands()
+    {
+        if ( ! $this->isDatabaseConnected()) {
+            return response()->json(['errors' => 'Database Connection Error'], 500);
+        }
+        $brands = Brand::all();
+
+        return response()->json(['brands' => $brands], 200);
     }
 }
