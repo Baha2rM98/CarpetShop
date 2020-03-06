@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="/admin/plugins/daterangepicker/daterangepicker-bs3.css">
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-
+    <meta name="csrf_token" content="{{csrf_token()}}">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -330,7 +330,7 @@
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div>
-        <!-- /.search form -->
+            <!-- /.search form -->
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
                 <li class="header">منو اصلی</li>
@@ -371,7 +371,7 @@
                 </li>
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-database"></i>
+                        <i class="fa fa-cart-plus"></i>
                         <span>محصولات</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
@@ -605,6 +605,7 @@
 </script>
 <!-- Bootstrap 3.3.6 -->
 <script src="/admin/bootstrap/js/bootstrap.min.js"></script>
+@yield('script-vuejs')
 <!-- Morris.js charts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <script src="/admin/plugins/morris/morris.min.js"></script>
@@ -631,7 +632,7 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="/admin/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="/admin/dist/js/demo.js"></script>
 @yield('scripts')
+<script src="/admin/dist/js/demo.js"></script>
 </body>
 </html>
