@@ -21,4 +21,13 @@ class AttributeValue extends Model
     {
         return $this->belongsTo(AttributeGroup::class);
     }
+
+    /**
+     * Returns a many-to-many relationship with Product
+     * @return Relation
+     */
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'attributevalue_product', 'attribute_value_id', 'product_id');
+    }
 }

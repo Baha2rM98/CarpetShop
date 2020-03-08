@@ -26,11 +26,21 @@ class Photo extends Model
 
     /** Returns symbolic link path of the photo
      *
-     * @param string $photo
+     * @param  string  $photo
+     *
      * @return string
      */
     public function getPathAttribute($photo)
     {
-        return $this->uploads . $photo;
+        return $this->uploads.$photo;
+    }
+
+    /**
+     * Returns a many-to-many relationship with Product
+     * @return Relation
+     */
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'photo_product', 'photo_id', 'product_id');
     }
 }
