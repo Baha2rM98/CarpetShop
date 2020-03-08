@@ -1981,13 +1981,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       categories: [],
       selectedCategories: [],
       flag: false,
-      attributes: []
+      attributes: [],
+      selectedAttribute: [],
+      convertedAttribute: []
     };
   },
   mounted: function mounted() {
@@ -2025,6 +2028,22 @@ __webpack_require__.r(__webpack_exports__);
         console.log(err);
         _this2.flag = false;
       });
+    },
+    addAttribute: function addAttribute(event, index) {
+      for (var i = 0; i < this.selectedAttribute.length; i++) {
+        var current = this.selectedAttribute[i];
+        if (current.index === index) this.selectedAttribute.splice(i, 1);
+      }
+
+      this.selectedAttribute.push({
+        'index': index,
+        'value': event.target.value
+      });
+      this.convertedAttribute = [];
+
+      for (var _i = 0; _i < this.selectedAttribute.length; _i++) {
+        this.convertedAttribute.push(this.selectedAttribute[_i].value);
+      }
     }
   }
 });
@@ -37491,12 +37510,20 @@ var render = function() {
       ? _c(
           "div",
           _vm._l(_vm.attributes, function(attribute) {
-            return _c("div", { staticClass: "form-group" }, [
+            return _c("div", { key: _vm.index, staticClass: "form-group" }, [
               _c("label", [_vm._v("ویژگی " + _vm._s(attribute.title))]),
               _vm._v(" "),
               _c(
                 "select",
-                { staticClass: "form-control", attrs: { name: "attribute" } },
+                {
+                  staticClass: "form-control",
+                  attrs: { name: "attributes[]" },
+                  on: {
+                    change: function($event) {
+                      return _vm.addAttribute($event, _vm.index)
+                    }
+                  }
+                },
                 _vm._l(attribute.attribute_values, function(attributeValue) {
                   return _c(
                     "option",
@@ -37516,7 +37543,12 @@ var render = function() {
           }),
           0
         )
-      : _vm._e()
+      : _vm._e(),
+    _vm._v(" "),
+    _c("input", {
+      attrs: { type: "hidden" },
+      domProps: { value: _vm.convertedAttribute }
+    })
   ])
 }
 var staticRenderFns = []

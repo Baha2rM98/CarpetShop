@@ -8,15 +8,16 @@
             </select>
         </div>
         <div v-if="flag">
-            <div class="form-group" v-for="attribute in attributes">
+            <div class="form-group" v-for="attribute in attributes" :key="index">
                 <label>ویژگی {{attribute.title}}</label>
-                <select name="attribute" class="form-control">
+                <select name="attributes[]" class="form-control" @change="addAttribute($event, index)">
                     <option v-for="attributeValue in attribute.attribute_values" :value="attributeValue.id">
                         {{attributeValue.title}}
                     </option>
                 </select>
             </div>
         </div>
+        <input type="hidden" :value="convertedAttribute">
     </div>
 </template>
 
@@ -27,7 +28,9 @@
                 categories: [],
                 selectedCategories: [],
                 flag: false,
-                attributes: []
+                attributes: [],
+                selectedAttribute: [],
+                convertedAttribute: []
             }
         },
         mounted() {
@@ -64,6 +67,21 @@
                     console.log(err);
                     this.flag = false;
                 });
+            },
+            addAttribute: function (event, index) {
+                for (let i = 0; i < this.selectedAttribute.length; i++) {
+                    let current = this.selectedAttribute[i];
+                    if (current.index === index)
+                        this.selectedAttribute.splice(i, 1);
+                }
+                this.selectedAttribute.push({
+                    'index': index,
+                    'value': event.target.value
+                });
+                this.convertedAttribute = [];
+                for (let i = 0; i < this.selectedAttribute.length; i++) {
+                    this.convertedAttribute.push(this.selectedAttribute[i].value);
+                }
             }
         }
     }
