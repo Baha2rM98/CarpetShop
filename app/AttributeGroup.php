@@ -14,6 +14,19 @@ class AttributeGroup extends Model
     protected $table = 'attributes_group';
 
     /**
+     * Bootstrap the model and its traits.(Override)
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+        self::deleting(function (AttributeGroup $attributeGroup) {
+            $attributeGroup->attributeValues()->delete();
+        });
+    }
+
+    /**
      * Returns a one-to-many relationship with AttributeValue
      * @return Relation
      */

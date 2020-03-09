@@ -105,9 +105,6 @@ class AttributeGroupController extends Controller
             abort(500, 'Database Connection Error');
         }
         $attributeGroup = AttributeGroup::findOrFail($id);
-        foreach ($attributeGroup->attributeValues as $item) {
-            $item->delete();
-        }
         $attributeGroup->delete();
         Session::flash('attributes', 'ویژگی و مقادیر آن با موفقیت حذف شدند!');
         return redirect('/administrator/attributes-group');
