@@ -12,11 +12,13 @@ use Illuminate\Support\Str;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    use AuthorizesRequests;
+    use DispatchesJobs;
+    use ValidatesRequests;
 
     /**
      * Checks if database connection is set or not
-     * @return boolean|DB
+     * @return bool|DB
      */
     protected function isDatabaseConnected()
     {
@@ -24,17 +26,19 @@ class Controller extends BaseController
             return DB::connection()->getPdo();
         } catch (Exception $exception) {
         }
+
         return false;
     }
 
     /** Returns absolute path of uploaded files on server
      *
-     * @param string $path
-     * @param string $dir
-     * @return string|string[]
+     * @param  string  $path
+     * @param  string  $dir
+     *
+     * @return string
      */
     protected function getFileAbsolutePath($dir, $path)
     {
-        return Str::replaceArray('/storage/' . $dir . '/', [''], $path);
+        return Str::replaceArray('/storage/'.$dir.'/', [''], $path);
     }
 }
