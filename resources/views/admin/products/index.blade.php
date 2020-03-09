@@ -22,7 +22,7 @@
                         <tr>
                             <th class="text-center">شناسه</th>
                             <th class="text-center">کد محصول</th>
-                            <th class="text-center">نام برند</th>
+                            <th class="text-center">نام محصول</th>
                             <th class="text-center">عملیات</th>
                         </tr>
                         </thead>
