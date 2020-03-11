@@ -143,8 +143,6 @@ class BrandController extends Controller
             abort(500, 'Database Connection Error');
         }
         $brand = Brand::with('photo')->whereId($id)->first();
-        Storage::disk('local')->delete('public/photos/'.$this->getFileAbsolutePath('photos', $brand->photo->path));
-        $brand->photo->delete();
         $brand->delete();
         Session::flash('brands', 'برند با موفقیت حذف شد!');
 
