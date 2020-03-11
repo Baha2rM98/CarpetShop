@@ -20,6 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::prefix('/administrator')->group(function () {
     Route::get('/categories', 'Backend\ProductController@apiVueJsGetCategories');
-    Route::get('/brands', 'Backend\ProductController@apiVueJsGetBrands');
     Route::post('/categories/attributes', 'Backend\ProductController@apiVueJsGetCategoriesAttributes');
 });
