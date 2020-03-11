@@ -27,6 +27,7 @@ class Brand extends Model
         self::deleting(function (Brand $brand) {
             Storage::disk('local')->delete('public/photos/'.Controller::getFileAbsolutePath('photos',
                     $brand->photo->path));
+            $brand->photo->delete();
         });
     }
 

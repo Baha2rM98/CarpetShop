@@ -35,6 +35,7 @@ class Product extends Model
                 Storage::disk('local')->delete('public/photos/'.Controller::getFileAbsolutePath('photos',
                         $photo->path));
             }
+            $product->photos()->delete();
         });
     }
 
