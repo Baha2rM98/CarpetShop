@@ -37,7 +37,7 @@ class Controller extends BaseController
      *
      * @return string
      */
-    protected function getFileAbsolutePath($dir, $path)
+    public static function getFileAbsolutePath($dir, $path)
     {
         return Str::replaceArray('/storage/'.$dir.'/', [''], $path);
     }
