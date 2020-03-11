@@ -2,8 +2,10 @@
 
 namespace App;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @property mixed title
@@ -15,9 +17,27 @@ use Illuminate\Database\Eloquent\Relations\Relation;
  * @property mixed description
  * @property mixed brand_id
  * @property mixed user_id
+ * @property mixed photos
  */
 class Product extends Model
 {
+
+    /**
+     * Bootstrap the model and its traits.(Override)
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+        self::deleting(function (Product $product) {
+            foreach ($product->photos as $photo) {
+                Storage::disk('local')->delete('public/photos/'.Controller::getFileAbsolutePath('photos',
+                        $photo->path));
+            }
+        });
+    }
+
     /**
      * Returns a many-to-many relationship with Category
      * @return Relation
