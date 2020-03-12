@@ -13,14 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view("welcome");
-});
+Route::resource('/', 'Frontend\HomeController');
 
 Route::prefix('/administrator')->group(function () {
     Route::get('/', 'Backend\MainController@mainPage');
     Route::resource('/categories', 'Backend\CategoryController');
-    Route::get('/categories/{id}/attributes', 'Backend\CategoryController@indexAttributes')->name('categories.attributes');
+    Route::get('/categories/{id}/attributes',
+        'Backend\CategoryController@indexAttributes')->name('categories.attributes');
     Route::post('/categories/{id}/attributes', 'Backend\CategoryController@saveAttributes');
     Route::resource('/attributes-group', 'Backend\AttributeGroupController');
     Route::resource('/attributes-value', 'Backend\AttributeValueController');
