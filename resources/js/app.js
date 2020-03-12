@@ -8,8 +8,8 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-import CategoryAttributeComponent from "./components/CategoryAttributeComponent";
-import BrandComponent from "./components/BrandComponent";
+import CreateProductComponent from "./components/CreateProductComponent";
+import EditProductComponent from "./components/EditProductComponent";
 
 /**
  * The following block of code may be used to automatically register your
@@ -22,8 +22,8 @@ import BrandComponent from "./components/BrandComponent";
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('category-attribute-component', CategoryAttributeComponent);
-Vue.component('brand-component', BrandComponent);
+Vue.component('create-product-component', CreateProductComponent);
+Vue.component('edit-product-component', EditProductComponent);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
