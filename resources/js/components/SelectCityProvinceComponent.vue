@@ -28,7 +28,6 @@
                 provinces: [],
                 province: '--- استان را انتخاب کنید ---',
                 cities: [],
-                // flag: false,
             }
         },
         mounted() {
