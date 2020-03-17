@@ -17,5 +17,6 @@ Route::prefix('/administrator')->group(function () {
     Route::get('/categories', 'Backend\ProductController@apiVueJsGetCategories');
     Route::post('/categories/attributes', 'Backend\ProductController@apiVueJsGetCategoriesAttributes');
 });
+
 Route::get('/cities/{provinceId}', 'Auth\RegisterController@getAllCities');
 Route::get('/provinces', 'Auth\RegisterController@getAllProvinces');
