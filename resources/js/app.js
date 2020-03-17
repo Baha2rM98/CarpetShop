@@ -10,6 +10,7 @@ window.Vue = require('vue');
 
 import CreateProductComponent from "./components/CreateProductComponent";
 import EditProductComponent from "./components/EditProductComponent";
+import SelectCityProvinceComponent from "./components/SelectCityProvinceComponent";
 
 /**
  * The following block of code may be used to automatically register your
@@ -24,6 +25,7 @@ import EditProductComponent from "./components/EditProductComponent";
 
 Vue.component('create-product-component', CreateProductComponent);
 Vue.component('edit-product-component', EditProductComponent);
+Vue.component('select-city-province-component', SelectCityProvinceComponent);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
