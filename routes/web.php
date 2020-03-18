@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,8 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('/', 'Frontend\HomeController');
-
 Route::prefix('/administrator')->group(function () {
     Route::get('/', 'Backend\MainController@mainPage');
     Route::resource('/categories', 'Backend\CategoryController');
@@ -27,3 +26,7 @@ Route::prefix('/administrator')->group(function () {
     Route::post('/photos/upload', 'Backend\PhotoController@uploadPhoto')->name('photos.upload');
     Route::resource('/products', 'Backend\ProductController');
 });
+
+Route::resource('/', 'Frontend\ShopHomeController');
+Auth::routes();
+Route::post('/register', 'Frontend\UserController@register')->name('user.register');
