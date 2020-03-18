@@ -7,6 +7,14 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @property mixed name
+ * @property mixed last_name
+ * @property mixed email
+ * @property mixed phone_number
+ * @property mixed national_code
+ * @property mixed password
+ */
 class User extends Authenticatable
 {
     use Notifiable;
@@ -17,7 +25,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'last_name',
+        'email',
+        'phone_number',
+        'password',
     ];
 
     /**
@@ -26,7 +38,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
     /**
@@ -54,5 +67,14 @@ class User extends Authenticatable
     public function products()
     {
         return $this->hasMany(Product::class, 'user_id');
+    }
+
+    /**
+     * Returns a one-to-many relationship with Address
+     * @return Relation
+     */
+    public function addresses()
+    {
+        return $this->hasMany(Address::class, 'user_id');
     }
 }
