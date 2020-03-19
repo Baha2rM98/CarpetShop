@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\City;
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use App\User;
+use App\Province;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\JsonResponse;
 
 class RegisterController extends Controller
 {
@@ -25,49 +24,49 @@ class RegisterController extends Controller
     use RegistersUsers;
 
     /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
-    /**
      * Create a new controller instance.
      *
      * @return void
      */
     public function __construct()
     {
+        if ( ! $this->isDatabaseConnected()) {
+            abort(500, 'Database Connection Error');
+        }
         $this->middleware('guest');
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | API Controllers
+    |--------------------------------------------------------------------------
+    |
+    | Here is where we registered API controller for our application
+    */
+
     /**
-     * Get a validator for an incoming registration request.
+     * Returns related cities for each province to vue by api
      *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @param  int  $provinceId
+     *
+     * @return JsonResponse
      */
-    protected function validator(array $data)
+    public function getAllCities($provinceId)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        $cities = City::where('province_id', $provinceId)->get();
+
+        return response()->json(['cities' => $cities], 200);
     }
 
     /**
-     * Create a new user instance after a valid registration.
+     * Returns all provinces to vue by api
      *
-     * @param  array  $data
-     * @return \App\User
+     * @return JsonResponse
      */
-    protected function create(array $data)
+    public function getAllProvinces()
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $provinces = Province::all();
+
+        return response()->json(['provinces' => $provinces], 200);
     }
 }
