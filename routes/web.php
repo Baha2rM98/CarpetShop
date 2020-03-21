@@ -30,4 +30,8 @@ Route::prefix('/administrator')->group(function () {
 Route::resource('/', 'Frontend\ShopHomeController');
 Auth::routes();
 Route::post('/register', 'Frontend\UserController@register')->name('user.register');
-Route::middleware('auth')->get('/dashboard', 'Frontend\UserController@dashboard')->name('user.dashboard');
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', 'Frontend\UserController@dashboard')->name('user.dashboard');
+});
+Route::get('/add-to-card/{id}', 'Frontend\CartController@addToCart')->name('cart.add');
+Route::post('/remove-cart-item/{id}', 'Frontend\CartController@removeItem')->name('cart.remove');
