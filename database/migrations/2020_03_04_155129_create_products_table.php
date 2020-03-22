@@ -22,8 +22,6 @@ class CreateProductsTable extends Migration
             $table->double('price', 25, 3);
             $table->double('discount_price', 25, 3)->nullable();
             $table->text('description');
-            $table->bigInteger('category_id')->unsigned();
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->bigInteger('brand_id')->unsigned();
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
             $table->bigInteger('user_id')->unsigned();
