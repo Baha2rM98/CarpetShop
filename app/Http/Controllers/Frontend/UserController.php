@@ -22,7 +22,7 @@ class UserController extends Controller
     }
 
     /**
-     * Shows the application dashboard form
+     * Shows the authenticated user dashboard
      *
      * @return Factory|View
      */
