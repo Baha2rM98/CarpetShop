@@ -127,7 +127,7 @@ class ProductController extends Controller
             'categories' => 'required|array',
             'brand' => 'required',
             'status' => 'required',
-            'price' => ['bail', 'required', 'numeric', 'digits_between:1,25'],
+            'price' => ['bail', 'required', 'numeric', 'digits_between:1,25', 'gt:discount_price'],
             'discount_price' => ['bail', 'nullable', 'numeric', 'digits_between:1,25'],
             'description' => ['bail', 'required', 'max:100000'],
             'photo_id.*' => 'required'
@@ -143,6 +143,7 @@ class ProductController extends Controller
             'price.required' => 'قیمت محصول نمیتواند خالی باشد!',
             'price.numeric' => 'قیمت محصول باید از نوع عدد باشد!',
             'price.digits_between' => 'قیمت وارد شده بزرگ تر از حد مجاز است!',
+            'price.gt' => 'قیمت ویژه محصول نمیتواند از قیمت اصلی آن بزرگتر یا برابر باشد!',
             'discount_price.numeric' => 'قیمت ویژه محصول باید از نوع عدد باشد!',
             'discount_price.digits_between' => 'قیمت ویژه وارد شده بزرگ تر از حد مجاز است!',
             'description.required' => 'توضیحات محصول نمیتواند خالی باشد!',
@@ -198,7 +199,7 @@ class ProductController extends Controller
         $alphabet = array_merge(range('a', 'z'), range('A', 'Z'));
         shuffle($alphabet);
         $sku = substr(str_shuffle(strval(mt_rand(1, mt_getrandmax())).implode(array_slice($alphabet, mt_rand(8, 20),
-                8))), 4, 12);
+                8))), 4, 8);
         if ($this->ifSKUExists($sku)) {
             return $this->generateSKU();
         }
