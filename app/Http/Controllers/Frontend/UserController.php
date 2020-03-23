@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        if ( ! $this->isDatabaseConnected()) {
+        if (!$this->isDatabaseConnected()) {
             abort(500, 'Database Connection Error');
         }
     }
