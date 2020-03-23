@@ -1,7 +1,7 @@
 @extends('frontend.layout.master')
 
 @section('content')
-    <div class="row">
+    <div class="row" id="app">
         <!--Middle Part Start-->
         <div class="col-sm-9" id="content">
             <h1 class="title">ثبت نام حساب کاربری</h1>
@@ -124,8 +124,6 @@
                         @endif
                     </div>
                 </fieldset>
-{{--                <div class="form-group required" style="right: 1000px">--}}
-{{--                </div>--}}
                 <fieldset>
                     <legend>رمز عبور شما</legend>
                     <div class="form-group required">
