@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Frontend;
 use App\Cart;
 use App\Http\Controllers\Controller;
 use App\Product;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\View\View;
 
 class CartController extends Controller
 {
@@ -45,5 +47,16 @@ class CartController extends Controller
         $cart->remove($product, $product->id);
         $request->session()->put('cart', $cart);
         return back();
+    }
+
+    /**
+     * Shows shopping bag index
+     *
+     * @return Factory|View
+     */
+    public function getCart()
+    {
+        $cart = Session::has('cart') ? Session::get('cart') : null;
+        return view('frontend.cart.index', compact('cart'));
     }
 }
