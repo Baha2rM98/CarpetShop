@@ -76,4 +76,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(Address::class, 'user_id');
     }
+
+    /**
+     * Returns a many-to-many relationship with Coupon
+     * @return Relation
+     */
+    public function coupons()
+    {
+        return $this->belongsToMany(Coupon::class, 'coupon_user', 'user_id', 'coupon_id');
+    }
 }
