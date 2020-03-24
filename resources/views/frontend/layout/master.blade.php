@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html dir="rtl">
 <head>
     <meta charset="UTF-8" />
@@ -6,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="image/favicon.png" rel="icon" />
     <title>فروشگاه اینترنتی دیجی فرش</title>
-    <meta name="description" content="Responsive and clean html template design for any kind of ecommerce webshop">
+    <meta name="description" content="فروشگاه آنلاین فرش و تابلو فرش.">
     <!-- CSS Part Start-->
     <link rel="stylesheet" type="text/css" href="js/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="js/bootstrap/css/bootstrap-rtl.min.css" />
@@ -22,72 +21,13 @@
     <!-- CSS Part End-->
 </head>
 <body>
-<div class="wrapper-wide" id="app">
+<div class="wrapper-wide">
+
     <div id="header">
         <!-- Top Bar Start-->
         <nav id="top" class="htop">
             <div class="container">
                 <div class="row"> <span class="drop-icon visible-sm visible-xs"><i class="fa fa-align-justify"></i></span>
-                    <div class="pull-left flip left-top">
-                        <div class="links">
-                            <ul>
-                                <li class="email"><a href="mailto:info@marketshop.com"><i class="fa fa-envelope"></i>info@marketshop.com</a></li>
-                                <li class="wrap_custom_block hidden-sm hidden-xs"><a>بلاک سفارشی<b></b></a>
-                                    <div class="dropdown-menu custom_block">
-                                        <ul>
-                                            <li>
-                                                <table>
-                                                    <tbody>
-                                                    <tr>
-                                                        <td><img alt="" src="image/banner/cms-block.jpg"></td>
-                                                        <td><img alt="" src="image/banner/responsive.jpg"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><h4>بلاک های محتوا</h4></td>
-                                                        <td><h4>قالب واکنش گرا</h4></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>این یک بلاک مدیریت محتواست. شما میتوانید هر نوع محتوای html نوشتاری یا تصویری را در آن قرار دهید.</td>
-                                                        <td>این یک بلاک مدیریت محتواست. شما میتوانید هر نوع محتوای html نوشتاری یا تصویری را در آن قرار دهید.</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><strong><a class="btn btn-default btn-sm" href="#">ادامه مطلب</a></strong></td>
-                                                        <td><strong><a class="btn btn-default btn-sm" href="#">ادامه مطلب</a></strong></td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div id="language" class="btn-group">
-                            <button class="btn-link dropdown-toggle" data-toggle="dropdown"> <span> <img src="image/flags/gb.png" alt="انگلیسی" title="انگلیسی">انگلیسی <i class="fa fa-caret-down"></i></span></button>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <button class="btn btn-link btn-block language-select" type="button" name="GB"><img src="image/flags/gb.png" alt="انگلیسی" title="انگلیسی" /> انگلیسی</button>
-                                </li>
-                                <li>
-                                    <button class="btn btn-link btn-block language-select" type="button" name="GB"><img src="image/flags/ar.png" alt="عربی" title="عربی" /> عربی</button>
-                                </li>
-                            </ul>
-                        </div>
-                        <div id="currency" class="btn-group">
-                            <button class="btn-link dropdown-toggle" data-toggle="dropdown"> <span> تومان <i class="fa fa-caret-down"></i></span></button>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <button class="currency-select btn btn-link btn-block" type="button" name="EUR">€ Euro</button>
-                                </li>
-                                <li>
-                                    <button class="currency-select btn btn-link btn-block" type="button" name="GBP">£ Pound Sterling</button>
-                                </li>
-                                <li>
-                                    <button class="currency-select btn btn-link btn-block" type="button" name="USD">$ USD</button>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
                     <div id="top-links" class="nav pull-right flip">
                         @if(\Illuminate\Support\Facades\Auth::check())
                             <ul>
@@ -121,25 +61,25 @@
                     <!-- Mini Cart Start-->
                     <div class="col-table-cell col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div id="cart">
-                            <button type="button" data-toggle="dropdown" data-loading-text="بارگذاری ..." class="heading dropdown-toggle">
+                            <button type="button" data-toggle="dropdown" class="heading dropdown-toggle">
                                 <span class="cart-icon pull-left flip"></span>
                                 <span id="cart-total">{{\Illuminate\Support\Facades\Session::has('cart') ? \Illuminate\Support\Facades\Session::get('cart')->totalQuantity. ' آیتم' : ''}} {{\Illuminate\Support\Facades\Session::has('cart') ? \Illuminate\Support\Facades\Session::get('cart')->totalPrice . ' تومان' : ''}}</span></button>
                             <ul class="dropdown-menu">
                                 @if(\Illuminate\Support\Facades\Session::has('cart'))
                                     <li>
                                         <table class="table">
-                                            @foreach(\Illuminate\Support\Facades\Session::get('cart')->items as $item)
+                                            @foreach(\Illuminate\Support\Facades\Session::get('cart')->items as $product)
                                                 <tbody>
                                                 <tr>
-                                                    <td class="text-center" width="20%"><img class="img-thumbnail" src="{{$item['item']->photos[0]->path}}"></td>
-                                                    <td class="text-left">{{$item['item']->title}}</td>
-                                                    <td class="text-right">x {{$item['quantity']}}</td>
-                                                    <td class="text-right">{{$item['price']}} تومان</td>
+                                                    <td class="text-center" width="20%"><img class="img-thumbnail" src="{{$product['item']->photos[0]->path}}"></td>
+                                                    <td class="text-left">{{$product['item']->title}}</td>
+                                                    <td class="text-right">x {{$product['quantity']}}</td>
+                                                    <td class="text-right">{{$product['price']}} تومان</td>
                                                     <td class="text-center">
                                                         <button class="btn btn-danger btn-xs remove" title="حذف" onclick="event.preventDefault();
-                                                                document.getElementById('remove-cart-item_{{$item['item']->id}}').submit();" type="button"><i class="fa fa-times"></i></button>
+                                                                document.getElementById('remove-cart-item_{{$product['item']->id}}').submit();" type="button"><i class="fa fa-times"></i></button>
                                                     </td>
-                                                    <form id="remove-cart-item_{{$item['item']->id}}" action="{{ route('cart.remove', ['id' => $item['item']->id]) }}" method="post" style="display: none;">
+                                                    <form id="remove-cart-item_{{$product['item']->id}}" action="{{ route('cart.remove', ['id' => $product['item']->id]) }}" method="post" style="display: none;">
                                                         @csrf
                                                     </form>
                                                 </tr>
@@ -166,8 +106,7 @@
                                                 </tr>
                                                 </tbody>
                                             </table>
-{{--                                            <p class="checkout"><a href="{{route('cart.cart')}}" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> مشاهده سبد</a>&nbsp;</p>--}}
-
+                                            <p class="checkout"><a href="{{route('cart.cart')}}" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> مشاهده سبد</a></p>
                                         </div>
                                     </li>
 
@@ -197,7 +136,7 @@
             <div class="container">
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a class="home_link" title="خانه" href="index.html">خانه</a></li>
+                        <li><a class="home_link" title="خانه" href="{{url('/')}}">خانه</a></li>
                         <li class="dropdown"><a href="category.html">مد و زیبایی</a>
                             <div class="dropdown-menu">
                                 <ul>
@@ -411,42 +350,15 @@
 
         <!-- Main آقایانu End-->
     </div>
-    <div id="container">
 
+
+    <div id="container">
         <div class="container">
             @yield('content')
         </div>
     </div>
-    <!-- Feature Box Start-->
-    <div class="container">
-        <div class="custom-feature-box row">
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="feature-box fbox_1">
-                    <div class="title">ارسال رایگان</div>
-                    <p>برای خرید های بیش از 100 هزار تومان</p>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="feature-box fbox_2">
-                    <div class="title">پس فرستادن رایگان</div>
-                    <p>بازگشت کالا تا 24 ساعت پس از خرید</p>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="feature-box fbox_3">
-                    <div class="title">کارت هدیه</div>
-                    <p>بهترین هدیه برای عزیزان شما</p>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="feature-box fbox_4">
-                    <div class="title">امتیازات خرید</div>
-                    <p>از هر خرید امتیاز کسب کرده و از آن بهره بگیرید</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Feature Box End-->
+
+
     <!--Footer Start-->
     <footer id="footer">
         <div class="fpart-first">
@@ -454,13 +366,12 @@
                 <div class="row">
                     <div class="contact col-lg-4 col-md-4 col-sm-12 col-xs-12">
                         <h5>درباره دیجی فرش</h5>
-                        <p>قالب HTML فروشگاهی دیجی فرش. این یک بلاک مدیریت محتواست. شما میتوانید هر نوع محتوای html نوشتاری یا تصویری را در آن قرار دهید.</p>
+                        <p>دیچی فرش یک فروشگاه آنلاین فرش و تابلو فرش است که...</p>
                     </div>
                     <div class="column col-lg-2 col-md-2 col-sm-3 col-xs-12">
                         <h5>اطلاعات</h5>
                         <ul>
                             <li><a href="about-us.html">درباره ما</a></li>
-                            <li><a href="about-us.html">اطلاعات 0 تومان</a></li>
                             <li><a href="about-us.html">حریم خصوصی</a></li>
                             <li><a href="about-us.html">شرایط و قوانین</a></li>
                         </ul>
@@ -469,26 +380,7 @@
                         <h5>خدمات مشتریان</h5>
                         <ul>
                             <li><a href="contact-us.html">تماس با ما</a></li>
-                            <li><a href="#">بازگشت</a></li>
                             <li><a href="sitemap.html">نقشه سایت</a></li>
-                        </ul>
-                    </div>
-                    <div class="column col-lg-2 col-md-2 col-sm-3 col-xs-12">
-                        <h5>امکانات جانبی</h5>
-                        <ul>
-                            <li><a href="#">برند ها</a></li>
-                            <li><a href="#">کارت هدیه</a></li>
-                            <li><a href="#">بازاریابی</a></li>
-                            <li><a href="#">ویژه ها</a></li>
-                        </ul>
-                    </div>
-                    <div class="column col-lg-2 col-md-2 col-sm-3 col-xs-12">
-                        <h5>حساب من</h5>
-                        <ul>
-                            <li><a href="#">حساب کاربری</a></li>
-                            <li><a href="#">تاریخچه سفارشات</a></li>
-                            <li><a href="#">لیست علاقه مندی</a></li>
-                            <li><a href="#">خبرنامه</a></li>
                         </ul>
                     </div>
                 </div>
@@ -498,15 +390,9 @@
             <div class="container">
                 <div id="powered" class="clearfix">
                     <div class="powered_text pull-left flip">
-                        <p>کپی رایت © 2016 فروشگاه شما | پارسی سازی و ویرایش توسط <a href="https://www.roxo.ir" target="_blank">روکسو</a></p>
+                        <p>کلیه حقوق محفوظ است © Digi Carpet</p>
                     </div>
-                    <div class="social pull-right flip"> <a href="#" target="_blank"> <img data-toggle="tooltip" src="image/socialicons/facebook.png" alt="Facebook" title="Facebook"></a> <a href="#" target="_blank"> <img data-toggle="tooltip" src="image/socialicons/twitter.png" alt="Twitter" title="Twitter"> </a> <a href="#" target="_blank"> <img data-toggle="tooltip" src="image/socialicons/google_plus.png" alt="Google+" title="Google+"> </a> <a href="#" target="_blank"> <img data-toggle="tooltip" src="image/socialicons/pinterest.png" alt="Pinterest" title="Pinterest"> </a> <a href="#" target="_blank"> <img data-toggle="tooltip" src="image/socialicons/rss.png" alt="RSS" title="RSS"> </a> </div>
-                </div>
-                <div class="bottom-row">
-                    <div class="custom-text text-center">
-                        <p>این یک بلاک مدیریت محتواست. شما میتوانید هر نوع محتوای html نوشتاری یا تصویری را در آن قرار دهید.<br> لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
-                    </div>
-                    <div class="payments_types"> <a href="#" target="_blank"> <img data-toggle="tooltip" src="image/payment/payment_paypal.png" alt="paypal" title="PayPal"></a> <a href="#" target="_blank"> <img data-toggle="tooltip" src="image/payment/payment_american.png" alt="american-express" title="American Express"></a> <a href="#" target="_blank"> <img data-toggle="tooltip" src="image/payment/payment_2checkout.png" alt="2checkout" title="2checkout"></a> <a href="#" target="_blank"> <img data-toggle="tooltip" src="image/payment/payment_maestro.png" alt="maestro" title="Maestro"></a> <a href="#" target="_blank"> <img data-toggle="tooltip" src="image/payment/payment_discover.png" alt="discover" title="Discover"></a> <a href="#" target="_blank"> <img data-toggle="tooltip" src="image/payment/payment_mastercard.png" alt="mastercard" title="MasterCard"></a> </div>
+                    <div class="social pull-right flip"> <a href="#" target="_blank"> <img data-toggle="tooltip" src="image/socialicons/facebook.png" alt="Facebook" title="Facebook"></a></div>
                 </div>
             </div>
         </div>
@@ -524,6 +410,5 @@
 <script type="text/javascript" src="js/owl.carousel.min.js"></script>
 <script type="text/javascript" src="js/custom.js"></script>
 <!-- JS Part End-->
-
 </body>
 </html>
