@@ -15,23 +15,54 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('/administrator')->group(function () {
+
+
     Route::get('/', 'Backend\MainController@mainPage');
+
+
     Route::resource('/categories', 'Backend\CategoryController');
-    Route::get('/categories/{id}/attributes',
-        'Backend\CategoryController@indexAttributes')->name('categories.attributes');
+
+
+    Route::get('/categories/{id}/attributes', 'Backend\CategoryController@indexAttributes')->name('categories.attributes');
+
+
     Route::post('/categories/{id}/attributes', 'Backend\CategoryController@saveAttributes');
+
+
     Route::resource('/attributes-group', 'Backend\AttributeGroupController');
+
+
     Route::resource('/attributes-value', 'Backend\AttributeValueController');
+
+
     Route::resource('/brands', 'Backend\BrandController');
+
+
     Route::post('/photos/upload', 'Backend\PhotoController@uploadPhoto')->name('photos.upload');
+
+
     Route::resource('/products', 'Backend\ProductController');
 });
 
-Route::resource('/', 'Frontend\ShopHomeController');
+
+Route::get('/', 'Frontend\ShopHomeController@index');
+
+
 Auth::routes();
-Route::post('/register', 'Frontend\UserController@register')->name('user.register');
+Route::post('/register', 'Auth\RegisterController@register')->name('user.register');
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', 'Frontend\UserController@dashboard')->name('user.dashboard');
+
+    // Checkout
 });
+
+
 Route::get('/add-to-card/{id}', 'Frontend\CartController@addToCart')->name('cart.add');
+
+
 Route::post('/remove-cart-item/{id}', 'Frontend\CartController@removeItem')->name('cart.remove');
+
+
+Route::get('/shopping-cart', 'Frontend\CartController@getCart')->name('cart.cart');
