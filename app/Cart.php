@@ -64,18 +64,17 @@ class Cart
             $storedItem = $this->items[$id];
         }
         $storedItem['quantity']++;
-        $this->items[$id] = $storedItem;
-        $this->totalQuantity++;
-        $this->totalPurePrice += $item->price;
         if (isset($item->discount_price)) {
             $storedItem['price'] = $item->discount_price * $storedItem['quantity'];
             $this->totalPrice += $item->discount_price;
             $this->totalDiscountPrice += ($item->price - $item->discount_price);
-
-            return;
+        } else {
+            $storedItem['price'] = $item->price * $storedItem['quantity'];
+            $this->totalPrice += $item->price;
         }
-        $storedItem['price'] = $item->price * $storedItem['quantity'];
-        $this->totalPrice += $item->price;
+        $this->items[$id] = $storedItem;
+        $this->totalQuantity++;
+        $this->totalPurePrice += $item->price;
     }
 
     /**
