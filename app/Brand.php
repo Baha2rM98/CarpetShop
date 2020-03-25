@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Http\Controllers\Controller;
+use App\Helpers\ModelHelper;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Storage;
@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Storage;
  */
 class Brand extends Model
 {
-
     /**
      * Bootstrap the model and its traits.(Override)
      *
@@ -25,7 +24,7 @@ class Brand extends Model
     {
         parent::boot();
         self::deleting(function (Brand $brand) {
-            Storage::disk('local')->delete('public/photos/'.Controller::getFileAbsolutePath('photos',
+            Storage::disk('local')->delete('public/photos/'.ModelHelper::getFileAbsolutePath('photos',
                     $brand->photo->path));
             $brand->photo->delete();
         });

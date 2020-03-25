@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Http\Controllers\Controller;
+use App\Helpers\ModelHelper;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Storage;
@@ -32,7 +32,7 @@ class Product extends Model
         parent::boot();
         self::deleting(function (Product $product) {
             foreach ($product->photos as $photo) {
-                Storage::disk('local')->delete('public/photos/'.Controller::getFileAbsolutePath('photos',
+                Storage::disk('local')->delete('public/photos/'.ModelHelper::getFileAbsolutePath('photos',
                         $photo->path));
             }
             $product->photos()->delete();
