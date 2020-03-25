@@ -17,6 +17,7 @@ class CreateCouponsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->string('code');
+            $table->double('price', 15);
             $table->tinyInteger('status');
             $table->timestamps();
         });

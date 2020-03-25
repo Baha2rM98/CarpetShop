@@ -19,8 +19,8 @@ class CreateProductsTable extends Migration
             $table->string('sku')->unique();
             $table->string('slug')->unique();
             $table->tinyInteger('status');
-            $table->double('price', 25, 3);
-            $table->double('discount_price', 25, 3)->nullable();
+            $table->double('price', 15);
+            $table->double('discount_price', 15)->nullable();
             $table->text('description');
             $table->bigInteger('brand_id')->unsigned();
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
