@@ -27,9 +27,6 @@ class ProductController extends Controller
      */
     public function index()
     {
-        if (!$this->isDatabaseConnected()) {
-            abort(500, 'Database Connection Error');
-        }
         $products = Product::paginate(10);
 
         return view('admin.products.index', compact('products'));
@@ -44,9 +41,6 @@ class ProductController extends Controller
      */
     public function create()
     {
-        if (!$this->isDatabaseConnected()) {
-            abort(500, 'Database Connection Error');
-        }
         $brands = Brand::all();
 
         // We retrieved categories and attributes group tables data by API just for fun :))
@@ -64,9 +58,6 @@ class ProductController extends Controller
      */
     public function store(CreateProductRequest $request)
     {
-        if (!$this->isDatabaseConnected()) {
-            abort(500, 'Database Connection Error');
-        }
         $product = new Product();
         $product->title = $request->input('title');
         $product->sku = $this->generateSKU();
@@ -97,10 +88,6 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        if (!$this->isDatabaseConnected()) {
-            abort(500, 'Database Connection Error');
-        }
-
         $brands = Brand::all();
         $product = Product::with('brand', 'categories', 'attributeValues', 'photos')->whereId($id)->first();
 
@@ -118,9 +105,6 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (!$this->isDatabaseConnected()) {
-            abort(500, 'Database Connection Error');
-        }
         $this->validate($request, [
             'title' => ['bail', 'required', 'min:2', 'max:100'],
             'slug' => ['bail', 'required', new CheckUniqueSlugForProduct($id), 'max:100'],
@@ -179,9 +163,6 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        if (!$this->isDatabaseConnected()) {
-            abort(500, 'Database Connection Error');
-        }
         $product = Product::with('photos')->whereId($id)->first();
         $product->delete();
         Session::flash('products', 'محصول با موفقیت حذف شد!');

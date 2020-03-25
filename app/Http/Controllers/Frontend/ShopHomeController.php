@@ -17,9 +17,6 @@ class ShopHomeController extends Controller
      */
     public function index()
     {
-        if ( ! $this->isDatabaseConnected()) {
-            abort(500, 'Database Connection Error');
-        }
         $products = Product::orderBy('created_at', 'desc')->get();
 
         return view('frontend.home.index', compact('products'));

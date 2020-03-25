@@ -22,9 +22,6 @@ class AttributeValueController extends Controller
      */
     public function index()
     {
-        if (!$this->isDatabaseConnected()) {
-            abort(500, 'Database Connection Error');
-        }
         $attributesValue = AttributeValue::with('attributeGroup')->get();
         return view('admin.attributes-value.index', compact('attributesValue'));
     }
@@ -36,9 +33,6 @@ class AttributeValueController extends Controller
      */
     public function create()
     {
-        if (!$this->isDatabaseConnected()) {
-            abort(500, 'Database Connection Error');
-        }
         $attributesGroup = AttributeGroup::all();
         return view('admin.attributes-value.create', compact('attributesGroup'));
     }
@@ -52,9 +46,6 @@ class AttributeValueController extends Controller
      */
     public function store(CreateAttributeValueRequest $request)
     {
-        if (!$this->isDatabaseConnected()) {
-            abort(500, 'Database Connection Error');
-        }
         $newValue = new AttributeValue();
         $newValue->title = $request->input('title');
         $newValue->attribute_group_id = $request->input('attributes_group_id');
@@ -71,9 +62,6 @@ class AttributeValueController extends Controller
      */
     public function edit($id)
     {
-        if (!$this->isDatabaseConnected()) {
-            abort(500, 'Database Connection Error');
-        }
         $attributesValue = AttributeValue::with('attributeGroup')->whereId($id)->firstOrFail();
         $attributesGroup = AttributeGroup::all();
         return view('admin.attributes-value.edit', compact('attributesValue', 'attributesGroup'));
@@ -88,9 +76,6 @@ class AttributeValueController extends Controller
      */
     public function update(CreateAttributeValueRequest $request, $id)
     {
-        if (!$this->isDatabaseConnected()) {
-            abort(500, 'Database Connection Error');
-        }
         $attributeGroup = AttributeValue::findOrFail($id);
         $attributeGroup->title = $request->title;
         $attributeGroup->attribute_group_id = $request->attributes_group_id;
@@ -107,9 +92,6 @@ class AttributeValueController extends Controller
      */
     public function destroy($id)
     {
-        if (!$this->isDatabaseConnected()) {
-            abort(500, 'Database Connection Error');
-        }
         $attributeValue = AttributeValue::findOrFail($id);
         $attributeValue->delete();
         Session::flash('attributes-value', 'مقدار ویژگی با موفقیت حذف شد!');

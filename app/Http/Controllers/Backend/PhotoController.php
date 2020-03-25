@@ -23,9 +23,6 @@ class PhotoController extends Controller
      */
     public function uploadPhoto(Request $request)
     {
-        if (!$this->isDatabaseConnected()) {
-            abort(500, 'Database Connection Error');
-        }
         $this->validate($request, ['file' => ['bail', 'image', 'max:4096']], ['file.image' => 'فایل آپلود شده باید از نوع عکس باشد!',
             'file.max' => 'حجم تصویر آپلود شده نمیتواند بیشتر از 8 مگابایت باشد!']);
         $uploadedFile = $request->file('file');

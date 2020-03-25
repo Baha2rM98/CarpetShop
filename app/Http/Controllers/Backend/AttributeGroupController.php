@@ -21,9 +21,6 @@ class AttributeGroupController extends Controller
      */
     public function index()
     {
-        if (!$this->isDatabaseConnected()) {
-            abort(500, 'Database Connection Error');
-        }
         $attributesGroup = AttributeGroup::all();
         return view('admin.attributes.index', compact('attributesGroup'));
     }
@@ -47,9 +44,6 @@ class AttributeGroupController extends Controller
      */
     public function store(CreateAttributeGroupRequest $request)
     {
-        if (!$this->isDatabaseConnected()) {
-            abort(500, 'Database Connection Error');
-        }
         $attributeGroup = new AttributeGroup();
         $attributeGroup->title = $request->input('title');
         $attributeGroup->type = $request->input('type');
@@ -66,9 +60,6 @@ class AttributeGroupController extends Controller
      */
     public function edit($id)
     {
-        if (!$this->isDatabaseConnected()) {
-            abort(500, 'Database Connection Error');
-        }
         $attributesGroup = AttributeGroup::findOrFail($id);
         return view('admin.attributes.edit', compact('attributesGroup'));
     }
@@ -82,9 +73,6 @@ class AttributeGroupController extends Controller
      */
     public function update(CreateAttributeGroupRequest $request, $id)
     {
-        if (!$this->isDatabaseConnected()) {
-            abort(500, 'Database Connection Error');
-        }
         $attributeGroup = AttributeGroup::findOrFail($id);
         $attributeGroup->title = $request->title;
         $attributeGroup->type = $request->type;
@@ -101,9 +89,6 @@ class AttributeGroupController extends Controller
      */
     public function destroy($id)
     {
-        if (!$this->isDatabaseConnected()) {
-            abort(500, 'Database Connection Error');
-        }
         $attributeGroup = AttributeGroup::findOrFail($id);
         $attributeGroup->delete();
         Session::flash('attributes', 'ویژگی و مقادیر آن با موفقیت حذف شدند!');

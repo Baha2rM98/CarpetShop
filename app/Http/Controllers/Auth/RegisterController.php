@@ -39,9 +39,6 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        if (!$this->isDatabaseConnected()) {
-            abort(500, 'Database Connection Error');
-        }
         $this->middleware('guest');
     }
 

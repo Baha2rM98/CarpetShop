@@ -10,18 +10,6 @@ use Illuminate\View\View;
 class UserController extends Controller
 {
     /**
-     * Creates a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        if (!$this->isDatabaseConnected()) {
-            abort(500, 'Database Connection Error');
-        }
-    }
-
-    /**
      * Shows the authenticated user dashboard
      *
      * @return Factory|View

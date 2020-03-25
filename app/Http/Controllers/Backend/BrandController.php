@@ -22,9 +22,6 @@ class BrandController extends Controller
      */
     public function index()
     {
-        if ( ! $this->isDatabaseConnected()) {
-            abort(500, 'Database Connection Error');
-        }
         $brands = Brand::all();
 
         return view('admin.brands.index', compact('brands'));
@@ -51,9 +48,6 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        if ( ! $this->isDatabaseConnected()) {
-            abort(500, 'Database Connection Error');
-        }
         $this->validate($request, [
             'title'       => ['bail', 'required', 'min:2', 'unique:brands'],
             'description' => ['bail', 'required', 'max:10000'],
@@ -85,9 +79,6 @@ class BrandController extends Controller
      */
     public function edit($id)
     {
-        if ( ! $this->isDatabaseConnected()) {
-            abort(500, 'Database Connection Error');
-        }
         $brand = Brand::with('photo')->whereId($id)->first();
 
         return view('admin.brands.edit', compact('brand'));
@@ -104,9 +95,6 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if ( ! $this->isDatabaseConnected()) {
-            abort(500, 'Database Connection Error');
-        }
         $this->validate($request, [
             'title'       => ['bail', 'required', 'min:2', 'unique:brands,title,'.$id],
             'description' => ['bail', 'required', 'max:10000'],
@@ -138,9 +126,6 @@ class BrandController extends Controller
      */
     public function destroy($id)
     {
-        if ( ! $this->isDatabaseConnected()) {
-            abort(500, 'Database Connection Error');
-        }
         $brand = Brand::with('photo')->whereId($id)->first();
         $brand->delete();
         Session::flash('brands', 'برند با موفقیت حذف شد!');
