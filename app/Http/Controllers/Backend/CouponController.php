@@ -7,8 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCouponRequest;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
@@ -56,33 +54,43 @@ class CouponController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return Response
+     * @return Factory|View
      */
     public function edit($id)
     {
-        //
+        $coupon = Coupon::findOrFail($id);
+
+        return view('admin.coupons.edit', compact('coupon'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
+     * @param  CreateCouponRequest  $request
      * @param  int  $id
-     * @return Response
+     * @return RedirectResponse|Redirector
      */
-    public function update(Request $request, $id)
+    public function update(CreateCouponRequest $request, $id)
     {
-        //
+        $coupon = Coupon::findOrFail($id);
+        $coupon->fill($request->all());
+        $coupon->saveOrFail();
+
+        Session::flash('coupons', 'کد تخفیف با موفقیت ویرایش شد!');
+        return redirect('/administrator/coupons');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return Response
+     * @return RedirectResponse|Redirector
      */
     public function destroy($id)
     {
-        //
+        Coupon::findOrFail($id)->delete();
+
+        Session::flash('coupons', 'کد تخفیف با موفقیت حذف شد!');
+        return redirect('/administrator/coupons');
     }
 }
