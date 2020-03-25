@@ -23,6 +23,7 @@
                             <th class="text-center">شناسه</th>
                             <th class="text-center">عنوان</th>
                             <th class="text-center">کد تخفیف</th>
+                            <th class="text-center">قیمت تخفیف</th>
                             <th class="text-center">وضعیت</th>
                             <th class="text-center">عملیات</th>
                         </tr>
@@ -33,6 +34,7 @@
                                 <td class="text-center">{{$coupon->id}}</td>
                                 <td class="text-center">{{$coupon->title}}</td>
                                 <td class="text-center">{{$coupon->code}}</td>
+                                <td class="text-center">{{$coupon->price}}</td>
                                 @if($coupon->status === 0)
                                     <td class="text-center"><span class="tag tag-pill tag-danger">غیر فعال</span></td>
                                 @else

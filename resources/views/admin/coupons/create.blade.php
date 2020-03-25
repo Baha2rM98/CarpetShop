@@ -31,6 +31,10 @@
                                 <input type="text" name="code" class="form-control" placeholder="کد را وارد کنید...">
                             </div>
                             <div class="form-group">
+                                <label for="name">قیمت</label>
+                                <input type="number" name="price" class="form-control" placeholder="قیمت را وارد کنید...">
+                            </div>
+                            <div class="form-group">
                                 <label>وضعیت</label>
                                 <div>
                                     <input type="radio" name="status" value="0" checked> <span class="margin-l-10">غیر فعال</span>

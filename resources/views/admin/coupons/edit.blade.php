@@ -33,6 +33,11 @@
                                        value="{{$coupon->code}}">
                             </div>
                             <div class="form-group">
+                                <label for="name">قیمت</label>
+                                <input type="number" name="price" class="form-control" placeholder="قیمت را وارد کنید..."
+                                        value="{{$coupon->price}}">
+                            </div>
+                            <div class="form-group">
                                 <label>وضعیت</label>
                                 <div>
                                     <input type="radio" name="status" value="0"
