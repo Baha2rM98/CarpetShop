@@ -42,6 +42,9 @@ Route::prefix('/administrator')->group(function () {
 
 
     Route::resource('/products', 'Backend\ProductController');
+
+
+    Route::resource('/coupons', 'Backend\CouponController');
 });
 
 
@@ -52,13 +55,6 @@ Auth::routes();
 Route::post('/register', 'Auth\RegisterController@register')->name('user.register');
 
 
-Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', 'Frontend\UserController@dashboard')->name('user.dashboard');
-
-    // Checkout
-});
-
-
 Route::get('/add-to-card/{id}', 'Frontend\CartController@addToCart')->name('cart.add');
 
 
@@ -66,3 +62,15 @@ Route::post('/remove-cart-item/{id}', 'Frontend\CartController@removeItem')->nam
 
 
 Route::get('/shopping-cart', 'Frontend\CartController@getCart')->name('cart.cart');
+
+
+Route::middleware('auth')->group(function () {
+
+
+    Route::get('/dashboard', 'Frontend\UserController@dashboard')->name('user.dashboard');
+
+
+    Route::post('/apply-coupon', 'Frontend\CouponController@applyCoupon')->name('coupon.apply');
+
+    // Checkout
+});
