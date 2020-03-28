@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Frontend;
 use App\Cart;
 use App\Coupon;
 use App\Http\Controllers\Controller;
-use App\Rules\IsCouponCodeEnable;
 use App\Rules\IsCouponCodeValid;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -65,6 +64,6 @@ class CouponController extends Controller
      */
     private function couponValidator(Request $request)
     {
-        return $this->validate($request, ['code' => ['nullable', new IsCouponCodeValid(), new IsCouponCodeEnable()]]);
+        return $this->validate($request, ['code' => ['nullable', new IsCouponCodeValid()]]);
     }
 }
