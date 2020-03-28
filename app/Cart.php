@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\Session;
+
 class Cart
 {
     /**
@@ -15,7 +17,7 @@ class Cart
     public $totalQuantity = 0;
 
     /**
-     * @var double Discount price of each item
+     * @var double Pure price of each item
      */
     public $totalPurePrice = 0;
 
@@ -28,6 +30,16 @@ class Cart
      * @var double Discount price of each item
      */
     public $totalDiscountPrice = 0;
+
+    /**
+     * @var double Discount of coupon
+     */
+    public $couponDiscount = 0;
+
+    /**
+     * @var array Coupon data items
+     */
+    public $coupon = null;
 
     /**
      * Creates a new instance App\Cart
@@ -103,5 +115,19 @@ class Cart
             }
         }
         return;
+    }
+
+    /**
+     * Applies coupon discount
+     *
+     * @param  Coupon  $coupon
+     * @return void
+     */
+    public function addCoupon(Coupon $coupon)
+    {
+        $couponData = ['price' => $coupon->price, 'coupon' => $coupon];
+        $this->coupon = $couponData;
+        $this->totalPrice -= $couponData['price'];
+        $this->couponDiscount += $couponData['price'];
     }
 }
