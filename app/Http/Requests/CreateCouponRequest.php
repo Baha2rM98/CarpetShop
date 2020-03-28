@@ -26,6 +26,7 @@ class CreateCouponRequest extends FormRequest
         return [
             'title' => ['required', 'max:100'],
             'code' => ['required', 'max:100'],
+            'price' => ['required', 'numeric', 'digits_between:1,15'],
             'status' => 'required'
         ];
     }
@@ -37,6 +38,9 @@ class CreateCouponRequest extends FormRequest
             'title.max' => 'عنوان کد تخفیف نمیتواند بیشتر از 100 کاراکتر باشد!',
             'code.required' => 'کد تخفیف نمیتواند خالی باشد!',
             'code.max' => 'کد تخفیف نمیتواند بیشتر از 100 کاراکتر باشد!',
+            'price.required' => 'قیمت کد تخفیف نمیتواند خالی باشد!',
+            'price.numeric' => 'قیمت کد تخفیف باید از نوع هدد باشد!',
+            'price.digits_between' => 'قیمت کد تخفیف وارد شده بیشتر از حد مجاز است!',
             'status.required' => 'وضعیت کد تخفیف نمیتواند خالی باشد!',
         ];
     }
