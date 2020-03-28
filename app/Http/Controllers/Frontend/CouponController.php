@@ -6,6 +6,7 @@ use App\Cart;
 use App\Coupon;
 use App\Http\Controllers\Controller;
 use App\Rules\IsCouponCodeValid;
+use App\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -50,9 +51,10 @@ class CouponController extends Controller
      */
     private function userHasCoupon(Request $request)
     {
-        return Auth::user()->whereHas('coupons', function ($query) use ($request) {
-            $query->where('code', $request->input('code'));
-        })->exists();
+        return User::with('coupons')->whereId(Auth::id())
+            ->whereHas('coupons', function ($query) use ($request) {
+                $query->where('code', $request->input('code'));
+            })->exists();
     }
 
     /**
