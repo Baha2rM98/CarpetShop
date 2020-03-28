@@ -33,7 +33,7 @@
                             <ul>
                                 <li><a href="{{route('logout')}}" onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">خروج</a></li>
-                                <li><a href="{{route('user.dashboard')}}">پروفایل کاربری</a></li>
+                                <li><a href="{{route('user.dashboard')}}">{{\Illuminate\Support\Facades\Auth::user()->name}}</a></li>
                             </ul>
                             <form id="logout-form" action="{{route('logout')}}" method="post" style="display: none">
                                 @csrf

@@ -3,7 +3,7 @@
 @section('content')
     <div class="row">
         <aside id="column-right" class="col-sm-3 hidden-xs">
-            <h3 class="subtitle">حساب کاربری</h3>
+            <h3 class="subtitle">{{$user->name . ' ' . $user->last_name. ' '}}</h3>
             <div class="list-group">
                 <ul class="list-item">
                     <li><a href="">فراموشی رمز عبور</a></li>
