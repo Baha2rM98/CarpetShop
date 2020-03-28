@@ -30,8 +30,8 @@ class CreateProductRequest extends FormRequest
             'categories' => 'required|array',
             'brand' => 'required',
             'status' => 'required',
-            'price' => ['bail', 'required', 'numeric', 'digits_between:1,25', 'gt:discount_price'],
-            'discount_price' => ['bail', 'nullable', 'numeric', 'digits_between:1,25'],
+            'price' => ['bail', 'required', 'numeric', 'digits_between:1,15', 'gt:discount_price'],
+            'discount_price' => ['bail', 'nullable', 'numeric', 'digits_between:1,15'],
             'description' => ['bail', 'required', 'max:100000'],
             'photo_id.*' => 'required'
         ];
