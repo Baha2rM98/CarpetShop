@@ -2,84 +2,69 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Cart;
+use App\Coupon;
 use App\Http\Controllers\Controller;
+use App\Rules\IsCouponCodeEnable;
+use App\Rules\IsCouponCodeValid;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\ValidationException;
 
 class CouponController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Applies coupon for authenticated user
      *
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @return RedirectResponse
+     * @throws ValidationException
      */
-    public function index()
+    public function applyCoupon(Request $request)
     {
-        //
+        $this->couponValidator($request);
+        if (!$this->userHasCoupon($request)) {
+            $coupon = Coupon::where('code', $request->input('code'))->first();
+            if (is_null($coupon)) {
+                Session::flash('usedCoupon', 'ابتدا کد تخفیف را وارد کنید!');
+                return back();
+            }
+            $cart = Session::has('cart') ? Session::get('cart') : null;
+            $cart = new Cart($cart);
+            $cart->addCoupon($coupon);
+            $request->session()->put('cart', $cart);
+            $user = Auth::user();
+            $user->coupons()->attach([$coupon->id]);
+            return back();
+        }
+        Session::flash('usedCoupon', 'این کد تخفیف قبلا استفاده شده است!');
+        return back();
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Checks if authenticated user has related coupon
      *
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @return bool
      */
-    public function create()
+    private function userHasCoupon(Request $request)
     {
-        //
+        return Auth::user()->whereHas('coupons', function ($query) use ($request) {
+            $query->where('code', $request->input('code'));
+        })->exists();
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Validates input coupon
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @return array
+     * @throws ValidationException
      */
-    public function store(Request $request)
+    private function couponValidator(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return $this->validate($request, ['code' => ['nullable', new IsCouponCodeValid(), new IsCouponCodeEnable()]]);
     }
 }
