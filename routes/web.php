@@ -51,6 +51,9 @@ Route::prefix('/administrator')->group(function () {
 Route::get('/', 'Frontend\ShopHomeController@index');
 
 
+Route::get('/product/{slug}', 'Frontend\ProductController@getProduct')->name('product.introduce');
+
+
 Auth::routes();
 Route::post('/register', 'Auth\RegisterController@register')->name('user.register');
 
