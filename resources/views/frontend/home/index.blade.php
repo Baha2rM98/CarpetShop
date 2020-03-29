@@ -20,9 +20,9 @@
                         <div class="owl-carousel product_carousel_tab">
                             @foreach($products as $product)
                                 <div class="product-thumb clearfix">
-                                    <div class="image"><a href=""><img src="{{$product->photos[0]->path}}" alt="{{$product->title}}" title="{{$product->title}}" class="img-responsive" /></a></div>
+                                    <div class="image"><a href="{{route('product.introduce', ['slug'=>$product->slug])}}"><img src="{{$product->photos[0]->path}}" alt="{{$product->title}}" title="{{$product->title}}" class="img-responsive" /></a></div>
                                     <div class="caption">
-                                        <h4><a href="">{{$product->title}}</a></h4>
+                                        <h4><a href="{{route('product.introduce', ['slug'=>$product->slug])}}">{{$product->title}}</a></h4>
                                         @if(isset($product->discount_price))
                                             <p class="price"><span class="price-new">{{$product->discount_price}} تومان</span> <span class="price-old">{{$product->price}} تومان</span><span class="saving">{{round(abs((($product->price - $product->discount_price) / $product->price) * 100))}}%</span></p>
                                         @else
@@ -32,8 +32,8 @@
                                     <div class="button-group">
                                         <a class="btn-primary" href="{{route('cart.add', ['id' => $product->id])}}"><span>افزودن به سبد</span></a>
                                         <div class="add-to-links">
-                                            <button type="button" data-toggle="tooltip" title="افزودن به علاقه مندی ها" onClick=""><i class="fa fa-heart"></i></button>
-                                            <button type="button" data-toggle="tooltip" title="مقایسه این محصول" onClick=""><i class="fa fa-exchange"></i></button>
+                                            <br>
+                                            <a href="" data-toggle="tooltip"> افزودن به علاقه مندی ها <i class="fa fa-heart"></i></a>
                                         </div>
                                     </div>
                                 </div>
