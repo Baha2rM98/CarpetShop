@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property mixed title
@@ -11,7 +12,14 @@ use Illuminate\Database\Eloquent\Relations\Relation;
  */
 class AttributeValue extends Model
 {
-    protected $table = 'attributes_value';
+    use SoftDeletes;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['title', 'attribute_group_id'];
 
     /**
      * Returns a one-to-many relationship with AttributeGroup
