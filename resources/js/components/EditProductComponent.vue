@@ -12,7 +12,9 @@
                 <label>ویژگی {{attribute.title}}</label>
                 <select name="attributes[]" class="form-control" @change="addAttribute($event, index)">
                     <option v-for="attributeValue in attribute.attribute_values" :value="attributeValue.id"
-                            :selected="product.attribute_values[index].id === attributeValue.id">
+                            :selected="product.attribute_values[index] &&
+                            product.attribute_values[index]['id']
+                             === attributeValue.id">
                         {{attributeValue.title}}
                     </option>
                 </select>
@@ -20,7 +22,7 @@
         </div>
         <div class="form-group">
             <label>برند</label>
-            <select name="brand" class="form-control">
+            <select name="brand_id" class="form-control">
                 <option v-for="brand in brands" :value="brand.id" :selected="product.brand.id === brand.id">
                     {{brand.title}}
                 </option>
@@ -79,7 +81,7 @@
             },
             onChange: function () {
                 this.flag = false;
-                axios.post('/api/administrator/categories/attributes', this.selectedCategories).then(
+                axios.post('/api/administrator/category/attributes', this.selectedCategories).then(
                     res => {
                         this.attributes = res.data.attributes;
                         this.flag = true;
