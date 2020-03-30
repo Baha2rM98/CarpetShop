@@ -40,29 +40,27 @@ class AttributeValueController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param CreateAttributeValueRequest $request
+     * @param  CreateAttributeValueRequest  $request
      * @return RedirectResponse|Redirector
      * @throws Throwable
      */
     public function store(CreateAttributeValueRequest $request)
     {
-        $newValue = new AttributeValue();
-        $newValue->title = $request->input('title');
-        $newValue->attribute_group_id = $request->input('attributes_group_id');
-        $newValue->saveOrFail();
+        (new AttributeValue($request->all()))->saveOrFail();
         Session::flash('attributes-value', 'مقدار ویژگی با موفقیت ذخیره شد!');
+
         return redirect('/administrator/attributes-value');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return Factory|View
      */
     public function edit($id)
     {
-        $attributesValue = AttributeValue::with('attributeGroup')->whereId($id)->firstOrFail();
+        $attributesValue = AttributeValue::with('attributeGroup')->whereId($id)->first();
         $attributesGroup = AttributeGroup::all();
         return view('admin.attributes-value.edit', compact('attributesValue', 'attributesGroup'));
     }
@@ -70,24 +68,24 @@ class AttributeValueController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param CreateAttributeValueRequest $request
-     * @param int $id
+     * @param  CreateAttributeValueRequest  $request
+     * @param  int  $id
      * @return RedirectResponse|Redirector
      */
     public function update(CreateAttributeValueRequest $request, $id)
     {
         $attributeGroup = AttributeValue::findOrFail($id);
-        $attributeGroup->title = $request->title;
-        $attributeGroup->attribute_group_id = $request->attributes_group_id;
+        $attributeGroup->fill($request->all());
         $attributeGroup->saveOrFail();
         Session::flash('attributes-value', 'مقدار ویژگی با موفقیت به روزرسانی شد!');
+
         return redirect('/administrator/attributes-value');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param  int  $id
      * @return RedirectResponse|Redirector
      */
     public function destroy($id)
