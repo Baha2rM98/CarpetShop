@@ -1977,7 +1977,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       this.flag = false;
-      axios.post('/api/administrator/categories/attributes', this.selectedCategories).then(function (res) {
+      axios.post('/api/administrator/category/attributes', this.selectedCategories).then(function (res) {
         _this2.attributes = res.data.attributes;
         _this2.flag = true;
       })["catch"](function (err) {
@@ -2015,6 +2015,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -2101,7 +2103,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       this.flag = false;
-      axios.post('/api/administrator/categories/attributes', this.selectedCategories).then(function (res) {
+      axios.post('/api/administrator/category/attributes', this.selectedCategories).then(function (res) {
         _this2.attributes = res.data.attributes;
         _this2.flag = true;
       })["catch"](function (err) {
@@ -37656,7 +37658,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "select",
-        { staticClass: "form-control", attrs: { name: "brand" } },
+        { staticClass: "form-control", attrs: { name: "brand_id" } },
         _vm._l(_vm.brands, function(brand) {
           return _c("option", { domProps: { value: brand.id } }, [
             _vm._v(_vm._s(brand.title))
@@ -37766,8 +37768,9 @@ var render = function() {
                       domProps: {
                         value: attributeValue.id,
                         selected:
-                          _vm.product.attribute_values[index].id ===
-                          attributeValue.id
+                          _vm.product.attribute_values[index] &&
+                          _vm.product.attribute_values[index]["id"] ===
+                            attributeValue.id
                       }
                     },
                     [
@@ -37792,7 +37795,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "select",
-        { staticClass: "form-control", attrs: { name: "brand" } },
+        { staticClass: "form-control", attrs: { name: "brand_id" } },
         _vm._l(_vm.brands, function(brand) {
           return _c(
             "option",
