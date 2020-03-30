@@ -5,6 +5,7 @@ namespace App;
 use App\Helpers\ModelHelper;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -15,6 +16,15 @@ use Illuminate\Support\Facades\Storage;
  */
 class Brand extends Model
 {
+    use SoftDeletes;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['title', 'description', 'photo_id'];
+
     /**
      * Bootstrap the model and its traits.(Override)
      *
