@@ -19,7 +19,7 @@
         </div>
         <div class="form-group">
             <label>برند</label>
-            <select name="brand" class="form-control">
+            <select name="brand_id" class="form-control">
                 <option v-for="brand in brands" :value="brand.id">{{brand.title}}</option>
             </select>
         </div>
@@ -65,7 +65,7 @@
             },
             onChange: function () {
                 this.flag = false;
-                axios.post('/api/administrator/categories/attributes', this.selectedCategories).then(
+                axios.post('/api/administrator/category/attributes', this.selectedCategories).then(
                     res => {
                         this.attributes = res.data.attributes;
                         this.flag = true;
