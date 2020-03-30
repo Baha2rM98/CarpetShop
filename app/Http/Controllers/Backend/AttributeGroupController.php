@@ -22,6 +22,7 @@ class AttributeGroupController extends Controller
     public function index()
     {
         $attributesGroup = AttributeGroup::all();
+
         return view('admin.attributes.index', compact('attributesGroup'));
     }
 
@@ -38,53 +39,52 @@ class AttributeGroupController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param CreateAttributeGroupRequest $request
+     * @param  CreateAttributeGroupRequest  $request
      * @return RedirectResponse|Redirector
      * @throws Throwable
      */
     public function store(CreateAttributeGroupRequest $request)
     {
-        $attributeGroup = new AttributeGroup();
-        $attributeGroup->title = $request->input('title');
-        $attributeGroup->type = $request->input('type');
-        $attributeGroup->saveOrFail();
+        (new AttributeGroup($request->all()))->saveOrFail();
         Session::flash('attributes', 'ویژگی جدید با موفقیت اضافه شد!');
+
         return redirect('/administrator/attributes-group');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return Factory|View
      */
     public function edit($id)
     {
         $attributesGroup = AttributeGroup::findOrFail($id);
+
         return view('admin.attributes.edit', compact('attributesGroup'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param CreateAttributeGroupRequest $request
-     * @param int $id
+     * @param  CreateAttributeGroupRequest  $request
+     * @param  int  $id
      * @return RedirectResponse|Redirector
      */
     public function update(CreateAttributeGroupRequest $request, $id)
     {
         $attributeGroup = AttributeGroup::findOrFail($id);
-        $attributeGroup->title = $request->title;
-        $attributeGroup->type = $request->type;
+        $attributeGroup->fill($request->all());
         $attributeGroup->saveOrFail();
         Session::flash('attributes', 'ویژگی با موفقیت به روزرسانی شد!');
+
         return redirect('/administrator/attributes-group');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param  int  $id
      * @return RedirectResponse|Redirector
      */
     public function destroy($id)
@@ -92,6 +92,7 @@ class AttributeGroupController extends Controller
         $attributeGroup = AttributeGroup::findOrFail($id);
         $attributeGroup->delete();
         Session::flash('attributes', 'ویژگی و مقادیر آن با موفقیت حذف شدند!');
+
         return redirect('/administrator/attributes-group');
     }
 }

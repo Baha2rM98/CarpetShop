@@ -53,13 +53,7 @@ class CategoryController extends Controller
      */
     public function store(CreateCategoryRequest $request)
     {
-        $category                = new Category();
-        $category->parent_id     = $request->input('category_parent');
-        $category->name          = $request->input('name');
-        $category->meta_title    = $request->input('meta_title');
-        $category->meta_desc     = $request->input('meta_desc');
-        $category->meta_keywords = $request->input('meta_keywords');
-        $category->saveOrFail();
+        (new Category($request->all()))->saveOrFail();
         Session::flash('attributes', 'دسته بندی جدید با موفقیت اضافه شد!');
 
         return redirect('/administrator/categories');
@@ -75,7 +69,7 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $categories = Category::with('children')->where('parent_id', null)->get();
-        $category   = Category::findOrFail($id);
+        $category = Category::findOrFail($id);
 
         return view('admin.categories.edit', compact('categories', 'category'));
     }
@@ -91,13 +85,9 @@ class CategoryController extends Controller
      */
     public function update(CreateCategoryRequest $request, $id)
     {
-        $this->validate($request, ['category_parent' => new NoCategoryIsOwnParent($id)]);
-        $category                = Category::findOrFail($id);
-        $category->parent_id     = $request->category_parent;
-        $category->name          = $request->name;
-        $category->meta_title    = $request->meta_title;
-        $category->meta_desc     = $request->meta_desc;
-        $category->meta_keywords = $request->meta_keywords;
+        $this->validate($request, ['parent_id' => new NoCategoryIsOwnParent($id)]);
+        $category = Category::findOrFail($id);
+        $category->fill($request->all());
         $category->saveOrFail();
         Session::flash('attributes', 'دسته بندی با موفقیت به روزرسانی شد!');
 
@@ -136,7 +126,7 @@ class CategoryController extends Controller
      */
     public function indexAttributes($id)
     {
-        $category        = Category::findOrFail($id);
+        $category = Category::findOrFail($id);
         $attributeGroups = AttributeGroup::all();
 
         return view('admin.categories.index-attribute', compact('category', 'attributeGroups'));
