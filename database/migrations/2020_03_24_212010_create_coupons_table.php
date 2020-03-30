@@ -20,6 +20,7 @@ class CreateCouponsTable extends Migration
             $table->double('price', 15);
             $table->tinyInteger('status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

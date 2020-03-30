@@ -20,6 +20,7 @@ class CreateBrandsTable extends Migration
             $table->bigInteger('photo_id')->unsigned();
             $table->foreign('photo_id')->references('id')->on('photos')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

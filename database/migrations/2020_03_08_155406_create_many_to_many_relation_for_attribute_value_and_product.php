@@ -16,10 +16,11 @@ class CreateManyToManyRelationForAttributeValueAndProduct extends Migration
         Schema::create('attributevalue_product', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('attribute_value_id')->unsigned();
-            $table->foreign('attribute_value_id')->references('id')->on('attributes_value')->onDelete('cascade');
+            $table->foreign('attribute_value_id')->references('id')->on('attribute_values')->onDelete('cascade');
             $table->bigInteger('product_id')->unsigned();
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

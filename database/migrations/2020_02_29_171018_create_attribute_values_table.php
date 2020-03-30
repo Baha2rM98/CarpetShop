@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAttributesGroupTable extends Migration
+class CreateAttributeValuesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateAttributesGroupTable extends Migration
      */
     public function up()
     {
-        Schema::create('attributes_group', function (Blueprint $table) {
+        Schema::create('attribute_values', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
-            $table->string('type');
+            $table->bigInteger('attribute_group_id')->unsigned();
+            $table->foreign('attribute_group_id')->references('id')->on('attribute_groups')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -28,6 +30,6 @@ class CreateAttributesGroupTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attributes_group');
+        Schema::dropIfExists('attributes_value');
     }
 }

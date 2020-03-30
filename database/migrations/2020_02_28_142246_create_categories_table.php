@@ -21,6 +21,7 @@ class CreateCategoriesTable extends Migration
             $table->string('meta_desc')->nullable();
             $table->string('meta_keywords')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
