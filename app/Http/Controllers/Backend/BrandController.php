@@ -44,27 +44,11 @@ class BrandController extends Controller
      *
      * @return RedirectResponse|Redirector
      * @throws Throwable
-     * @throws ValidationException
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'title'       => ['bail', 'required', 'min:2', 'unique:brands'],
-            'description' => ['bail', 'required', 'max:10000'],
-            'photo_id'    => 'required'
-        ], [
-            'title.required'       => 'نام برند نمیتواند خالی باشد!',
-            'title.min'            => 'نام برند نمیتواند کمتر از 2 کاراکتر باشد!',
-            'title.unique'         => 'این برند قبلا ثبت شده است!',
-            'description.required' => 'توضیحات برند نمیتواند خالی باشد!',
-            'description.max'      => 'توضیحات برند نمیتواند بیشتر از 10000 کاراکتر باشد!',
-            'photo_id.required'    => 'عکس برند نمیتواند خالی باشد!'
-        ]);
-        $brand              = new Brand();
-        $brand->title       = $request->input('title');
-        $brand->description = $request->input('description');
-        $brand->photo_id    = $request->input('photo_id');
-        $brand->saveOrFail();
+        $this->brandStoreValidator($request);
+        (new Brand($request->all()))->saveOrFail();
         Session::flash('brands', 'برند جدید با موفقیت ذخیره شد!');
 
         return redirect('/administrator/brands');
@@ -89,28 +73,14 @@ class BrandController extends Controller
      *
      * @param  Request  $request
      * @param  int  $id
-     *
      * @return RedirectResponse|Redirector
      * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'title'       => ['bail', 'required', 'min:2', 'unique:brands,title,'.$id],
-            'description' => ['bail', 'required', 'max:10000'],
-            'photo_id'    => 'required'
-        ], [
-            'title.required'       => 'نام برند نمیتواند خالی باشد!',
-            'title.min'            => 'نام برند نمیتواند کمتر از 2 کاراکتر باشد!',
-            'title.unique'         => 'این برند قبلا ثبت شده است!',
-            'description.required' => 'توضیحات برند نمیتواند خالی باشد!',
-            'description.max'      => 'توضیحات برند نمیتواند بیشتر از 10000 کاراکتر باشد!',
-            'photo_id.required'    => 'عکس برند نمیتواند خالی باشد!'
-        ]);
-        $brand              = Brand::findOrFail($id);
-        $brand->title       = $request->title;
-        $brand->description = $request->description;
-        $brand->photo_id    = $request->photo_id;
+        $this->brandUpdateValidator($request, $id);
+        $brand = Brand::findOrFail($id);
+        $brand->fill($request->all());
         $brand->saveOrFail();
         Session::flash('brands', 'برند با موفقیت ویرایش شد!');
 
@@ -131,5 +101,52 @@ class BrandController extends Controller
         Session::flash('brands', 'برند با موفقیت حذف شد!');
 
         return redirect('/administrator/brands');
+    }
+
+    /**
+     * Validates request input for storing data
+     *
+     * @param  Request  $request
+     * @return array
+     * @throws ValidationException
+     */
+    private function brandStoreValidator(Request $request)
+    {
+        return $this->validate($request, [
+            'title' => ['bail', 'required', 'min:2', 'unique:brands'],
+            'description' => ['bail', 'required', 'max:10000'],
+            'photo_id' => 'required'
+        ], [
+            'title.required' => 'نام برند نمیتواند خالی باشد!',
+            'title.min' => 'نام برند نمیتواند کمتر از 2 کاراکتر باشد!',
+            'title.unique' => 'این برند قبلا ثبت شده است!',
+            'description.required' => 'توضیحات برند نمیتواند خالی باشد!',
+            'description.max' => 'توضیحات برند نمیتواند بیشتر از 10000 کاراکتر باشد!',
+            'photo_id.required' => 'عکس برند نمیتواند خالی باشد!'
+        ]);
+    }
+
+    /**
+     * Validates request input for updating data
+     *
+     * @param  Request  $request
+     * @param  int  $id
+     * @return array
+     * @throws ValidationException
+     */
+    private function brandUpdateValidator(Request $request, $id)
+    {
+        return $this->validate($request, [
+            'title' => ['bail', 'required', 'min:2', 'unique:brands,title,'.$id],
+            'description' => ['bail', 'required', 'max:10000'],
+            'photo_id' => 'required'
+        ], [
+            'title.required' => 'نام برند نمیتواند خالی باشد!',
+            'title.min' => 'نام برند نمیتواند کمتر از 2 کاراکتر باشد!',
+            'title.unique' => 'این برند قبلا ثبت شده است!',
+            'description.required' => 'توضیحات برند نمیتواند خالی باشد!',
+            'description.max' => 'توضیحات برند نمیتواند بیشتر از 10000 کاراکتر باشد!',
+            'photo_id.required' => 'عکس برند نمیتواند خالی باشد!'
+        ]);
     }
 }
