@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property mixed original_name
@@ -13,16 +13,12 @@ use Illuminate\Database\Eloquent\Relations\Relation;
  */
 class Photo extends Model
 {
-    protected $uploads = '/storage/photos/';
+    use SoftDeletes;
 
     /**
-     * Creates a one-to-many relation with User
-     * @return Relation
+     * @var string Public path
      */
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+    protected $uploads = '/storage/photos/';
 
     /** Returns symbolic link path of the photo
      *
@@ -33,14 +29,5 @@ class Photo extends Model
     public function getPathAttribute($photo)
     {
         return $this->uploads.$photo;
-    }
-
-    /**
-     * Returns a many-to-many relationship with Product
-     * @return Relation
-     */
-    public function products()
-    {
-        return $this->belongsToMany(Product::class, 'photo_product', 'photo_id', 'product_id');
     }
 }
