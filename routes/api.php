@@ -21,7 +21,7 @@ Route::prefix('/administrator')->group(function () {
     Route::get('/categories', 'Backend\ProductController@apiVueJsGetCategories');
 
 
-    Route::post('/categories/attributes', 'Backend\ProductController@apiVueJsGetCategoriesAttributes');
+    Route::post('/category/attributes', 'Backend\ProductController@apiVueJsGetCategoryAttributes');
 });
 
 
