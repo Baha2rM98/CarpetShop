@@ -25,7 +25,7 @@ class CreateAttributeValueRequest extends FormRequest
     {
         return [
             'title' => ['bail', 'required', 'max:50', 'min:2'],
-            'attributes_group_id' => 'required'
+            'attribute_group_id' => 'required'
         ];
     }
 
@@ -35,7 +35,7 @@ class CreateAttributeValueRequest extends FormRequest
             'title.required' => 'مقدار ویژگی نمیتواند خالی باشد!',
             'title.max' => 'مقدار ویژگی نمیتواند بیشتر از 50 کاراکتر باشد!',
             'title.min' => 'مقدار ویژگی نمیتواند کمتر از 2 کاراکتر باشد!',
-            'attributes_group_id.required' => 'ویژگی نمیتواند خالی باشد!',
+            'attribute_group_id.required' => 'ویژگی نمیتواند خالی باشد!',
         ];
     }
 }
