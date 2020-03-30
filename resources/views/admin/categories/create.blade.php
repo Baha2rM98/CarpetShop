@@ -28,7 +28,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="name">دسته والد</label>
-                                <select name="category_parent" id="" class="form-control">
+                                <select name="parent_id" id="" class="form-control">
                                     <option value="">بدون والد</option>
                                     @foreach($categories as $category)
                                         <option value="{{$category->id}}">{{$category->name}}</option>
