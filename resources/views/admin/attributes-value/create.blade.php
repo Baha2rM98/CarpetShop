@@ -25,7 +25,7 @@
                             @csrf
                             <div class="form-group">
                                 <label for="name">انتخاب ویژگی</label>
-                                <select name="attributes_group_id" id="" class="form-control">
+                                <select name="attribute_group_id" id="" class="form-control">
                                     <option value="">انتخاب کنید</option>
                                     @foreach($attributesGroup as $attribute)
                                         <option value="{{$attribute->id}}">{{$attribute->title}}</option>

@@ -29,7 +29,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="name">نوع ویژگی</label>
-                                <select name="attributes_group_id" id="" class="form-control">
+                                <select name="attribute_group_id" id="" class="form-control">
                                     @foreach($attributesGroup as $attribute)
                                         <option value="{{$attribute->id}}"
                                                 @if($attribute->id === $attributesValue->attributeGroup->id) selected @endif>{{$attribute->title}}</option>
