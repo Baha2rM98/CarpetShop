@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property mixed parent_id
@@ -14,6 +15,15 @@ use Illuminate\Database\Eloquent\Relations\Relation;
  */
 class Category extends Model
 {
+    use SoftDeletes;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['parent_id', 'name', 'meta_title', 'meta_desc', 'meta_keywords'];
+
     /**
      * Returns children of each category recursively
      * @return Relation
