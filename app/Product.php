@@ -5,6 +5,7 @@ namespace App;
 use App\Helpers\ModelHelper;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -21,6 +22,17 @@ use Illuminate\Support\Facades\Storage;
  */
 class Product extends Model
 {
+    use SoftDeletes;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'title', 'status', 'price', 'discount_price',
+        'description', 'brand_id'
+    ];
 
     /**
      * Bootstrap the model and its traits.(Override)
@@ -55,15 +67,6 @@ class Product extends Model
     public function brand()
     {
         return $this->belongsTo(Brand::class);
-    }
-
-    /**
-     * Returns a one-to-many relationship with User
-     * @return Relation
-     */
-    public function user()
-    {
-        return $this->belongsTo(User::class);
     }
 
     /**
