@@ -144,7 +144,7 @@ class CategoryController extends Controller
     public function saveAttributes(Request $request, $id)
     {
         $category = Category::findOrFail($id);
-        $category->attributeGroups()->sync($request->attributeGroups);
+        $category->attributeGroups()->sync($request->input('attributeGroups'));
         $category->saveOrFail();
         Session::flash('settings', 'ویژگی های دسته بندی '." [ $category->name ] ".' با موفقیت ذخیره شدند!');
 
