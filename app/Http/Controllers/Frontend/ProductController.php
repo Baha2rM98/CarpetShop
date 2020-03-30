@@ -17,10 +17,9 @@ class ProductController extends Controller
      */
     public function getProduct($slug)
     {
-        $product = Product::with('categories', 'brand', 'attributeValues.attributeGroup', 'photos')
+        $product = Product::with('brand', 'attributeValues.attributeGroup', 'photos')
             ->whereSlug($slug)->first();
-        $relatedProducts = Product::with('categories')
-            ->whereHas('categories', function ($query) use ($product) {
+        $relatedProducts = Product::whereHas('categories', function ($query) use ($product) {
                 $query->whereIn('categories.id', $product->categories);
             })->get();
         return view('frontend.products.index', compact('product', 'relatedProducts'));
