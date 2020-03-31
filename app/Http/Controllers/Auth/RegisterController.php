@@ -53,22 +53,15 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $this->validator($request);
-        $user = new User();
-        $user->name = $request->input('name');
-        $user->last_name = $request->input('last_name');
-        $user->email = $request->input('email');
-        $user->phone_number = $request->input('phone_number');
-        $user->national_code = $request->input('national_code');
+
+        $user = new User($request->all());
         $user->password = Hash::make($request->input('password'));
         $user->saveOrFail();
-        $address = new Address();
-        $address->company = $request->input('company');
-        $address->address = $request->input('address');
-        $address->post_code = $request->input('post_code');
-        $address->province_id = $request->input('province');
-        $address->city_id = $request->input('city');
+
+        $address = new Address($request->all());
         $address->user_id = $user->id;
         $address->saveOrFail();
+
         Session::flash('ok', 'ثبت نام با موفقیت انجام شد. لطفا حساب کاربری خود را تاییید نمایید.');
 
         return redirect('login');
@@ -92,7 +85,7 @@ class RegisterController extends Controller
             'company' => ['bail', 'nullable'],
             'address' => ['bail', 'required'],
             'post_code' => ['bail', 'required', 'numeric', 'digits_between:10,10'],
-            'city' => ['bail', 'required'],
+            'city_id' => ['bail', 'required'],
             'password' => ['bail', 'required', 'min:8'],
             'password_confirmation' => ['bail', 'required', 'same:password']
         ], [
@@ -111,7 +104,7 @@ class RegisterController extends Controller
             'post_code.required' => 'عبارت کد پستی نمیتواند خالی باشد!',
             'post_code.numeric' => 'کد پستی وارد شده معتبر نیست!',
             'post_code.digits_between' => 'کد پستی وارد شده معتبر نیست!',
-            'city.required' => 'شهر و استان نمیتواند خالی باشد!',
+            'city_id.required' => 'شهر و استان نمیتواند خالی باشد!',
             'password.required' => 'عبارت رمز عبور نمیتواند خالی باشد!',
             'password.min' => 'رمز عبور وارد شده نمیتواند کمتر از 8 کاراکتر باشد!',
             'password_confirmation.required' => 'عبارت تایید رمز عبور نمیتواند خالی باشد!',
