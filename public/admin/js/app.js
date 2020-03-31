@@ -37868,7 +37868,7 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { id: "input-country", name: "province" },
+            attrs: { id: "input-country", name: "province_id" },
             on: {
               change: [
                 function($event) {
@@ -37920,7 +37920,7 @@ var render = function() {
               "select",
               {
                 staticClass: "form-control",
-                attrs: { id: "input-zone", name: "city" }
+                attrs: { id: "input-zone", name: "city_id" }
               },
               _vm._l(_vm.cities, function(city) {
                 return _c("option", { domProps: { value: city.id } }, [
@@ -50405,7 +50405,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\Baha2r\PhpstormProjects\OnlineCarpetStore\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\OnlineCarpetStore\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

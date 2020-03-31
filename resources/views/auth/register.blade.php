@@ -112,14 +112,9 @@
                     </div>
                     <select-city-province-component></select-city-province-component>
                     <div class="col-sm-10" style="margin-right: 129px">
-                        @if($errors->has('province'))
+                        @if($errors->has('city_id'))
                             <span class="invalid-feedback" role="alert">
-                                <strong>{{$errors->first('province')}}</strong>
-                            </span>
-                        @endif
-                        @if($errors->has('city'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{$errors->first('city')}}</strong>
+                                <strong>{{$errors->first('city_id')}}</strong>
                             </span>
                         @endif
                     </div>
