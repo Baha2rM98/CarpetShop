@@ -18,10 +18,10 @@ class CreateAddressesTable extends Migration
             $table->string('company')->nullable();
             $table->text('address');
             $table->string('post_code');
-            $table->integer('province_id')->unsigned();
-            $table->foreign('province_id')->references('id')->on('provinces')->onDelete('cascade');
-            $table->integer('city_id')->unsigned();
-            $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
+            $table->bigInteger('province_id')->unsigned();
+            $table->foreign('province_id')->references('id')->on('provinces');
+            $table->bigInteger('city_id')->unsigned();
+            $table->foreign('city_id')->references('id')->on('cities');
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
