@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -18,6 +19,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -29,6 +31,7 @@ class User extends Authenticatable
         'last_name',
         'email',
         'phone_number',
+        'national_code'
     ];
 
     /**
@@ -49,24 +52,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    /**
-     * Creates a one-to-many relation with Photo
-     * @return Relation
-     */
-    public function photos()
-    {
-        return $this->hasMany(Photo::class, 'user_id');
-    }
-
-    /**
-     * Returns a one-to-many relationship with Product
-     * @return Relation
-     */
-    public function products()
-    {
-        return $this->hasMany(Product::class, 'user_id');
-    }
 
     /**
      * Returns a one-to-many relationship with Address
