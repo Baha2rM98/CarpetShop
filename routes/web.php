@@ -23,16 +23,16 @@ Route::prefix('/administrator')->group(function () {
     Route::resource('/categories', 'Backend\CategoryController');
 
 
-    Route::get('/categories/{id}/attributes', 'Backend\CategoryController@indexAttributes')->name('categories.attributes');
+    Route::get('/category/{id}/attributes', 'Backend\CategoryController@indexAttributes')->name('category.attributes');
 
 
-    Route::post('/categories/{id}/attributes', 'Backend\CategoryController@saveAttributes');
+    Route::post('/category/{id}/attributes', 'Backend\CategoryController@saveAttributes');
 
 
-    Route::resource('/attributes-group', 'Backend\AttributeGroupController');
+    Route::resource('/attribute-groups', 'Backend\AttributeGroupController');
 
 
-    Route::resource('/attributes-value', 'Backend\AttributeValueController');
+    Route::resource('/attribute-values', 'Backend\AttributeValueController');
 
 
     Route::resource('/brands', 'Backend\BrandController');
