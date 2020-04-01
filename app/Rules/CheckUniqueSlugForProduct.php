@@ -9,11 +9,17 @@ use Illuminate\Contracts\Validation\Rule;
 class CheckUniqueSlugForProduct implements Rule
 {
     /**
-     * Create a new rule instance.
+     * @var int Product id
      */
-    public function __construct()
+    private $id;
+
+    /**
+     * Create a new rule instance.
+     * @param  int  $id
+     */
+    public function __construct($id)
     {
-        //
+        $this->id = $id;
     }
 
     /**
@@ -26,7 +32,10 @@ class CheckUniqueSlugForProduct implements Rule
      */
     public function passes($attribute, $value)
     {
-        return ! Product::where('slug', ProductController::makeSlug($value))->exists();
+        if (isset($this->id)) {
+            return true;
+        }
+        return !Product::withTrashed()->where('slug', ProductController::makeSlug($value))->exists();
     }
 
     /**
