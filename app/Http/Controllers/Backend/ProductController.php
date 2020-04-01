@@ -177,7 +177,7 @@ class ProductController extends Controller
         $alphabet = array_merge(range('a', 'z'), range('A', 'Z'));
         shuffle($alphabet);
         $sku = strval($id).'-'.substr(str_shuffle(strval(mt_rand(1, mt_getrandmax())).implode(
-                    array_slice($alphabet, mt_rand(8, 20), 8))), 4, 8);
+                    array_slice($alphabet, mt_rand(8, 20), 8))), 4, 6);
         if ($this->ifSKUExists($sku)) {
             return $this->generateSKU($id);
         }
