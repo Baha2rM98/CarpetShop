@@ -19,9 +19,12 @@ class ProductController extends Controller
     {
         $product = Product::with('brand', 'attributeValues.attributeGroup', 'photos')
             ->whereSlug($slug)->first();
+        if (is_null($product)) {
+            abort(404);
+        }
         $relatedProducts = Product::whereHas('categories', function ($query) use ($product) {
-                $query->whereIn('categories.id', $product->categories);
-            })->get();
+            $query->whereIn('categories.id', $product->categories);
+        })->get();
         return view('frontend.products.index', compact('product', 'relatedProducts'));
     }
 }
