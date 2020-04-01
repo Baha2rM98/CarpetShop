@@ -97,7 +97,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->productValidator($request);
+        $this->productValidator($request, $id);
         $product = Product::findOrFail($id);
         $product->fill($request->all());
         $product->slug = self::makeSlug($request->input('slug'));
@@ -130,19 +130,20 @@ class ProductController extends Controller
      * Validates product features
      *
      * @param  Request  $request
+     * @param  int  $id
      * @return array
      * @throws ValidationException
      */
-    private function productValidator(Request $request)
+    private function productValidator(Request $request, $id = null)
     {
         return $this->validate($request, [
             'title' => ['bail', 'required', 'min:2', 'max:100'],
-            'slug' => ['bail', 'required', new CheckUniqueSlugForProduct(), 'max:100'],
+            'slug' => ['bail', 'required', new CheckUniqueSlugForProduct($id), 'max:100'],
             'categories' => ['required', 'array'],
             'brand_id' => 'required',
             'status' => 'required',
-            'price' => ['bail', 'required', 'numeric', 'digits_between:1,15', 'gt:discount_price'],
-            'discount_price' => ['bail', 'nullable', 'numeric', 'digits_between:1,15'],
+            'price' => ['bail', 'required', 'numeric', 'digits_between:1,15'],
+            'discount_price' => ['bail', 'nullable', 'numeric', 'digits_between:1,15', 'lt:price'],
             'description' => ['bail', 'required', 'max:100000'],
             'photo_id.*' => 'required'
         ], [
@@ -157,9 +158,9 @@ class ProductController extends Controller
             'price.required' => 'قیمت محصول نمیتواند خالی باشد!',
             'price.numeric' => 'قیمت محصول باید از نوع عدد باشد!',
             'price.digits_between' => 'قیمت وارد شده بزرگ تر از حد مجاز است!',
-            'price.gt' => 'قیمت ویژه محصول نمیتواند از قیمت اصلی آن بزرگتر یا برابر باشد!',
             'discount_price.numeric' => 'قیمت ویژه محصول باید از نوع عدد باشد!',
             'discount_price.digits_between' => 'قیمت ویژه وارد شده بزرگ تر از حد مجاز است!',
+            'discount_price.lt' => 'قیمت ویژه محصول نمیتواند از قیمت اصلی آن بزرگتر یا برابر باشد!',
             'description.required' => 'توضیحات محصول نمیتواند خالی باشد!',
             'description.max' => 'توضیحات محصول نمیتواند بیشتر ار 100000 کاراکتر باشد!',
             'photo_id.*.required' => 'عکس محصول نمیتواند خالی باشد!'
