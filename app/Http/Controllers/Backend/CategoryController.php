@@ -140,9 +140,12 @@ class CategoryController extends Controller
      * @param  int  $id
      *
      * @return RedirectResponse|Redirector
+     * @throws ValidationException
      */
     public function saveAttributes(Request $request, $id)
     {
+        $this->validate($request, ['attributeGroups' => ['required', 'array']],
+            ['attributeGroups.required' => 'ویژگی انتخاب شده نمیتواند خالی باشد!']);
         $category = Category::findOrFail($id);
         $category->attributeGroups()->sync($request->input('attributeGroups'));
         $category->saveOrFail();

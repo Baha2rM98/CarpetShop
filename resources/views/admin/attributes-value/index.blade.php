@@ -6,7 +6,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title pull-right">مقادیر ویژگی</h3>
                 <div class="text-left">
-                    <a class="btn btn-app" href="{{route('attributes-value.create')}}"><i
+                    <a class="btn btn-app" href="{{route('attribute-values.create')}}"><i
                             class="fa fa-plus"></i>جدید</a>
                 </div>
             </div>
@@ -35,10 +35,10 @@
                                 <td class="text-center">{{$attribute->attributeGroup->title}}</td>
                                 <td class="text-center">
                                     <a class="btn btn-warning"
-                                       href="{{route('attributes-value.edit', $attribute->id)}}">ویرایش</a>
+                                       href="{{route('attribute-values.edit', $attribute->id)}}">ویرایش</a>
                                     <div class="display-inline-block">
                                         <form method="post" name="_method"
-                                              action="/administrator/attributes-value/{{$attribute->id}}">
+                                              action="/administrator/attribute-values/{{$attribute->id}}">
                                             @csrf
                                             <input type="hidden" name="_method" value="DELETE">
                                             <button type="submit" class="btn btn-danger">حذف</button>

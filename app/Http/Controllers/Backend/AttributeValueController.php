@@ -49,7 +49,7 @@ class AttributeValueController extends Controller
         (new AttributeValue($request->all()))->saveOrFail();
         Session::flash('attributes-value', 'مقدار ویژگی با موفقیت ذخیره شد!');
 
-        return redirect('/administrator/attributes-value');
+        return redirect('/administrator/attribute-values');
     }
 
     /**
@@ -79,7 +79,7 @@ class AttributeValueController extends Controller
         $attributeGroup->saveOrFail();
         Session::flash('attributes-value', 'مقدار ویژگی با موفقیت به روزرسانی شد!');
 
-        return redirect('/administrator/attributes-value');
+        return redirect('/administrator/attribute-values');
     }
 
     /**
@@ -93,6 +93,6 @@ class AttributeValueController extends Controller
         $attributeValue = AttributeValue::findOrFail($id);
         $attributeValue->delete();
         Session::flash('attributes-value', 'مقدار ویژگی با موفقیت حذف شد!');
-        return redirect('/administrator/attributes-value');
+        return redirect('/administrator/attribute-values');
     }
 }

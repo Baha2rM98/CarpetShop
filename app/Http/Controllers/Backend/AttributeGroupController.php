@@ -48,7 +48,7 @@ class AttributeGroupController extends Controller
         (new AttributeGroup($request->all()))->saveOrFail();
         Session::flash('attributes', 'ویژگی جدید با موفقیت اضافه شد!');
 
-        return redirect('/administrator/attributes-group');
+        return redirect('/administrator/attribute-groups');
     }
 
     /**
@@ -78,7 +78,7 @@ class AttributeGroupController extends Controller
         $attributeGroup->saveOrFail();
         Session::flash('attributes', 'ویژگی با موفقیت به روزرسانی شد!');
 
-        return redirect('/administrator/attributes-group');
+        return redirect('/administrator/attribute-groups');
     }
 
     /**
@@ -93,6 +93,6 @@ class AttributeGroupController extends Controller
         $attributeGroup->delete();
         Session::flash('attributes', 'ویژگی و مقادیر آن با موفقیت حذف شدند!');
 
-        return redirect('/administrator/attributes-group');
+        return redirect('/administrator/attribute-groups');
     }
 }

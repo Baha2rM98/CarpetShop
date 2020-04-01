@@ -352,9 +352,9 @@
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{route('attributes-group.index')}}"><i class="fa fa-circle-o"></i>لیست ویژگی
+                        <li><a href="{{route('attribute-groups.index')}}"><i class="fa fa-circle-o"></i>لیست ویژگی
                                 ها</a>
-                        <li><a href="{{route('attributes-value.index')}}"><i class="fa fa-circle-o"></i>مقادیر ویژگی ها</a>
+                        <li><a href="{{route('attribute-values.index')}}"><i class="fa fa-circle-o"></i>مقادیر ویژگی ها</a>
                         </li>
                     </ul>
                 </li>

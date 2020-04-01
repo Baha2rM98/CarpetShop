@@ -21,7 +21,7 @@
                 @endif
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
-                        <form method="post" action="/administrator/attributes-value">
+                        <form method="post" action="/administrator/attribute-values">
                             @csrf
                             <div class="form-group">
                                 <label for="name">انتخاب ویژگی</label>

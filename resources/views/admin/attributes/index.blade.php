@@ -6,7 +6,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title pull-right">ویژگی ها</h3>
                 <div class="text-left">
-                    <a class="btn btn-app" href="{{route('attributes-group.create')}}"><i
+                    <a class="btn btn-app" href="{{route('attribute-groups.create')}}"><i
                             class="fa fa-plus"></i>جدید</a>
                 </div>
             </div>
@@ -35,10 +35,10 @@
                                 <td class="text-center">{{$attribute->type}}</td>
                                 <td class="text-center">
                                     <a class="btn btn-warning"
-                                       href="{{route('attributes-group.edit', $attribute->id)}}">ویرایش</a>
+                                       href="{{route('attribute-groups.edit', $attribute->id)}}">ویرایش</a>
                                     <div class="display-inline-block">
                                         <form method="post" name="_method"
-                                              action="/administrator/attributes-group/{{$attribute->id}}">
+                                              action="/administrator/attribute-groups/{{$attribute->id}}">
                                             @csrf
                                             <input type="hidden" name="_method" value="DELETE">
                                             <button type="submit" class="btn btn-danger">حذف</button>
