@@ -2,8 +2,6 @@
 
 namespace App;
 
-use Illuminate\Support\Facades\Session;
-
 class Cart
 {
     /**
@@ -100,14 +98,16 @@ class Cart
     public function remove($item, $id)
     {
         if (isset($this->items) && array_key_exists($id, $this->items)) {
-            $this->totalQuantity--;
-            $this->totalPurePrice -= $item->price;
             if (isset($item->discount_price)) {
+                $this->items[$id]['price'] -= $item->discount_price;
                 $this->totalPrice -= $item->discount_price;
                 $this->totalDiscountPrice -= ($item->price - $item->discount_price);
             } else {
+                $this->items[$id]['price'] -= $item->price;
                 $this->totalPrice -= $item->price;
             }
+            $this->totalQuantity--;
+            $this->totalPurePrice -= $item->price;
             if ($this->items[$id]['quantity'] > 1) {
                 $this->items[$id]['quantity']--;
             } else {
