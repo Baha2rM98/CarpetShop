@@ -1,5 +1,6 @@
 <?php
 
+use App\Product;
 use Illuminate\Database\Seeder;
 
 class ProductsTableSeeder extends Seeder
@@ -11,10 +12,6 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Product::class, 3)->create()->each(function ($product) {
-            $product->categories()->sync([1]);
-            $product->attributeValues()->sync([1, 2, 3]);
-            $product->photos()->sync([10]);
-        });
+        factory(Product::class, 20)->create();
     }
 }

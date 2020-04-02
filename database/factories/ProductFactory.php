@@ -10,12 +10,11 @@ $factory->define(Product::class, function (Faker $faker) {
     return [
         'title' => $faker->title,
         'sku' => $faker->postcode,
-        'slug' => $faker->slug,
-        'status' => 0,
+        'slug' => $faker->unique()->slug,
+        'status' => $faker->numberBetween(0, 1),
         'price' => $faker->randomDigit,
         'discount_price' => $faker->randomDigit,
         'description' => $faker->text,
-        'brand_id' => 1,
-        'user_id' => 1,
+        'brand_id' => $faker->numberBetween(1, 20),
     ];
 });
