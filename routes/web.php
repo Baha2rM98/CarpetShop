@@ -54,6 +54,9 @@ Route::get('/', 'Frontend\ShopHomeController@index');
 Route::get('/product/{slug}', 'Frontend\ProductController@getProduct')->name('product.introduce');
 
 
+Route::get('/category/{id}/{page?}', 'Frontend\ProductController@getProductsByCategory')->name('category.index');
+
+
 Auth::routes();
 Route::post('/register', 'Auth\RegisterController@register')->name('user.register');
 
