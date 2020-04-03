@@ -44,7 +44,7 @@
             console.log("CreateProductComponent mounted.");
             axios.get('/api/administrator/categories').then(
                 res => {
-                    this.getAllCategoriesChildren(res.data.categories, 0)
+                    this.getAllCategoriesChildren(res.data.categories, 0);
                 }
             ).catch(err => {
                 console.log(err)
