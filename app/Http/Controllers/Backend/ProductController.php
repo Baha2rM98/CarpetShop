@@ -241,7 +241,7 @@ class ProductController extends Controller
         $categories = $request->all();
         $attributeGroup = AttributeGroup::with('attributeValues')->whereHas(
             'categories', function ($query) use ($categories) {
-            $query->whereIn('categories.id', $categories);
+            $query->where('categories.id', $categories);
         })->get();
         return response()->json(['attributes' => $attributeGroup]);
     }
