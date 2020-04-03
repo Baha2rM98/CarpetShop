@@ -29,3 +29,9 @@ Route::get('/cities/{provinceId}', 'Auth\RegisterController@getAllCities');
 
 
 Route::get('/provinces', 'Auth\RegisterController@getAllProvinces');
+
+
+Route::get('/category/{id}/products', 'Frontend\ProductController@apiVueJsGetProductsByCategory');
+
+
+Route::get('/category/{id}/products-sorted/{sort}', 'Frontend\ProductController@apiVueJsGetSortedProductsByCategory');
