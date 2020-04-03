@@ -11,6 +11,8 @@ window.Vue = require('vue');
 import CreateProductComponent from "./components/CreateProductComponent";
 import EditProductComponent from "./components/EditProductComponent";
 import SelectCityProvinceComponent from "./components/SelectCityProvinceComponent";
+import ProductComponent from "./components/ProductComponent";
+import Paginate from 'vuejs-paginate';
 
 /**
  * The following block of code may be used to automatically register your
@@ -26,6 +28,8 @@ import SelectCityProvinceComponent from "./components/SelectCityProvinceComponen
 Vue.component('create-product-component', CreateProductComponent);
 Vue.component('edit-product-component', EditProductComponent);
 Vue.component('select-city-province-component', SelectCityProvinceComponent);
+Vue.component('product-component', ProductComponent);
+Vue.component('paginate', Paginate);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
