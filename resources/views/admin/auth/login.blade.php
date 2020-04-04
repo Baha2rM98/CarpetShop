@@ -1,11 +1,16 @@
 @extends('admin.layout.master-auth')
-
+<title>صفحه مدیریت ورود</title>
 @section('content')
     <div class="row" style="margin-right: 50px;">
         <!--Middle Part Start-->
         <div class="col-sm-9" id="content">
+            @if(\Illuminate\Support\Facades\Session::has('ok'))
+                <div class="alert alert-success" style="margin-top: 20px">
+                    <div>{{session('ok')}}</div>
+                </div>
+            @endif
             <h2 class="title" style="color: #1d2124;">ورود</h2>
-            <form class="form-horizontal" style="margin-top: 50px" method="post" action="">
+            <form class="form-horizontal" style="margin-top: 50px" method="post" action="{{route('admin.login')}}">
                 @csrf
                     <div class="form-group required">
                         <label for="input-email" class="col-sm-2 control-label" style="color: #1d2124">آدرس ایمیل</label>
@@ -14,7 +19,7 @@
                                    name="email">
                             @if($errors->has('email'))
                                 <span class="invalid-feedback" role="alert">
-                                <strong>{{$errors->first('email')}}</strong>
+                                <strong style="color: #1d2124">{{$errors->first('email')}}</strong>
                             </span>
                             @endif
                         </div>
@@ -26,7 +31,7 @@
                                    value="" name="password">
                             @if($errors->has('password'))
                                 <span class="invalid-feedback" role="alert">
-                                <strong>{{$errors->first('password')}}</strong>
+                                <strong style="color: #1d2124">{{$errors->first('password')}}</strong>
                             </span>
                             @endif
                         </div>

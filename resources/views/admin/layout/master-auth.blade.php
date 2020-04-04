@@ -2,9 +2,9 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>پنل مدیریت فروشگاه فرش</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link href="/image/favicon.png" rel="icon" />
     <!-- Bootstrap 3.3.6 -->
     <link rel="stylesheet" href="/admin/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
@@ -61,13 +61,13 @@
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
                 <li class="treeview">
-                    <a href="">
+                    <a href="{{route('admin.register.form')}}">
                         <i class="fa fa-4x"></i>
                         <span>ثبت نام</span>
                     </a>
                 </li>
                 <li class="treeview">
-                    <a href="">
+                    <a href="{{route('admin.login.form')}}">
                         <i class="fa fa-4x"></i>
                         <span>ورود</span>
                     </a>
