@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 
-class MainController extends Controller
+class AdminController extends Controller
 {
-    public function mainPage()
+    public function dashboard()
     {
         return view('admin.main.index');
     }
