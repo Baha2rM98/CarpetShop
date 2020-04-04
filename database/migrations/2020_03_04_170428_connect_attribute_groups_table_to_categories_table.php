@@ -16,9 +16,9 @@ class ConnectAttributeGroupsTableToCategoriesTable extends Migration
         Schema::create('attributegroup_category', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('attribute_group_id')->unsigned();
-            $table->foreign('attribute_group_id')->references('id')->on('attribute_groups')->onDelete('cascade');
+            $table->foreign('attribute_group_id')->references('id')->on('attribute_groups');
             $table->bigInteger('category_id')->unsigned();
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -16,9 +16,9 @@ class CreateCouponUserTable extends Migration
         Schema::create('coupon_user', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('coupon_id')->unsigned();
-            $table->foreign('coupon_id')->references('id')->on('coupons')->onDelete('cascade');
+            $table->foreign('coupon_id')->references('id')->on('coupons');
             $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
             $table->softDeletes();
         });
