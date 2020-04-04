@@ -3,6 +3,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>صفحه مدیریت فروشگاه فرش</title>
+    <link href="/image/favicon.png" rel="icon" />
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -62,8 +63,12 @@
                 </div>
                 <div class="pull-right info">
                     <p>صفحه مدیریت</p>
-                    <a><i class="fa fa-circle text-success"></i> Online</a>
+                    <a>{{\Illuminate\Support\Facades\Auth::guard('admin')->user()->name}}</a>
+                    <a href="{{route('admin.logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">خروج</a>
                 </div>
+                <form id="logout-form" action="{{route('admin.logout')}}" method="post" style="display: none">
+                    @csrf
+                </form>
             </div>
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
