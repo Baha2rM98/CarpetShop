@@ -2,7 +2,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>صفحه مدیریت فروشگاه فرش</title>
+    <title>پنل مدیریت فروشگاه فرش</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -35,7 +35,6 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    @yield('styles')
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -45,92 +44,41 @@
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>A</b>LT</span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg">پنل مدیریت دیجی فرش</span>
+            <span class="logo-lg">بخش ورود و ثبت نام</span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top">
+            <div class="col-sm-offset-4">
+                <h3 style="color: white;">پنل مدیریت فروشگاه دیجی فرش</h3>
+            </div>
         </nav>
     </header>
     <!-- Left side column. contains the logo and sidebar -->
-    <aside class="main-sidebar direction">
+
+    <aside class="main-sidebar direction" style="margin-top: 20px; margin-left: 10px">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
-            <!-- Sidebar user panel -->
-            <div class="user-panel">
-                <div class="pull-right image">
-                    <img src="/admin/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                </div>
-                <div class="pull-right info">
-                    <p>صفحه مدیریت</p>
-                    <a><i class="fa fa-circle text-success"></i> Online</a>
-                </div>
-            </div>
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
-                <li class="header">منو اصلی</li>
                 <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-database"></i>
-                        <span>دسته بندی ها</span>
-                        <i class="fa fa-angle-left pull-right"></i>
+                    <a href="">
+                        <i class="fa fa-4x"></i>
+                        <span>ثبت نام</span>
                     </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{route('categories.index')}}"><i class="fa fa-circle-o"></i>لیست دسته بندی ها</a>
-                        </li>
-                    </ul>
                 </li>
                 <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-database"></i>
-                        <span>ویژگی ها</span>
-                        <i class="fa fa-angle-left pull-right"></i>
+                    <a href="">
+                        <i class="fa fa-4x"></i>
+                        <span>ورود</span>
                     </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{route('attribute-groups.index')}}"><i class="fa fa-circle-o"></i>لیست ویژگی
-                                ها</a>
-                        <li><a href="{{route('attribute-values.index')}}"><i class="fa fa-circle-o"></i>مقادیر ویژگی ها</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-database"></i>
-                        <span>برندها</span>
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{route('brands.index')}}"><i class="fa fa-circle-o"></i>لیست برندها</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-cart-plus"></i>
-                        <span>محصولات</span>
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{route('products.index')}}"><i class="fa fa-circle-o"></i>لیست محصولات</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-ticket"></i>
-                        <span>کدهای تخفیف</span>
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{route('coupons.index')}}"><i class="fa fa-circle-o"></i>لیست کدهای تخفیف</a>
-                        </li>
-                    </ul>
                 </li>
             </ul>
         </section>
         <!-- /.sidebar -->
     </aside>
+
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="content-wrapper" style="color: #e2f0fb">
     @yield('content')
     <!-- Content Header (Page header) -->
     </div>
@@ -152,7 +100,6 @@
 </script>
 <!-- Bootstrap 3.3.6 -->
 <script src="/admin/bootstrap/js/bootstrap.min.js"></script>
-@yield('script-vuejs')
 <!-- Morris.js charts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <script src="/admin/plugins/morris/morris.min.js"></script>
@@ -179,7 +126,6 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="/admin/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
-@yield('scripts')
 <script src="/admin/dist/js/demo.js"></script>
 </body>
 </html>
