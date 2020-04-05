@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Helpers\ModelHelper;
+use App\Helper\Helper;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -44,7 +44,7 @@ class Product extends Model
         parent::boot();
         self::deleting(function (Product $product) {
             foreach ($product->photos as $photo) {
-                Storage::disk('local')->delete('public/photos/'.ModelHelper::getFileAbsolutePath('photos',
+                Storage::disk('local')->delete('public/photos/'.Helper::getFileAbsolutePath('photos',
                         $photo->path));
             }
             $product->photos()->delete();

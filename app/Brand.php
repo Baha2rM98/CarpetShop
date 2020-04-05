@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Helpers\ModelHelper;
+use App\Helper\Helper;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -34,7 +34,7 @@ class Brand extends Model
     {
         parent::boot();
         self::deleting(function (Brand $brand) {
-            Storage::disk('local')->delete('public/photos/'.ModelHelper::getFileAbsolutePath('photos',
+            Storage::disk('local')->delete('public/photos/'.Helper::getFileAbsolutePath('photos',
                     $brand->photo->path));
             $brand->photo->delete();
         });
