@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Helpers;
+namespace App\Helper;
 
 use Illuminate\Support\Str;
 
-trait ModelHelper
+trait Helper
 {
     /**
      * Returns absolute path of uploaded files on server
