@@ -59,7 +59,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group required">
                         <label for="input-fax" class="col-sm-2 control-label">کدملی</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="input-fax" placeholder="کدملی" value=""
