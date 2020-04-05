@@ -15,13 +15,6 @@ use Illuminate\View\View;
 class AdminLoginController extends Controller
 {
     /**
-     * Where to redirect users after login
-     *
-     * @var string
-     */
-    private $redirectTo = '/administrator/';
-
-    /**
      * Create a new controller instance.
      *
      * @return void
@@ -53,7 +46,7 @@ class AdminLoginController extends Controller
     {
         $this->validator($request);
         if ($this->guard()->attempt($request->only('email', 'password'))) {
-            return redirect()->intended($this->redirectTo);
+            return redirect()->intended();
         }
 
         Session::flash('email', 'نام کاربری یا رمز عبور اشتباه است!');
