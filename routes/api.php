@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Helper\Helper;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,13 +15,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::middleware(['auth:admin', 'throttle:80,1'])->prefix('/administrator')->group(function () {
+Route::domain(Helper::getApplicationSubDomain())->group(function () {
 
 
-    Route::get('/categories', 'Backend\ProductController@apiVueJsGetCategories');
+    Route::middleware(['auth:admin', 'throttle:80,1'])->group(function () {
 
 
-    Route::post('/category/attributes', 'Backend\ProductController@apiVueJsGetCategoryAttributes');
+        Route::get('/categories', 'Backend\ProductController@apiVueJsGetCategories');
+
+
+        Route::post('/category/attributes', 'Backend\ProductController@apiVueJsGetCategoryAttributes');
+    });
 });
 
 

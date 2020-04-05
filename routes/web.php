@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Helper\Helper;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,37 +15,57 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('/administrator')->group(function () {
+
+Route::domain(Helper::getApplicationSubDomain())->group(function () {
 
 
-    Route::get('/', 'Backend\AdminController@dashboard');
+    Route::get('/register', 'AuthAdmin\AdminRegisterController@showRegistrationForm')->name('admin.register.form');
 
 
-    Route::resource('/categories', 'Backend\CategoryController');
+    Route::post('/register', 'AuthAdmin\AdminRegisterController@register')->name('admin.register');
 
 
-    Route::get('/category/{id}/attributes', 'Backend\CategoryController@indexAttributes')->name('category.attributes');
+    Route::get('/login', 'AuthAdmin\AdminLoginController@showLoginForm')->name('admin.login.form');
 
 
-    Route::post('/category/{id}/attributes', 'Backend\CategoryController@saveAttributes');
+    Route::post('/login', 'AuthAdmin\AdminLoginController@login')->name('admin.login');
 
 
-    Route::resource('/attribute-groups', 'Backend\AttributeGroupController');
+    Route::post('/logout', 'AuthAdmin\AdminLoginController@logout')->name('admin.logout');
 
 
-    Route::resource('/attribute-values', 'Backend\AttributeValueController');
+    Route::middleware('auth:admin')->group(function () {
 
 
-    Route::resource('/brands', 'Backend\BrandController');
+        Route::get('/', 'Backend\AdminController@dashboard');
 
 
-    Route::post('/photos/upload', 'Backend\PhotoController@uploadPhoto')->name('photos.upload');
+        Route::resource('/categories', 'Backend\CategoryController');
 
 
-    Route::resource('/products', 'Backend\ProductController');
+        Route::get('/category/{id}/attributes', 'Backend\CategoryController@indexAttributes')->name('category.attributes');
 
 
-    Route::resource('/coupons', 'Backend\CouponController');
+        Route::post('/category/{id}/attributes', 'Backend\CategoryController@saveAttributes');
+
+
+        Route::resource('/attribute-groups', 'Backend\AttributeGroupController');
+
+
+        Route::resource('/attribute-values', 'Backend\AttributeValueController');
+
+
+        Route::resource('/brands', 'Backend\BrandController');
+
+
+        Route::post('/photos/upload', 'Backend\PhotoController@uploadPhoto')->name('photos.upload');
+
+
+        Route::resource('/products', 'Backend\ProductController');
+
+
+        Route::resource('/coupons', 'Backend\CouponController');
+    });
 });
 
 
