@@ -18,4 +18,14 @@ trait Helper
     {
         return Str::replaceArray('/storage/'.$dir.'/', [''], $path);
     }
+
+    /**
+     * Returns application sub domain url
+     *
+     * @return string
+     */
+    public static function getApplicationSubDomain()
+    {
+        return 'admin.'.parse_url(config('app.url'), PHP_URL_HOST);
+    }
 }
