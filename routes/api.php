@@ -14,8 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-
-Route::prefix('/administrator')->group(function () {
+Route::middleware(['auth:admin', 'throttle:80,1'])->prefix('/administrator')->group(function () {
 
 
     Route::get('/categories', 'Backend\ProductController@apiVueJsGetCategories');
@@ -25,13 +24,18 @@ Route::prefix('/administrator')->group(function () {
 });
 
 
-Route::get('/cities/{provinceId}', 'Auth\RegisterController@getAllCities');
+Route::middleware('throttle:80,1')->group(function () {
 
 
-Route::get('/provinces', 'Auth\RegisterController@getAllProvinces');
+    Route::get('/cities/{provinceId}', 'Auth\RegisterController@getAllCities');
 
 
-Route::get('/category/{id}/products', 'Frontend\ProductController@apiVueJsGetProductsByCategory');
+    Route::get('/provinces', 'Auth\RegisterController@getAllProvinces');
 
 
-Route::get('/category/{id}/products-sorted/{sort}', 'Frontend\ProductController@apiVueJsGetSortedProductsByCategory');
+    Route::get('/category/{id}/products', 'Frontend\ProductController@apiVueJsGetProductsByCategory');
+
+
+    Route::get('/category/{id}/products-sorted/{sort}',
+        'Frontend\ProductController@apiVueJsGetSortedProductsByCategory');
+});
