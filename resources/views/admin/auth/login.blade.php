@@ -5,10 +5,15 @@
         <!--Middle Part Start-->
         <div class="col-sm-9" id="content">
             @if(\Illuminate\Support\Facades\Session::has('ok'))
-                <div class="alert alert-success" style="margin-top: 20px">
+                <div class="alert alert-success" style="margin-top: 40px">
                     <div>{{session('ok')}}</div>
                 </div>
             @endif
+                @if(\Illuminate\Support\Facades\Session::has('email'))
+                    <div class="alert alert-error" style="margin-top: 40px">
+                        <div>{{session('email')}}</div>
+                    </div>
+                @endif
             <h2 class="title" style="color: #1d2124;">ورود</h2>
             <form class="form-horizontal" style="margin-top: 50px" method="post" action="{{route('admin.login')}}">
                 @csrf
