@@ -42,7 +42,7 @@
         props: ['brands'],
         mounted() {
             console.log("CreateProductComponent mounted.");
-            axios.get('/api/administrator/categories').then(
+            axios.get('/api/categories').then(
                 res => {
                     this.getAllCategoriesChildren(res.data.categories, 0);
                 }
@@ -65,7 +65,7 @@
             },
             onChange: function () {
                 this.flag = false;
-                axios.post('/api/administrator/category/attributes', this.selectedCategories).then(
+                axios.post('/api/category/attributes', this.selectedCategories).then(
                     res => {
                         this.attributes = res.data.attributes;
                         this.flag = true;
