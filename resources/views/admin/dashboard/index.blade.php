@@ -23,8 +23,8 @@
         <div class="row">
             <br>
             <br>
-            <div class="col-sm-offset-1">
-                <h2>به پنل مدیریت خوش آمدید!</h2>
+            <div class="col-sm-offset-1 alert alert-success">
+                <h2>{{$admin->name . ' ' . $admin->last_name . ' ' . 'عزیز به پنل مدیریت خوش آمدید!'}}</h2>
             </div>
         </div>
         <!-- /.row (main row) -->
