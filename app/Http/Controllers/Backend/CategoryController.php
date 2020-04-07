@@ -26,7 +26,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::with('children')->where('parent_id', null)->get();
+        $categories = Category::with('children')->where('parent_id', null)->paginate(10);
 
         return view('admin.categories.index', compact('categories'));
     }
@@ -56,7 +56,7 @@ class CategoryController extends Controller
         (new Category($request->all()))->saveOrFail();
         Session::flash('attributes', 'دسته بندی جدید با موفقیت اضافه شد!');
 
-        return redirect('/administrator/categories');
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -91,7 +91,7 @@ class CategoryController extends Controller
         $category->saveOrFail();
         Session::flash('attributes', 'دسته بندی با موفقیت به روزرسانی شد!');
 
-        return redirect('/administrator/categories');
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -109,12 +109,12 @@ class CategoryController extends Controller
             Session::flash('error_category',
                 'دسته بندی '."[ $category->name ]".' دارای زیردسته است، بنابراین حذف آن امکان پذیر نیست.');
 
-            return redirect('/administrator/categories');
+            return redirect()->route('categories.index');
         }
         $category->delete();
         Session::flash('attributes', 'دسته بندی با موفقیت حذف شد!');
 
-        return redirect('/administrator/categories');
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -151,6 +151,6 @@ class CategoryController extends Controller
         $category->saveOrFail();
         Session::flash('settings', 'ویژگی های دسته بندی '." [ $category->name ] ".' با موفقیت ذخیره شدند!');
 
-        return redirect('/administrator/categories');
+        return redirect()->route('categories.index');
     }
 }

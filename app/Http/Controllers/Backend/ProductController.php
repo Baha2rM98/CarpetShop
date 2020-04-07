@@ -7,7 +7,6 @@ use App\Brand;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Product;
-use App\Rules\CheckUniqueSlugForProduct;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -34,9 +33,9 @@ class ProductController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     *
      * @return Factory|View
      * @method apiVueJsGetCategories
-     * @method apiVueJsGetBrands
      * @method apiVueJsGetCategoriesAttributes
      */
     public function create()
@@ -68,7 +67,7 @@ class ProductController extends Controller
         $product->photos()->sync(explode(',', $request->input('photo_id')[0]));
         Session::flash('products', 'محصول جدید با موفقیت ذخیره شد!');
 
-        return redirect('/administrator/products');
+        return redirect()->route('products.index');
     }
 
     /**
@@ -107,7 +106,7 @@ class ProductController extends Controller
         $product->photos()->sync(explode(',', $request->input('photo_id')[0]));
         Session::flash('products', 'محصول با موفقیت ویرایش شد!');
 
-        return redirect('/administrator/products');
+        return redirect()->route('products.index');
     }
 
     /**
@@ -119,11 +118,11 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $product = Product::with('photos')->whereId($id)->first();
+        $product = Product::findOrFail($id);
         $product->delete();
         Session::flash('products', 'محصول با موفقیت حذف شد!');
 
-        return redirect('/administrator/products');
+        return redirect()->route('products.index');
     }
 
     /**
@@ -136,9 +135,44 @@ class ProductController extends Controller
      */
     private function productValidator(Request $request, $id = null)
     {
+        $request = $request->merge(['slug' => self::makeSlug($request->input('slug'))]);
+
+        if (isset($id)) {
+            return $this->validate($request, [
+                'title' => ['bail', 'required', 'min:2', 'max:100'],
+                'slug' => ['bail', 'required', 'unique:products,slug,'.$id, 'max:100'],
+                'categories' => ['required', 'array'],
+                'brand_id' => 'required',
+                'status' => 'required',
+                'price' => ['bail', 'required', 'numeric', 'digits_between:1,15'],
+                'discount_price' => ['bail', 'nullable', 'numeric', 'digits_between:1,15', 'lt:price'],
+                'description' => ['bail', 'required', 'max:100000'],
+                'photo_id.*' => 'required'
+            ], [
+                'title.required' => 'نام محصول نمیتواند خالی باشد!',
+                'title.min' => 'نام محصول نمیتواند کمتر از 2 کاراکتر باشد!',
+                'title.max' => 'نام محصول نمیتواند بیشتر از 100 کاراکتر باشد!',
+                'slug.required' => 'نام مستعار محصول نمیتواند خالی باشد!',
+                'slug.max' => 'نام مستعار محصول نمیتواند بیشتر از 100 کاراکتر باشد!',
+                'slug.unique' => 'این نام مستعار قبلا ثبت شده است!',
+                'categories.required' => 'هر محصول باید حداقل متعلق به یک دسته بندی باشد!',
+                'brand_id.required' => 'هر محصول باید متعلق به یک برند باشد!',
+                'status.required' => 'وضعیت محصول باید درج شود!',
+                'price.required' => 'قیمت محصول نمیتواند خالی باشد!',
+                'price.numeric' => 'قیمت محصول باید از نوع عدد باشد!',
+                'price.digits_between' => 'قیمت وارد شده بزرگ تر از حد مجاز است!',
+                'discount_price.numeric' => 'قیمت ویژه محصول باید از نوع عدد باشد!',
+                'discount_price.digits_between' => 'قیمت ویژه وارد شده بزرگ تر از حد مجاز است!',
+                'discount_price.lt' => 'قیمت ویژه محصول نمیتواند از قیمت اصلی آن بزرگتر یا برابر باشد!',
+                'description.required' => 'توضیحات محصول نمیتواند خالی باشد!',
+                'description.max' => 'توضیحات محصول نمیتواند بیشتر ار 100000 کاراکتر باشد!',
+                'photo_id.*.required' => 'عکس محصول نمیتواند خالی باشد!'
+            ]);
+        }
+
         return $this->validate($request, [
             'title' => ['bail', 'required', 'min:2', 'max:100'],
-            'slug' => ['bail', 'required', new CheckUniqueSlugForProduct($id), 'max:100'],
+            'slug' => ['bail', 'required', 'unique:products', 'max:100'],
             'categories' => ['required', 'array'],
             'brand_id' => 'required',
             'status' => 'required',
@@ -152,6 +186,7 @@ class ProductController extends Controller
             'title.max' => 'نام محصول نمیتواند بیشتر از 100 کاراکتر باشد!',
             'slug.required' => 'نام مستعار محصول نمیتواند خالی باشد!',
             'slug.max' => 'نام مستعار محصول نمیتواند بیشتر از 100 کاراکتر باشد!',
+            'slug.unique' => 'این نام مستعار قبلا ثبت شده است!',
             'categories.required' => 'هر محصول باید حداقل متعلق به یک دسته بندی باشد!',
             'brand_id.required' => 'هر محصول باید متعلق به یک برند باشد!',
             'status.required' => 'وضعیت محصول باید درج شود!',

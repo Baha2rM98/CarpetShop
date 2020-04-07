@@ -21,7 +21,7 @@ class AttributeGroupController extends Controller
      */
     public function index()
     {
-        $attributesGroup = AttributeGroup::all();
+        $attributesGroup = AttributeGroup::paginate(10);
 
         return view('admin.attributes.index', compact('attributesGroup'));
     }
@@ -48,7 +48,7 @@ class AttributeGroupController extends Controller
         (new AttributeGroup($request->all()))->saveOrFail();
         Session::flash('attributes', 'ویژگی جدید با موفقیت اضافه شد!');
 
-        return redirect('/administrator/attribute-groups');
+        return redirect()->route('attribute-groups.index');
     }
 
     /**
@@ -78,7 +78,7 @@ class AttributeGroupController extends Controller
         $attributeGroup->saveOrFail();
         Session::flash('attributes', 'ویژگی با موفقیت به روزرسانی شد!');
 
-        return redirect('/administrator/attribute-groups');
+        return redirect()->route('attribute-groups.index');
     }
 
     /**
@@ -93,6 +93,6 @@ class AttributeGroupController extends Controller
         $attributeGroup->delete();
         Session::flash('attributes', 'ویژگی و مقادیر آن با موفقیت حذف شدند!');
 
-        return redirect('/administrator/attribute-groups');
+        return redirect()->route('attribute-groups.index');
     }
 }

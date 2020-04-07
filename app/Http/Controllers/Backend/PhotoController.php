@@ -25,13 +25,14 @@ class PhotoController extends Controller
     {
         $this->photoValidator($request);
         $uploadedFile = $request->file('file');
-        $fileName = time().$uploadedFile->getClientOriginalName();
+        $path = time().$uploadedFile->getClientOriginalName();
         $originalName = $uploadedFile->getClientOriginalName();
         $photo = new Photo();
         $photo->original_name = $originalName;
-        $photo->path = $fileName;
+        $photo->path = $path;
         $photo->saveOrFail();
-        Storage::disk('local')->putFileAs('public/photos', $uploadedFile, $fileName);
+        Storage::disk('local')->putFileAs('public/photos', $uploadedFile, $path);
+
         return response()->json(['photo_id' => $photo->id]);
     }
 

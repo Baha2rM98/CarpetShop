@@ -22,7 +22,7 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $brands = Brand::all();
+        $brands = Brand::paginate(10);
 
         return view('admin.brands.index', compact('brands'));
     }
@@ -51,7 +51,7 @@ class BrandController extends Controller
         (new Brand($request->all()))->saveOrFail();
         Session::flash('brands', 'برند جدید با موفقیت ذخیره شد!');
 
-        return redirect('/administrator/brands');
+        return redirect()->route('brands.index');
     }
 
     /**
@@ -84,7 +84,7 @@ class BrandController extends Controller
         $brand->saveOrFail();
         Session::flash('brands', 'برند با موفقیت ویرایش شد!');
 
-        return redirect('/administrator/brands');
+        return redirect()->route('brands.index');
     }
 
     /**
@@ -96,11 +96,11 @@ class BrandController extends Controller
      */
     public function destroy($id)
     {
-        $brand = Brand::with('photo')->whereId($id)->first();
+        $brand = Brand::findOrFail($id);
         $brand->delete();
         Session::flash('brands', 'برند با موفقیت حذف شد!');
 
-        return redirect('/administrator/brands');
+        return redirect()->route('brands.index');
     }
 
     /**

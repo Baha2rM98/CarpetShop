@@ -21,7 +21,8 @@ class CouponController extends Controller
      */
     public function index()
     {
-        $coupons = Coupon::all();
+        $coupons = Coupon::paginate(10);
+
         return view('admin.coupons.index', compact('coupons'));
     }
 
@@ -45,9 +46,9 @@ class CouponController extends Controller
     public function store(CreateCouponRequest $request)
     {
         (new Coupon($request->all()))->saveOrFail();
-
         Session::flash('coupons', 'کد تخفیف جدید با موفقیت ذخیره شد!');
-        return redirect('/administrator/coupons');
+
+        return redirect()->route('coupons.index');
     }
 
     /**
@@ -75,9 +76,9 @@ class CouponController extends Controller
         $coupon = Coupon::findOrFail($id);
         $coupon->fill($request->all());
         $coupon->saveOrFail();
-
         Session::flash('coupons', 'کد تخفیف با موفقیت ویرایش شد!');
-        return redirect('/administrator/coupons');
+
+        return redirect()->route('coupons.index');
     }
 
     /**
@@ -89,8 +90,8 @@ class CouponController extends Controller
     public function destroy($id)
     {
         Coupon::findOrFail($id)->delete();
-
         Session::flash('coupons', 'کد تخفیف با موفقیت حذف شد!');
-        return redirect('/administrator/coupons');
+
+        return redirect()->route('coupons.index');
     }
 }

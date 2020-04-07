@@ -22,7 +22,8 @@ class AttributeValueController extends Controller
      */
     public function index()
     {
-        $attributesValue = AttributeValue::with('attributeGroup')->get();
+        $attributesValue = AttributeValue::with('attributeGroup')->paginate(10);
+
         return view('admin.attributes-value.index', compact('attributesValue'));
     }
 
@@ -34,6 +35,7 @@ class AttributeValueController extends Controller
     public function create()
     {
         $attributesGroup = AttributeGroup::all();
+
         return view('admin.attributes-value.create', compact('attributesGroup'));
     }
 
@@ -49,7 +51,7 @@ class AttributeValueController extends Controller
         (new AttributeValue($request->all()))->saveOrFail();
         Session::flash('attributes-value', 'مقدار ویژگی با موفقیت ذخیره شد!');
 
-        return redirect('/administrator/attribute-values');
+        return redirect()->route('attribute-values.index');
     }
 
     /**
@@ -62,6 +64,7 @@ class AttributeValueController extends Controller
     {
         $attributesValue = AttributeValue::with('attributeGroup')->whereId($id)->first();
         $attributesGroup = AttributeGroup::all();
+
         return view('admin.attributes-value.edit', compact('attributesValue', 'attributesGroup'));
     }
 
@@ -79,7 +82,7 @@ class AttributeValueController extends Controller
         $attributeGroup->saveOrFail();
         Session::flash('attributes-value', 'مقدار ویژگی با موفقیت به روزرسانی شد!');
 
-        return redirect('/administrator/attribute-values');
+        return redirect()->route('attribute-values.index');
     }
 
     /**
@@ -93,6 +96,7 @@ class AttributeValueController extends Controller
         $attributeValue = AttributeValue::findOrFail($id);
         $attributeValue->delete();
         Session::flash('attributes-value', 'مقدار ویژگی با موفقیت حذف شد!');
-        return redirect('/administrator/attribute-values');
+
+        return redirect()->route('attribute-values.index');
     }
 }
