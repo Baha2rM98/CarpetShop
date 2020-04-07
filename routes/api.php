@@ -41,6 +41,11 @@ Route::middleware('throttle:80,1')->group(function () {
     Route::get('/category/{id}/products', 'Frontend\ProductController@apiVueJsGetProductsByCategory');
 
 
-    Route::get('/category/{id}/products-sorted/{sort}',
-        'Frontend\ProductController@apiVueJsGetSortedProductsByCategory');
+    Route::get('/category/{id}/products-sorted/{sort}', 'Frontend\ProductController@apiVueJsGetSortedProductsByCategory');
+
+
+    Route::get('/category/{id}/attributes', 'Frontend\ProductController@apiVueJsGetCategoryAttribute');
+
+
+    Route::get('/category/{id}/filtered-products/{attributes}/{sort}', 'Frontend\ProductController@apiVueJsGetFilteredProducts');
 });
