@@ -7,7 +7,7 @@
                href="{{route('categories.edit', $subCategory->id)}}">ویرایش</a>
             <div class="display-inline-block">
                 <form method="post" name="_method"
-                      action="/administrator/categories/{{$subCategory->id}}">
+                      action="/categories/{{$subCategory->id}}">
                     @csrf
                     <input type="hidden" name="_method" value="DELETE">
                     <button type="submit" class="btn btn-danger">حذف</button>

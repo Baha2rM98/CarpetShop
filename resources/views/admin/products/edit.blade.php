@@ -22,7 +22,7 @@
                 @endif
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
-                        <form method="post" action="/administrator/products/{{$product->id}}">
+                        <form method="post" action="/products/{{$product->id}}">
                             @csrf
                             <input type="hidden" name="_method" value="PATCH">
                             <div class="form-group">

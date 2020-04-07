@@ -19,7 +19,7 @@
                 @endif
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
-                        <form method="post" action="/administrator/category/{{$category->id}}/attributes">
+                        <form method="post" action="/category/{{$category->id}}/attributes">
                             @csrf
                             <div class="form-group">
                                 <label for="name">ویژگی های دسته بندی {{$category->name}}</label>

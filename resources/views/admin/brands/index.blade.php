@@ -35,7 +35,7 @@
                                        href="{{route('brands.edit', $brand->id)}}">ویرایش</a>
                                     <div class="display-inline-block">
                                         <form method="post" name="_method"
-                                              action="/administrator/brands/{{$brand->id}}">
+                                              action="/brands/{{$brand->id}}">
                                             @csrf
                                             <input type="hidden" name="_method" value="DELETE">
                                             <button type="submit" class="btn btn-danger">حذف</button>
@@ -46,6 +46,7 @@
                         @endforeach
                         </tbody>
                     </table>
+                    <div class="col-md-12" style="text-align: center">{{$brands->links()}}</div>
                 </div>
                 <!-- /.table-responsive -->
             </div>

@@ -45,7 +45,7 @@
                                        href="{{route('coupons.edit', $coupon->id)}}">ویرایش</a>
                                     <div class="display-inline-block">
                                         <form method="post" name="_method"
-                                              action="/administrator/coupons/{{$coupon->id}}">
+                                              action="/coupons/{{$coupon->id}}">
                                             @csrf
                                             <input type="hidden" name="_method" value="DELETE">
                                             <button type="submit" class="btn btn-danger">حذف</button>
@@ -56,6 +56,7 @@
                         @endforeach
                         </tbody>
                     </table>
+                    <div class="col-md-12" style="text-align: center">{{$coupons->links()}}</div>
                 </div>
                 <!-- /.table-responsive -->
             </div>

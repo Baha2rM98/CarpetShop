@@ -38,7 +38,7 @@
                                        href="{{route('attribute-values.edit', $attribute->id)}}">ویرایش</a>
                                     <div class="display-inline-block">
                                         <form method="post" name="_method"
-                                              action="/administrator/attribute-values/{{$attribute->id}}">
+                                              action="/attribute-values/{{$attribute->id}}">
                                             @csrf
                                             <input type="hidden" name="_method" value="DELETE">
                                             <button type="submit" class="btn btn-danger">حذف</button>
@@ -49,6 +49,7 @@
                         @endforeach
                         </tbody>
                     </table>
+                    <div class="col-md-12" style="text-align: center">{{$attributesValue->links()}}</div>
                 </div>
                 <!-- /.table-responsive -->
             </div>

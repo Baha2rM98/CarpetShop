@@ -19,7 +19,7 @@
                 @endif
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
-                        <form method="post" action="/administrator/attribute-groups">
+                        <form method="post" action="/attribute-groups">
                             @csrf
                             <div class="form-group">
                                 <label for="name">عنوان</label>

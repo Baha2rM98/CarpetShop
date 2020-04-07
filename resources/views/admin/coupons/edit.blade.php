@@ -19,7 +19,7 @@
                 @endif
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
-                        <form method="post" action="/administrator/coupons/{{$coupon->id}}">
+                        <form method="post" action="/coupons/{{$coupon->id}}">
                             @csrf
                             <input type="hidden" name="_method" value="PATCH">
                             <div class="form-group">

@@ -45,7 +45,7 @@
                                        href="{{route('categories.edit', $category->id)}}">ویرایش</a>
                                     <div class="display-inline-block">
                                         <form method="post" name="_method"
-                                              action="/administrator/categories/{{$category->id}}">
+                                              action="/categories/{{$category->id}}">
                                             @csrf
                                             <input type="hidden" name="_method" value="DELETE">
                                             <button type="submit" class="btn btn-danger">حذف</button>
@@ -61,6 +61,7 @@
                         @endforeach
                         </tbody>
                     </table>
+                    <div class="col-md-12" style="text-align: center">{{$categories->links()}}</div>
                 </div>
                 <!-- /.table-responsive -->
             </div>

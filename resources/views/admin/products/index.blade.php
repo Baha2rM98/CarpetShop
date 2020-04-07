@@ -37,7 +37,7 @@
                                        href="{{route('products.edit', $product->id)}}">ویرایش</a>
                                     <div class="display-inline-block">
                                         <form method="post" name="_method"
-                                              action="/administrator/products/{{$product->id}}">
+                                              action="/products/{{$product->id}}">
                                             @csrf
                                             <input type="hidden" name="_method" value="DELETE">
                                             <button type="submit" class="btn btn-danger">حذف</button>
