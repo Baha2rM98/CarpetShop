@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\AttributeGroup;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Product;
@@ -39,6 +40,8 @@ class ProductController extends Controller
      * @return Factory|View
      * @see apiVueJsGetProductsByCategory
      * @see apiVueJsGetSortedProductsByCategory
+     * @see apiVueJsGetCategoryAttribute
+     * @see apiVueJsGetFilteredProducts
      */
     public function getProductsByCategory($id)
     {
@@ -46,9 +49,7 @@ class ProductController extends Controller
 
         // We get products by their categories by api vus js
 
-        $items = Category::all();
-
-        return view('frontend.categories.index', compact('category', 'items'));
+        return view('frontend.categories.index', compact('category'));
     }
 
     /*
@@ -96,6 +97,56 @@ class ProductController extends Controller
         $products = Product::with('photos')->whereHas('categories', function ($query) use ($id) {
             $query->where('categories.id', $id);
         })->orderBy('price', $sort)->paginate(10);
+
+        return response()->json(['products' => $products], 200);
+    }
+
+    /**
+     * Returns attribute groups and values for specified category
+     *
+     * @param  int  $id
+     * @return JsonResponse
+     */
+    public function apiVueJsGetCategoryAttribute($id)
+    {
+        $attributeGroups = AttributeGroup::with('attributeValues')
+            ->whereHas('categories', function ($query) use ($id) {
+                $query->where('categories.id', $id);
+            })->get();
+
+        return response()->json(['attributeGroups' => $attributeGroups], 200);
+    }
+
+    /**
+     *
+     *
+     * @param  int  $id
+     * @param  string  $attributes
+     * @param  string  $sort
+     * @return JsonResponse
+     */
+    public function apiVueJsGetFilteredProducts($id, $attributes, $sort)
+    {
+        $attributes = json_decode($attributes, true);
+        if ($sort === 'default') {
+            $products = Product::with('photos')
+                ->whereHas('categories', function ($query) use ($id) {
+                    $query->where('categories.id', $id);
+                })->whereHas('attributeValues', function ($query) use ($attributes) {
+                    $query->whereIn('attribute_value_id', $attributes);
+                })
+                ->paginate(10);
+
+            return response()->json(['products' => $products], 200);
+        }
+
+        $products = Product::with('photos')
+            ->whereHas('categories', function ($query) use ($id) {
+                $query->where('categories.id', $id);
+            })->whereHas('attributeValues', function ($query) use ($attributes) {
+                $query->whereIn('attribute_value_id', $attributes);
+            })
+            ->orderBy('price', $sort)->paginate(10);
 
         return response()->json(['products' => $products], 200);
     }
