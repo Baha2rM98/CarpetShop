@@ -2,7 +2,7 @@
     <div>
         <div class="form-group">
             <label>دسته بندی</label>
-            <select name="categories[]" id="" class="form-control" multiple v-model="selectedCategories"
+            <select name="categories[]" id="" class="form-control" multiple="multiple" v-model="selectedCategories"
                     @change="onChange()">
                 <option v-for="category in categories" :value="category.id">{{category.name}}</option>
             </select>
@@ -11,12 +11,7 @@
             <div class="form-group" v-for="(attribute, index) in attributes">
                 <label>ویژگی {{attribute.title}}</label>
                 <select name="attributes[]" class="form-control" @change="addAttribute($event, index)">
-                    <option v-for="attributeValue in attribute.attribute_values" :value="attributeValue.id"
-                            :selected="product.attribute_values[index] &&
-                            product.attribute_values[index]['id']
-                             === attributeValue.id">
-                        {{attributeValue.title}}
-                    </option>
+                    <option v-for="attributeValue in attribute.attribute_values" :value="attributeValue.id" :selected="product.attribute_values[index] && product.attribute_values[index]['id'] === attributeValue.id">{{attributeValue.title}}</option>
                 </select>
             </div>
         </div>
