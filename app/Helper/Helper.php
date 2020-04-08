@@ -28,4 +28,15 @@ trait Helper
     {
         return 'admin.'.parse_url(env('app_url'), PHP_URL_HOST);
     }
+
+    /**
+     * Checks if all values of array is ['null']
+     *
+     * @param  array  $array
+     * @return bool
+     */
+    public function isAllValuesNull(array $array)
+    {
+        return array_unique(array_values($array)) === ['null'];
+    }
 }
