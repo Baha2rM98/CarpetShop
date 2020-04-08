@@ -17,6 +17,14 @@ use Illuminate\Support\Facades\Storage;
 class Brand extends Model
 {
     use SoftDeletes;
+    use Helper;
+
+    /**
+     * The attributes that should be mutated to dates
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
 
     /**
      * The attributes that are mass assignable.
@@ -34,7 +42,7 @@ class Brand extends Model
     {
         parent::boot();
         self::deleting(function (Brand $brand) {
-            Storage::disk('local')->delete('public/photos/'.Helper::getFileAbsolutePath('photos',
+            Storage::disk('local')->delete('public/photos/'.self::getFileAbsolutePath('photos',
                     $brand->photo->path));
             $brand->photo->delete();
         });
