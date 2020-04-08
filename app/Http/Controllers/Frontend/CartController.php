@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Cart;
+use App\Category;
 use App\Http\Controllers\Controller;
 use App\Product;
 use Illuminate\Contracts\View\Factory;
@@ -13,6 +14,18 @@ use Illuminate\View\View;
 
 class CartController extends Controller
 {
+    /**
+     * Shows shopping bag index
+     *
+     * @return Factory|View
+     */
+    public function getCart()
+    {
+        $menus = Category::all();
+        $cart = Session::has('cart') ? Session::get('cart') : null;
+        return view('frontend.cart.index', compact('menus', 'cart'));
+    }
+
     /**
      * Adds a product to session
      *
@@ -47,16 +60,5 @@ class CartController extends Controller
         $cart->remove($product, $product->id);
         $request->session()->put('cart', $cart);
         return back();
-    }
-
-    /**
-     * Shows shopping bag index
-     *
-     * @return Factory|View
-     */
-    public function getCart()
-    {
-        $cart = Session::has('cart') ? Session::get('cart') : null;
-        return view('frontend.cart.index', compact('cart'));
     }
 }

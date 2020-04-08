@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Facades\Auth;
@@ -16,8 +17,9 @@ class UserController extends Controller
      */
     public function dashboard()
     {
+        $menus = Category::all();
         $user = Auth::user();
 
-        return view('frontend.dashboard.index', compact('user'));
+        return view('frontend.dashboard.index', compact('user', 'menus'));
     }
 }

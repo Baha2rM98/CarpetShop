@@ -24,6 +24,7 @@ class ProductController extends Controller
      */
     public function getProduct($slug)
     {
+        $menus = Category::all();
         $product = Product::with('brand', 'attributeValues.attributeGroup', 'photos', 'categories')
             ->whereSlug($slug)->first();
         if (is_null($product)) {
@@ -33,7 +34,7 @@ class ProductController extends Controller
             $query->whereIn('categories.id', $product->categories);
         })->get();
 
-        return view('frontend.products.index', compact('product', 'relatedProducts'));
+        return view('frontend.products.index', compact('menus', 'product', 'relatedProducts'));
     }
 
     /**
@@ -48,11 +49,12 @@ class ProductController extends Controller
      */
     public function getProductsByCategory($id)
     {
+        $menus = Category::all();
         $category = Category::findOrFail($id);
 
         // We get products by their categories by api vus js
 
-        return view('frontend.categories.index', compact('category'));
+        return view('frontend.categories.index', compact('menus', 'category'));
     }
 
     /*

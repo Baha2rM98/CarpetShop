@@ -18,8 +18,8 @@ class ShopHomeController extends Controller
     public function index()
     {
         $products = Product::orderByDesc('created_at')->get();
-        $categories = Category::orderByDesc('created_at')->get();
+        $menus = Category::all();
 
-        return view('frontend.home.index', compact('products', 'categories'));
+        return view('frontend.home.index', compact('products', 'menus'));
     }
 }
