@@ -128,21 +128,7 @@
                 </div>
             </div>
         </header>
-        <!-- Header End-->
-        <!-- Main آقایانu Start-->
-
-        <nav id="menu" class="navbar">
-            <div class="navbar-header"> <span class="visible-xs visible-sm"> منو <b></b></span></div>
-            <div class="container">
-                <div class="collapse navbar-collapse navbar-ex1-collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a class="home_link" title="خانه" href="{{url('/')}}">خانه</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <!-- Main آقایانu End-->
+        @yield('menu')
     </div>
 
 
