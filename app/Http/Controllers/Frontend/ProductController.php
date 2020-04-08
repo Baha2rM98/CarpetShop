@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\AttributeGroup;
 use App\Category;
+use App\Helper\Helper;
 use App\Http\Controllers\Controller;
 use App\Product;
 use Illuminate\Contracts\View\Factory;
@@ -13,6 +14,8 @@ use Illuminate\View\View;
 
 class ProductController extends Controller
 {
+    use Helper;
+
     /**
      * Returns a product, its features and its related products
      *
@@ -118,7 +121,7 @@ class ProductController extends Controller
     }
 
     /**
-     *
+     * Returns filtered products
      *
      * @param  int  $id
      * @param  string  $attributes
@@ -128,6 +131,11 @@ class ProductController extends Controller
     public function apiVueJsGetFilteredProducts($id, $attributes, $sort)
     {
         $attributes = json_decode($attributes, true);
+
+        if ($attributes === [] || $this->isAllValuesNull($attributes)) {
+            return $this->apiVueJsGetSortedProductsByCategory($id, $sort);
+        }
+
         if ($sort === 'default') {
             $products = Product::with('photos')
                 ->whereHas('categories', function ($query) use ($id) {
