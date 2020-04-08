@@ -82,7 +82,7 @@ Auth::routes();
 Route::post('/register', 'Auth\RegisterController@register')->name('user.register');
 
 
-Route::get('/add-to-card/{id}', 'Frontend\CartController@addToCart')->name('cart.add');
+Route::get('/add-to-cart/{id}', 'Frontend\CartController@addToCart')->name('cart.add');
 
 
 Route::post('/remove-cart-item/{id}', 'Frontend\CartController@removeItem')->name('cart.remove');
