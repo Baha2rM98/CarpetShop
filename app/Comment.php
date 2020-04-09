@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Hekmatinasser\Verta\Verta;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -44,5 +45,16 @@ class Comment extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    /**
+     * Converts gregorian date format to jalali
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getCreatedAtAttribute($value)
+    {
+        return (new Verta($value))->formatDate();
     }
 }
