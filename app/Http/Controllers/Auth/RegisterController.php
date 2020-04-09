@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Address;
+use App\Category;
 use App\City;
 use App\Http\Controllers\Controller;
 use App\Province;
@@ -15,6 +16,8 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
+use Illuminate\View\Factory;
+use Illuminate\View\View;
 use Throwable;
 
 class RegisterController extends Controller
@@ -40,6 +43,18 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    /**
+     * Show the application registration form.
+     *
+     * @return Factory|View
+     */
+    public function showRegistrationForm()
+    {
+        $menus = Category::all();
+
+        return view('auth.register', compact('menus'));
     }
 
     /**

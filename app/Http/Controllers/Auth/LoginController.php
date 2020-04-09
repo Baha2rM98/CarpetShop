@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Category;
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 
 class LoginController extends Controller
 {
@@ -36,8 +39,20 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-//        $this->middleware(['guest', 'throttle:100,1'])->except('logout');
+//        $this->middleware(['guest', 'throttle:80,1'])->except('logout');
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * Show the application's login form.
+     *
+     * @return Factory|View
+     */
+    public function showLoginForm()
+    {
+        $menus = Category::all();
+
+        return view('auth.login', compact('menus'));
     }
 
     /**
@@ -51,11 +66,11 @@ class LoginController extends Controller
     protected function validateLogin(Request $request)
     {
         return $this->validate($request, [
-            'email'    => ['bail', 'required', 'email'],
+            'email' => ['bail', 'required', 'email'],
             'password' => ['bail', 'required']
         ], [
-            'email.required'    => 'آدرس ایمیل نمیتواند خالی باشد!',
-            'email.email'       => 'آدرس ایمیل وارد شده معتبر نیست!',
+            'email.required' => 'آدرس ایمیل نمیتواند خالی باشد!',
+            'email.email' => 'آدرس ایمیل وارد شده معتبر نیست!',
             'password.required' => 'رمز عبور نمیتواند خالی باشد!'
         ]);
     }
