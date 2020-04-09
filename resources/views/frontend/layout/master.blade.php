@@ -4,7 +4,7 @@
     <meta name="format-detection" content="telephone=no" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="/image/favicon.png" rel="icon" />
-    <title>فروشگاه اینترنتی دیجی فرش</title>
+    <title>فروشگاه اینترنتی کارپت مارکت</title>
     <meta name="description" content="فروشگاه آنلاین فرش و تابلو فرش.">
     <!-- CSS Part Start-->
     <link rel="stylesheet" type="text/css" href="/js/bootstrap/css/bootstrap.min.css" />
@@ -145,8 +145,8 @@
             <div class="container">
                 <div class="row">
                     <div class="contact col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                        <h5>درباره دیجی فرش</h5>
-                        <p>دیچی فرش یک فروشگاه آنلاین فرش و تابلو فرش است که...</p>
+                        <h5>درباره کارپت مارکت</h5>
+                        <p>کارپت مارکت یک فروشگاه آنلاین فرش و تابلو فرش است که...</p>
                     </div>
                     <div class="column col-lg-2 col-md-2 col-sm-3 col-xs-12">
                         <h5>اطلاعات</h5>
