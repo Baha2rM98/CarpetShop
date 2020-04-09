@@ -55,7 +55,7 @@
                 <div class="table-container">
                     <!-- Logo Start -->
                     <div class="col-table-cell col-lg-6 col-md-6 col-sm-12 col-xs-12 inner">
-                        <div id="logo"><a href="{{url('/')}}"><img class="img-responsive" src="/image/logo.png" title="MarketShop" alt="MarketShop" /></a></div>
+                        <div id="logo"><a href="{{url('/')}}"><img class="img-responsive" width="220" height="50" src="/image/logo.png" title="کارپت مارکت" alt="کارپت مارکت" /></a></div>
                     </div>
                     <!-- Logo End -->
                     <!-- Mini Cart Start-->
