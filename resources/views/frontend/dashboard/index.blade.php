@@ -1,5 +1,5 @@
 @extends('frontend.layout.master')
-
+<title>پروفایل | فروشگاه اینترنتی کارپت مارکت</title>
 @section('menu')
     <nav id="menu" class="navbar">
         <div class="navbar-header"><span class="visible-xs visible-sm"> منو <b></b></span></div>
