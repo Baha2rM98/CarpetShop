@@ -2,10 +2,9 @@
 
 namespace App;
 
+use App\Helper\CustomSoftDeletes\CustomSoftDeletes;
 use App\Helper\Helper;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -22,7 +21,7 @@ use Illuminate\Support\Facades\Storage;
  */
 class Product extends Model
 {
-    use SoftDeletes;
+    use CustomSoftDeletes;
     use Helper;
 
     /**
@@ -95,5 +94,14 @@ class Product extends Model
     {
         return $this->belongsToMany(Photo::class, 'photo_product', 'product_id',
             'photo_id');
+    }
+
+    /**
+     * Returns a one-to-many relationship with Comment
+     * @return Relation
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'product_id');
     }
 }

@@ -2,10 +2,10 @@
 
 namespace App;
 
+use App\Helper\CustomSoftDeletes\CustomSoftDeletes;
 use Hekmatinasser\Verta\Verta;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property mixed user_id
@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Comment extends Model
 {
-    use SoftDeletes;
+    use CustomSoftDeletes;
 
     /**
      * The attributes that should be mutated to dates
@@ -55,6 +55,6 @@ class Comment extends Model
      */
     public function getCreatedAtAttribute($value)
     {
-        return (new Verta($value))->formatDate();
+        return (new Verta($value))->formatJalaliDate();
     }
 }

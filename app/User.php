@@ -2,9 +2,9 @@
 
 namespace App;
 
+use App\Helper\CustomSoftDeletes\CustomSoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -19,7 +19,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable;
-    use SoftDeletes;
+    use CustomSoftDeletes;
 
     /**
      * The attributes that should be mutated to dates
@@ -76,5 +76,14 @@ class User extends Authenticatable
     public function coupons()
     {
         return $this->belongsToMany(Coupon::class, 'coupon_user', 'user_id', 'coupon_id');
+    }
+
+    /**
+     * Returns a one-to-many relationship with Comment
+     * @return Relation
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'user_id');
     }
 }
