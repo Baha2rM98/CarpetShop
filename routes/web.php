@@ -37,7 +37,7 @@ Route::domain(Helper::getApplicationSubDomain())->group(function () {
     Route::middleware('auth:admin')->group(function () {
 
 
-        Route::get('/', 'Backend\AdminController@dashboard');
+        Route::get('/', 'Backend\AdminController@dashboard')->name('admin.dashboard');
 
 
         Route::resource('/categories', 'Backend\CategoryController');
@@ -65,6 +65,12 @@ Route::domain(Helper::getApplicationSubDomain())->group(function () {
 
 
         Route::resource('/coupons', 'Backend\CouponController');
+
+
+        Route::get('/comments', 'Backend\CommentController@viewComments')->name('comment.index');
+
+
+        Route::post('/comment/{id}', 'Backend\CommentController@confirmComment')->name('comment.confirmation');
     });
 });
 
@@ -94,10 +100,13 @@ Route::get('/shopping-cart', 'Frontend\CartController@getCart')->name('cart.cart
 Route::middleware('auth')->group(function () {
 
 
-    Route::get('/dashboard', 'Frontend\UserController@dashboard')->name('user.dashboard');
+    Route::get('/profile', 'Frontend\UserController@profile')->name('user.dashboard');
 
 
     Route::post('/apply-coupon', 'Frontend\CouponController@applyCoupon')->name('coupon.apply');
+
+
+    Route::post('/post-comment/{productId}', 'Frontend\CommentController@saveComment')->name('comment.post');
 
     // Checkout
 });
