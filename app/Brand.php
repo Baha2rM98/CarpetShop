@@ -2,10 +2,10 @@
 
 namespace App;
 
+use App\Helper\CustomSoftDeletes\CustomSoftDeletes;
 use App\Helper\Helper;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Storage;
  */
 class Brand extends Model
 {
-    use SoftDeletes;
+    use CustomSoftDeletes;
     use Helper;
 
     /**

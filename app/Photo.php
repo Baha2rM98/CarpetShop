@@ -2,8 +2,8 @@
 
 namespace App;
 
+use App\Helper\CustomSoftDeletes\CustomSoftDeletes;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property mixed original_name
@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Photo extends Model
 {
-    use SoftDeletes;
+    use CustomSoftDeletes;
 
     /**
      * The attributes that should be mutated to dates

@@ -2,9 +2,9 @@
 
 namespace App;
 
+use App\Helper\CustomSoftDeletes\CustomSoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property mixed parent_id
@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Category extends Model
 {
-    use SoftDeletes;
+    use CustomSoftDeletes;
 
     /**
      * The attributes that should be mutated to dates
