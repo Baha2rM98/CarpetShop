@@ -46,7 +46,7 @@
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>A</b>LT</span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg">پنل مدیریت دیجی فرش</span>
+            <span class="logo-lg">کارپت مارکت</span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top">
@@ -63,7 +63,7 @@
                 </div>
                 <div class="pull-right info">
                     <p>صفحه مدیریت</p>
-                    <a>{{\Illuminate\Support\Facades\Auth::guard('admin')->user()->name}}</a>
+                    <a href="{{route('admin.dashboard')}}">{{\Illuminate\Support\Facades\Auth::guard('admin')->user()->name}}</a>
                     <a href="{{route('admin.logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">خروج</a>
                 </div>
                 <form id="logout-form" action="{{route('admin.logout')}}" method="post" style="display: none">
@@ -127,6 +127,17 @@
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{route('coupons.index')}}"><i class="fa fa-circle-o"></i>لیست کدهای تخفیف</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-commenting-o"></i>
+                        <span>نظرات</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{route('comment.index')}}"><i class="fa fa-circle-o"></i>لیست نظرات</a>
                         </li>
                     </ul>
                 </li>

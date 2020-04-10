@@ -49,7 +49,7 @@
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top">
             <div class="col-sm-offset-4">
-                <h3 style="color: white;">پنل مدیریت فروشگاه دیجی فرش</h3>
+                <h3 style="color: white;">پنل مدیریت فروشگاه کارپت مارکت</h3>
             </div>
         </nav>
     </header>
