@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\AttributeGroup;
 use App\Category;
+use App\Comment;
 use App\Helper\Helper;
 use App\Http\Controllers\Controller;
 use App\Product;
@@ -25,16 +26,22 @@ class ProductController extends Controller
     public function getProduct($slug)
     {
         $menus = Category::all();
+
         $product = Product::with('brand', 'attributeValues.attributeGroup', 'photos', 'categories')
-            ->whereSlug($slug)->first();
+            ->where('slug', $slug)->first();
+
         if (is_null($product)) {
             abort(404);
         }
+
+        $comments = Comment::with('user')->where([['product_id', '=', $product->id], ['visibility', '=', 1]])
+            ->get();
+
         $relatedProducts = Product::with('photos')->whereHas('categories', function ($query) use ($product) {
             $query->whereIn('categories.id', $product->categories);
         })->get();
 
-        return view('frontend.products.index', compact('menus', 'product', 'relatedProducts'));
+        return view('frontend.products.index', compact('menus', 'product', 'relatedProducts', 'comments'));
     }
 
     /**
