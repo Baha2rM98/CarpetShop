@@ -15,7 +15,7 @@ class UserController extends Controller
      *
      * @return Factory|View
      */
-    public function dashboard()
+    public function profile()
     {
         $menus = Category::all();
         $user = Auth::user();
