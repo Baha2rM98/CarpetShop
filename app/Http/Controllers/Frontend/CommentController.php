@@ -26,7 +26,7 @@ class CommentController extends Controller
         $comment->product_id = $productId;
         $comment->saveOrFail();
 
-        return back()->with('commented', 'نظر شما ثبت شد!');
+        return back()->with(['commented' => 'نظر شما ثبت گردید و پس از تایید در وب سایت نمایش داده خواهد شد.']);
     }
 
     /**
@@ -40,9 +40,10 @@ class CommentController extends Controller
     private function validateComment(Request $request)
     {
         return $this->validate($request, [
-            'comment' => ['required']
+            'comment' => ['bail', 'required', 'between:5,100']
         ], [
-            'comment.required' => 'نظر شما نمیتواند خالی باشد!'
+            'comment.required' => 'نظر شما نمیتواند خالی باشد!',
+            'comment.between' => 'نظر شما بایذ بین 5 تا 100 کاراکتر باشد!'
         ]);
     }
 }
