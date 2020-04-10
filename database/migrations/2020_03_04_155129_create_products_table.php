@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
             $table->bigInteger('discount_price')->nullable();
             $table->text('description');
             $table->bigInteger('brand_id')->unsigned();
-            $table->foreign('brand_id')->references('id')->on('brands');
+            $table->foreign('brand_id')->references('id')->on('brands')->cascadeOnDelete();
             $table->timestamps();
             $table->softDeletes();
         });

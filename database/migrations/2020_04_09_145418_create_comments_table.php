@@ -17,9 +17,9 @@ class CreateCommentsTable extends Migration
             $table->bigIncrements('id');
             $table->text('comment');
             $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->bigInteger('product_id')->unsigned();
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->cascadeOnDelete();
             $table->boolean('visibility')->default(false);
             $table->timestamps();
             $table->softDeletes();
