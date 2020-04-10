@@ -5,6 +5,7 @@ namespace App;
 use App\Helper\CustomSoftDeletes\CustomSoftDeletes;
 use App\Helper\Helper;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -55,6 +56,7 @@ class Product extends Model
                         $photo->path));
             }
             $product->photos()->delete();
+            $product->comments()->delete();
         });
     }
 
