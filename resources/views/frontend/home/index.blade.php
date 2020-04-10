@@ -35,7 +35,7 @@
                     </div>
                     <div id="product-tab" class="product-tab">
                         <ul id="tabs" class="tabs">
-                            <li><a href="#tab-product">محصولات</a></li>
+                            <li><a href="#tab-product">جدیدترین محصولات</a></li>
                         </ul>
                         <div id="tab-product" class="tab_content">
                             <div class="owl-carousel product_carousel_tab">
