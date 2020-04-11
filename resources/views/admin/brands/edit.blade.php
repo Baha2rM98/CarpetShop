@@ -25,11 +25,12 @@
                         <form method="post" action="/brands/{{$brand->id}}">
                             @csrf
                             <input type="hidden" name="_method" value="PATCH">
-                            <div class="form-group">
-                                <label for="name">تصویر برند</label>
-                                {{--                                --}}
-                                <img src="{{$brand->photo->path}}"  style="height:50vh">
-                            </div>
+                            @if(isset($brand->photo))
+                                <div class="form-group">
+                                    <label for="name">تصویر برند</label>
+                                    <img src="{{$brand->photo->path}}" style="height:50vh">
+                                </div>
+                            @endif
                             <div class="form-group">
                                 <label for="name">نام</label>
                                 <input type="text" name="title" class="form-control" value="{{$brand->title}}"
