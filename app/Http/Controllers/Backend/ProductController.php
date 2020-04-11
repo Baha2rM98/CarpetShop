@@ -13,6 +13,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use Throwable;
@@ -59,7 +60,7 @@ class ProductController extends Controller
     {
         $this->productValidator($request);
         $product = new Product($request->all());
-        $product->sku = $this->generateSKU(Product::all()->count() + 1);
+        $product->sku = $this->generateSKU();
         $product->slug = self::makeSlug($request->input('slug'));
         $product->saveOrFail();
         $product->categories()->sync($request->input('categories'));
@@ -205,19 +206,28 @@ class ProductController extends Controller
     /**
      * Generates an individual identifier for each product
      *
-     * @param  int  $id
      * @return string
      */
-    private function generateSKU($id)
+    private function generateSKU()
     {
-        $alphabet = array_merge(range('a', 'z'), range('A', 'Z'));
-        shuffle($alphabet);
-        $sku = strval($id).'-'.substr(str_shuffle(implode(array_slice($alphabet, mt_rand(8, 20), 8))), 0, 6);
+        mt_srand($this->seeder());
+        $sku = 'mcp-'.str_shuffle(substr(strval(mt_rand(0, mt_getrandmax())), 0, 8));
         if ($this->ifSKUExists($sku)) {
-            return $this->generateSKU($id);
+            return $this->generateSKU();
         }
 
         return $sku;
+    }
+
+    /**
+     * Provides a strong seeder to generate sku
+     *
+     * @return string
+     */
+    private function seeder()
+    {
+        list($uSecond, $second) = explode(' ', microtime());
+        return (string) ($second + $uSecond * 1000000);
     }
 
     /** Checks if generated sku exists already
@@ -236,14 +246,11 @@ class ProductController extends Controller
      *
      * @param  string  $slug
      *
-     * @return string|null
+     * @return string
      */
-    public static function makeSlug($slug)
+    private static function makeSlug($slug)
     {
-        if (preg_match('/[A-Z]/', $slug)) {
-            return preg_replace('/\s+/', '-', trim(str_replace(['؟', '?'], '', strtolower($slug))));
-        }
-        return preg_replace('/\s+/', '-', trim(str_replace(['؟', '?'], '', $slug)));
+        return preg_replace('/\s+/', '-', trim(str_replace(['؟', '?'], '', Str::lower($slug))));
     }
 
     /*
