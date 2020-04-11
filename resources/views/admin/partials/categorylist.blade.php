@@ -2,6 +2,7 @@
     <tr>
         <td class="text-center">{{$subCategory->id}}</td>
         <td>{{str_repeat('>>>', $level)}}{{' '}}{{$subCategory->name}}</td>
+        <td class="text-center">{{$subCategory->slug}}</td>
         <td class="text-center">
             <a class="btn btn-warning"
                href="{{route('categories.edit', $subCategory->id)}}">ویرایش</a>

@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
  * @property mixed meta_title
  * @property mixed meta_desc
  * @property mixed meta_keywords
+ * @property mixed slug
  */
 class Category extends Model
 {

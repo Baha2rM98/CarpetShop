@@ -32,6 +32,7 @@
                         <tr>
                             <th class="text-center">شناسه</th>
                             <th class="text-center">عنوان</th>
+                            <th class="text-center">نام مستعار</th>
                             <th class="text-center">عملیات</th>
                         </tr>
                         </thead>
@@ -40,6 +41,7 @@
                             <tr>
                                 <td class="text-center">{{$category->id}}</td>
                                 <td>{{$category->name}}</td>
+                                <td class="text-center">{{$category->slug}}</td>
                                 <td class="text-center">
                                     <a class="btn btn-warning"
                                        href="{{route('categories.edit', $category->id)}}">ویرایش</a>

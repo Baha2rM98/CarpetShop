@@ -27,6 +27,11 @@
                                        placeholder="عنوان دسته بندی را وارد کنید...">
                             </div>
                             <div class="form-group">
+                                <label for="name">نام مستعار</label>
+                                <input type="text" name="slug" class="form-control"
+                                       placeholder="نام مستعار دسته بندی را وارد کنید...">
+                            </div>
+                            <div class="form-group">
                                 <label for="name">دسته والد</label>
                                 <select name="parent_id" id="" class="form-control">
                                     <option value="">بدون والد</option>
