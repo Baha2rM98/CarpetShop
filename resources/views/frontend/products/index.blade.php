@@ -11,7 +11,7 @@
                         <div class="dropdown-menu">
                             @foreach($menus as $menu)
                                 <ul class="dropdown-menu">
-                                    <li><a href="{{route('category.index', ['id' => $menu->id])}}">{{$menu->name}}</a>
+                                    <li><a href="{{route('category.index', ['slug' => $menu->slug])}}">{{$menu->name}}</a>
                                     </li>
                                 </ul>
                             @endforeach
@@ -46,14 +46,13 @@
                         </div>
                         <div class="col-sm-6">
                             <ul class="list-unstyled description">
-                                <li><b>برند :</b> <a href="#"><span
-                                                itemprop="brand">{{$product->brand->title}}</span></a></li>
-                                <li><b>کد محصول :</b> <span itemprop="mpn">{{$product->sku}}</span></li>
+                                <li><b>برند :</b> <span class="label label-warning" style="font-size: small;"><span itemprop="brand">{{$product->brand->title}}</span></span></li>
+                                <li><b>کد محصول :</b> <span itemprop="mpn" style="font-size: large;">{{$product->sku}}</span></li>
                                 <li><b>وضعیت موجودی :</b>
                                     @if($product->status === 1)
-                                        <span class="instock">موجود</span>
+                                        <span class="instock" style="font-size: small;">موجود</span>
                                     @else
-                                        <span class="nostock">ناموجود</span>
+                                        <span class="nostock" style="font-size: small;">ناموجود</span>
                                     @endif
                                 </li>
                             </ul>
@@ -170,12 +169,12 @@
                         @foreach($relatedProducts as $product)
                             <div class="product-thumb">
                                 <div class="image"><a
-                                            href="{{route('product.introduce', ['slug'=>$product->slug])}}"><img
+                                            href="{{route('product.introduce', ['sku'=>$product->sku])}}"><img
                                                 src="{{$product->photos[0]->path}}" alt="{{$product->title}}"
                                                 title="{{$product->title}}" class="img-responsive"/></a></div>
                                 <div class="caption">
                                     <h4>
-                                        <a href="{{route('product.introduce', ['slug'=>$product->slug])}}">{{$product->title}}</a>
+                                        <a href="{{route('product.introduce', ['sku'=>$product->sku])}}">{{$product->title}}</a>
                                     </h4>
                                     @if(isset($product->discount_price))
                                         <p class="price"><span

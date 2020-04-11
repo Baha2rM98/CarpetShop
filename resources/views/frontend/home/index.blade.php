@@ -10,10 +10,10 @@
                     <li class="dropdown"><a>دسته بندی ها <span>&rsaquo;</span></a>
                         <div class="dropdown-menu">
                             @foreach($menus as $menu)
-                            <ul class="dropdown-menu">
-                                <li><a href="{{route('category.index', ['id' => $menu->id])}}">{{$menu->name}}</a>
-                                </li>
-                            </ul>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{route('category.index', ['slug' => $menu->slug])}}">{{$menu->name}}</a>
+                                    </li>
+                                </ul>
                             @endforeach
                         </div>
                     </li>
@@ -42,12 +42,12 @@
                                 @foreach($products as $product)
                                     <div class="product-thumb clearfix">
                                         <div class="image"><a
-                                                    href="{{route('product.introduce', ['slug'=>$product->slug])}}"><img
+                                                    href="{{route('product.introduce', ['sku'=>$product->sku])}}"><img
                                                         src="{{$product->photos[0]->path}}" alt="{{$product->title}}"
                                                         title="{{$product->title}}" class="img-responsive"/></a></div>
                                         <div class="caption">
                                             <h4>
-                                                <a href="{{route('product.introduce', ['slug'=>$product->slug])}}">{{$product->title}}</a>
+                                                <a href="{{route('product.introduce', ['sku'=>$product->sku])}}">{{$product->title}}</a>
                                             </h4>
                                             @if(isset($product->discount_price))
                                                 <p class="price"><span

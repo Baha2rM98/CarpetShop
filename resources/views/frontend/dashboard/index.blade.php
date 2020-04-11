@@ -11,7 +11,7 @@
                         <div class="dropdown-menu">
                             @foreach($menus as $menu)
                                 <ul class="dropdown-menu">
-                                    <li><a href="{{route('category.index', ['id' => $menu->id])}}">{{$menu->name}}</a>
+                                    <li><a href="{{route('category.index', ['slug' => $menu->slug])}}">{{$menu->name}}</a>
                                     </li>
                                 </ul>
                             @endforeach

@@ -11,7 +11,7 @@
                         <div class="dropdown-menu">
                             @foreach($menus as $menu)
                                 <ul class="dropdown-menu">
-                                    <li><a href="{{route('category.index', ['id' => $menu->id])}}">{{$menu->name}}</a>
+                                    <li><a href="{{route('category.index', ['slug' => $menu->slug])}}">{{$menu->name}}</a>
                                     </li>
                                 </ul>
                             @endforeach
@@ -46,8 +46,8 @@
                 <tbody>
                     @foreach($cart->items as $product)
                         <tr>
-                            <td class="text-center" width="10%"><a href="{{route('product.introduce', ['slug' => $product['item']->slug])}}"><img src="{{$product['item']->photos[0]->path}}" class="img-thumbnail" /></a></td>
-                            <td class="text-left"><a href="{{route('product.introduce', ['slug' => $product['item']->slug])}}">{{$product['item']->title}}</a></td>
+                            <td class="text-center" width="10%"><a href="{{route('product.introduce', ['sku'=>$product['item']->sku])}}"><img src="{{$product['item']->photos[0]->path}}" class="img-thumbnail" /></a></td>
+                            <td class="text-left"><a href="{{route('product.introduce', ['sku'=>$product['item']->sku])}}">{{$product['item']->title}}</a></td>
                             <td class="text-left">{{$product['item']->sku}}</td>
                             <td class="text-left">
                                 <div class="input-group btn-block quantity">
