@@ -24,7 +24,7 @@ class CreateAttributeGroupRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['bail', 'required', 'max:20', 'min:2'],
+            'title' => ['bail', 'required', 'max:50', 'min:2'],
             'type' => 'required'
         ];
     }
@@ -33,7 +33,7 @@ class CreateAttributeGroupRequest extends FormRequest
     {
         return [
             'title.required' => 'عنوان گروه بندی ویژگی نمیتواند خالی باشد!',
-            'title.max' => 'عنوان گروه بندی ویژگی نمیتواند بیشتر از 20 کاراکتر باشد!',
+            'title.max' => 'عنوان گروه بندی ویژگی نمیتواند بیشتر از 50 کاراکتر باشد!',
             'title.min' => 'عنوان گروه بندی ویژگی نمیتواند کمتر از 2 کاراکتر باشد!',
             'type.required' => 'نوع گروه بندی ویژگی نمیتواند خالی باشد!'
         ];
