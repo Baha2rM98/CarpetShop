@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
  * @property mixed description
  * @property mixed photo_id
  * @property mixed photo
+ * @property mixed products
  */
 class Brand extends Model
 {
@@ -42,9 +43,24 @@ class Brand extends Model
     {
         parent::boot();
         self::deleting(function (Brand $brand) {
-            Storage::disk('local')->delete('public/photos/'.self::getFileAbsolutePath('photos',
-                    $brand->photo->path));
-            $brand->photo->delete();
+            if (isset($brand->photo)) {
+                Storage::disk('local')->delete('public/photos/'.
+                    self::getFileAbsolutePath('photos', $brand->photo->path));
+                $brand->photo()->delete();
+                foreach ($brand->products as $product) {
+                    foreach ($product->comments as $comment) {
+                        $comment->delete();
+                    }
+                    $product->delete();
+                }
+            } else {
+                foreach ($brand->products as $product) {
+                    foreach ($product->comments as $comment) {
+                        $comment->delete();
+                    }
+                    $product->delete();
+                }
+            }
         });
     }
 
