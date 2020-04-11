@@ -43,14 +43,14 @@
                 <!--            We return paginate in laravel so instead of products we use products.data, because other key is pagination information-->
                 <div class="product-layout product-grid col-lg-3 col-md-3 col-sm-4 col-xs-12" v-for="product in products.data">
                     <div class="product-thumb clearfix">
-                        <div class="image"><a :href="url + '/product/' + product.slug" v-model="url"><img :src="product.photos[0].path" :alt="product.title" :title="product.title" class="img-responsive"/></a></div>
+                        <div class="image"><a :href="url + '/product/' + product.sku" v-model="url"><img :src="product.photos[0].path" :alt="product.title" :title="product.title" class="img-responsive"/></a></div>
                         <div class="caption">
-                            <h4><a :href="url + '/product/' + product.slug" v-model="url">{{product.title}}</a></h4>
+                            <h4><a :href="url + '/product/' + product.sku" v-model="url">{{product.title}}</a></h4>
                             <p class="price" v-if="product.discount_price"><span class="price-new">{{product.discount_price}} تومان</span><span class="price-old">{{product.price}} تومان</span><span class="saving">{{Math.round(Math.abs(((product.price - product.discount_price) / product.price) * 100))}}%</span></p>
                             <p class="price" v-if="!product.discount_price">{{product.price}}تومان </p>
                         </div>
                         <div class="button-group">
-                            <a class="btn-primary" :href="url + '/add-to-cart/' + product.id"><span>افزودن به سبد</span></a>
+                            <a class="btn-primary" :href="url + '/cart/add/' + product.id"><span>افزودن به سبد</span></a>
                             <div class="add-to-links">
                                 <br>
                                 <a href="" data-toggle="tooltip"> افزودن به علاقه مندی ها <i class="fa fa-heart"></i></a>
