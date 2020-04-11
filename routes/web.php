@@ -78,23 +78,23 @@ Route::domain(Helper::getApplicationSubDomain())->group(function () {
 Route::get('/', 'Frontend\ShopHomeController@index');
 
 
-Route::get('/product/{slug}', 'Frontend\ProductController@getProduct')->name('product.introduce');
+Route::get('/product/{sku}', 'Frontend\ProductController@getProduct')->name('product.introduce');
 
 
-Route::get('/category/{id}/products', 'Frontend\ProductController@getProductsByCategory')->name('category.index');
+Route::get('/category/{slug}/products', 'Frontend\ProductController@getProductsByCategory')->name('category.index');
 
 
 Auth::routes();
 Route::post('/register', 'Auth\RegisterController@register')->name('user.register');
 
 
-Route::get('/add-to-cart/{id}', 'Frontend\CartController@addToCart')->name('cart.add');
+Route::get('/cart/add/{id}', 'Frontend\CartController@addToCart')->name('cart.add');
 
 
-Route::post('/remove-cart-item/{id}', 'Frontend\CartController@removeItem')->name('cart.remove');
+Route::post('/remove/from/cart/{id}', 'Frontend\CartController@removeItem')->name('cart.remove');
 
 
-Route::get('/shopping-cart', 'Frontend\CartController@getCart')->name('cart.cart');
+Route::get('/cart', 'Frontend\CartController@getCart')->name('cart.cart');
 
 
 Route::middleware('auth')->group(function () {
