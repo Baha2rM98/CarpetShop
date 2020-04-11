@@ -20,15 +20,15 @@ class ProductController extends Controller
     /**
      * Returns a product, its features and its related products
      *
-     * @param  string  $slug
+     * @param  string  $sku
      * @return Factory|View
      */
-    public function getProduct($slug)
+    public function getProduct($sku)
     {
         $menus = Category::all();
 
         $product = Product::with('brand', 'attributeValues.attributeGroup', 'photos', 'categories')
-            ->where('slug', $slug)->first();
+            ->where('sku', $sku)->first();
 
         if (is_null($product)) {
             abort(404);
@@ -47,17 +47,17 @@ class ProductController extends Controller
     /**
      * Returns categories with related products
      *
-     * @param  int  $id
+     * @param  int  $slug
      * @return Factory|View
      * @see apiVueJsGetProductsByCategory
      * @see apiVueJsGetSortedProductsByCategory
      * @see apiVueJsGetCategoryAttribute
      * @see apiVueJsGetFilteredProducts
      */
-    public function getProductsByCategory($id)
+    public function getProductsByCategory($slug)
     {
         $menus = Category::all();
-        $category = Category::findOrFail($id);
+        $category = Category::where('slug', $slug)->first();
 
         // We get products by their categories by api vus js
 
