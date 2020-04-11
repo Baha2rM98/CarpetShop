@@ -114,15 +114,13 @@ class BrandController extends Controller
     {
         return $this->validate($request, [
             'title' => ['bail', 'required', 'min:2', 'unique:brands'],
-            'description' => ['bail', 'required', 'max:10000'],
-            'photo_id' => 'required'
+            'description' => ['nullable', 'max:10000'],
+            'photo_id' => 'nullable'
         ], [
             'title.required' => 'نام برند نمیتواند خالی باشد!',
             'title.min' => 'نام برند نمیتواند کمتر از 2 کاراکتر باشد!',
             'title.unique' => 'این برند قبلا ثبت شده است!',
-            'description.required' => 'توضیحات برند نمیتواند خالی باشد!',
-            'description.max' => 'توضیحات برند نمیتواند بیشتر از 10000 کاراکتر باشد!',
-            'photo_id.required' => 'عکس برند نمیتواند خالی باشد!'
+            'description.max' => 'توضیحات برند نمیتواند بیشتر از 10000 کاراکتر باشد!'
         ]);
     }
 
@@ -138,15 +136,13 @@ class BrandController extends Controller
     {
         return $this->validate($request, [
             'title' => ['bail', 'required', 'min:2', 'unique:brands,title,'.$id],
-            'description' => ['bail', 'required', 'max:10000'],
-            'photo_id' => 'required'
+            'description' => ['nullable', 'max:10000'],
+            'photo_id' => 'nullable'
         ], [
             'title.required' => 'نام برند نمیتواند خالی باشد!',
             'title.min' => 'نام برند نمیتواند کمتر از 2 کاراکتر باشد!',
             'title.unique' => 'این برند قبلا ثبت شده است!',
-            'description.required' => 'توضیحات برند نمیتواند خالی باشد!',
-            'description.max' => 'توضیحات برند نمیتواند بیشتر از 10000 کاراکتر باشد!',
-            'photo_id.required' => 'عکس برند نمیتواند خالی باشد!'
+            'description.max' => 'توضیحات برند نمیتواند بیشتر از 10000 کاراکتر باشد!'
         ]);
     }
 }
