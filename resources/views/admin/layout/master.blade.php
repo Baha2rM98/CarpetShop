@@ -2,7 +2,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>صفحه مدیریت فروشگاه فرش</title>
+    <title>پنل مدیریت کارپت مارکت</title>
     <link href="/image/favicon.png" rel="icon" />
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -131,19 +131,19 @@
                     </ul>
                 </li>
                 <li class="treeview">
-                    <a href="#">
+                    <a href="{{route('comment.index')}}">
                         <i class="fa fa-commenting-o"></i>
                         <span>نظرات</span>
-                        <i class="fa fa-angle-left pull-right"></i>
                     </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{route('comment.index')}}"><i class="fa fa-circle-o"></i>لیست نظرات</a>
-                        </li>
-                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="{{route('order.index')}}">
+                        <i class="fa fa-list-ol"></i>
+                        <span>سفارشات</span>
+                    </a>
                 </li>
             </ul>
         </section>
-        <!-- /.sidebar -->
     </aside>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
