@@ -29,8 +29,8 @@
                             <div class="form-group">
                                 <label for="name">نوع</label>
                                 <select name="type" id="" class="form-control">
-                                    <option value="select">لیست تکی</option>
-                                    <option value="multiple">لیست چنتایی</option>
+                                    <option value="تکی">لیست تکی</option>
+                                    <option value="چنتایی">لیست چنتایی</option>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-success pull-left">ذخیره</button>
