@@ -36,8 +36,8 @@
                                        placeholder="نام مستعار محصول را وارد کنید...">
                             </div>
 
-                            <edit-product-component :product="{{$product}}"
-                                                    :brands="{{$brands}}"></edit-product-component>
+                            <admin-product-component :product="{{$product}}"
+                                                    :brands="{{$brands}}"></admin-product-component>
 
                             <div class="form-group">
                                 <label>وضعیت نشر</label>

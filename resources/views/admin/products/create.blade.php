@@ -35,7 +35,7 @@
                                        placeholder="نام مستعار محصول را وارد کنید...">
                             </div>
 
-                            <create-product-component :brands="{{$brands}}"></create-product-component>
+                            <admin-product-component :brands="{{$brands}}"></admin-product-component>
 
 
                             <div class="form-group">
