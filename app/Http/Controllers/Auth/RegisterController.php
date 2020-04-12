@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\Factory;
 use Illuminate\View\View;
@@ -94,7 +95,7 @@ class RegisterController extends Controller
         return $this->validate($request, [
             'name' => ['bail', 'required'],
             'last_name' => ['bail', 'required'],
-            'email' => ['bail', 'required', 'email', 'unique:users'],
+            'email' => ['bail', 'required', 'email', Rule::unique('users')->whereNull('deleted_at')],
             'phone_number' => ['bail', 'required', 'numeric', 'digits_between:11,11'],
             'national_code' => ['bail', 'required', 'numeric', 'digits_between:10,10'],
             'company' => ['bail', 'nullable'],

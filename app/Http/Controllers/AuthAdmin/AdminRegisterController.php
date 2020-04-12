@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\Factory;
 use Illuminate\View\View;
@@ -68,7 +69,7 @@ class AdminRegisterController extends Controller
         return $this->validate($request, [
             'name' => ['bail', 'required'],
             'last_name' => ['bail', 'required'],
-            'email' => ['bail', 'required', 'email', 'unique:admins'],
+            'email' => ['bail', 'required', 'email', Rule::unique('admins')->whereNull('deleted_at')],
             'phone_number' => ['bail', 'required', 'numeric', 'digits_between:11,11'],
             'password' => ['bail', 'required', 'min:8'],
             'password_confirmation' => ['bail', 'required', 'same:password']

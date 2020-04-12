@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\AttributeGroup;
 use App\Brand;
 use App\Category;
+use App\Helper\Helper;
 use App\Http\Controllers\Controller;
 use App\Product;
 use Illuminate\Contracts\View\Factory;
@@ -14,12 +15,15 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use Throwable;
 
 class ProductController extends Controller
 {
+    use Helper;
+
     /**
      * Display a listing of the resource.
      *
@@ -64,7 +68,7 @@ class ProductController extends Controller
         $product->slug = self::makeSlug($request->input('slug'));
         $product->saveOrFail();
         $product->categories()->sync($request->input('categories'));
-        $product->attributeValues()->sync($request->input('attributes'));
+        $product->attributeValues()->sync(explode(',', $request->input('attributes')[0]));
         $product->photos()->sync(explode(',', $request->input('photo_id')[0]));
         Session::flash('products', 'محصول جدید با موفقیت ذخیره شد!');
 
@@ -103,7 +107,7 @@ class ProductController extends Controller
         $product->slug = self::makeSlug($request->input('slug'));
         $product->saveOrFail();
         $product->categories()->sync($request->input('categories'));
-        $product->attributeValues()->sync($request->input('attributes'));
+        $product->attributeValues()->sync($this->filter(explode(',', $request->input('attributes')[0])));
         $product->photos()->sync(explode(',', $request->input('photo_id')[0]));
         Session::flash('products', 'محصول با موفقیت ویرایش شد!');
 
@@ -141,8 +145,11 @@ class ProductController extends Controller
         if (isset($id)) {
             return $this->validate($request, [
                 'title' => ['bail', 'required', 'min:2', 'max:100'],
-                'slug' => ['bail', 'required', 'unique:products,slug,'.$id, 'max:100'],
+                'slug' => [
+                    'bail', 'required', Rule::unique('products')->ignore($id, 'id')->whereNull('deleted_at'), 'max:100'
+                ],
                 'categories' => ['required', 'array'],
+                'attributes.*' => 'required',
                 'brand_id' => 'required',
                 'status' => 'required',
                 'price' => ['bail', 'required', 'numeric', 'digits_between:1,15'],
@@ -157,6 +164,7 @@ class ProductController extends Controller
                 'slug.max' => 'نام مستعار محصول نمیتواند بیشتر از 100 کاراکتر باشد!',
                 'slug.unique' => 'این نام مستعار قبلا ثبت شده است!',
                 'categories.required' => 'هر محصول باید حداقل متعلق به یک دسته بندی باشد!',
+                'attributes.*.required' => 'ویژگی های محصول نمیتواند خالی باشد!',
                 'brand_id.required' => 'هر محصول باید متعلق به یک برند باشد!',
                 'status.required' => 'وضعیت محصول باید درج شود!',
                 'price.required' => 'قیمت محصول نمیتواند خالی باشد!',
@@ -173,8 +181,9 @@ class ProductController extends Controller
 
         return $this->validate($request, [
             'title' => ['bail', 'required', 'min:2', 'max:100'],
-            'slug' => ['bail', 'required', 'unique:products', 'max:100'],
+            'slug' => ['bail', 'required', Rule::unique('products')->whereNull('deleted_at'), 'max:100'],
             'categories' => ['required', 'array'],
+            'attributes.*' => 'required',
             'brand_id' => 'required',
             'status' => 'required',
             'price' => ['bail', 'required', 'numeric', 'digits_between:1,15'],
@@ -189,6 +198,7 @@ class ProductController extends Controller
             'slug.max' => 'نام مستعار محصول نمیتواند بیشتر از 100 کاراکتر باشد!',
             'slug.unique' => 'این نام مستعار قبلا ثبت شده است!',
             'categories.required' => 'هر محصول باید حداقل متعلق به یک دسته بندی باشد!',
+            'attributes.*.required' => 'ویژگی های محصول نمیتواند خالی باشد!',
             'brand_id.required' => 'هر محصول باید متعلق به یک برند باشد!',
             'status.required' => 'وضعیت محصول باید درج شود!',
             'price.required' => 'قیمت محصول نمیتواند خالی باشد!',

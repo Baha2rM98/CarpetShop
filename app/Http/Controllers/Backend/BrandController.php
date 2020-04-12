@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use Throwable;
@@ -113,7 +114,7 @@ class BrandController extends Controller
     private function brandStoreValidator(Request $request)
     {
         return $this->validate($request, [
-            'title' => ['bail', 'required', 'min:2', 'unique:brands'],
+            'title' => ['bail', 'required', 'min:2', Rule::unique('brands')->whereNull('deleted_at')],
             'description' => ['nullable', 'max:10000'],
             'photo_id' => 'nullable'
         ], [
@@ -135,7 +136,9 @@ class BrandController extends Controller
     private function brandUpdateValidator(Request $request, $id)
     {
         return $this->validate($request, [
-            'title' => ['bail', 'required', 'min:2', 'unique:brands,title,'.$id],
+            'title' => [
+                'bail', 'required', 'min:2', Rule::unique('brands')->ignore($id, 'id')->whereNull('deleted_at')
+            ],
             'description' => ['nullable', 'max:10000'],
             'photo_id' => 'nullable'
         ], [

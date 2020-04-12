@@ -13,6 +13,7 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use Throwable;
@@ -172,12 +173,15 @@ class CategoryController extends Controller
         if (isset($id)) {
             return $this->validate($request, [
                 'name' => ['bail', 'required', 'max:50', 'min:2'],
-                'slug' => ['bail', 'required', 'max:50', 'min:2', 'unique:categories,slug,'.$id]
+                'slug' => [
+                    'bail', 'required', 'max:100', 'min:2',
+                    Rule::unique('categories')->ignore($id, 'id')->whereNull('deleted_at')
+                ]
             ], [
                 'name.required' => 'نام دسته بندی نمیتواند خالی باشد!',
                 'name.max' => 'نام دسته بندی نمیتواند بیشتر از 50 کاراکتر باشد!',
                 'name.min' => 'نام دسته بندی نمیتواند کمتر از 2 کاراکتر باشد!',
-                'slug.required' => 'نام دسته بندی نمیتواند خالی باشد!',
+                'slug.required' => 'نام مستعار دسته بندی نمیتواند خالی باشد!',
                 'slug.max' => 'نام دسته بندی نمیتواند بیشتر از 50 کاراکتر باشد!',
                 'slug.min' => 'نام دسته بندی نمیتواند کمتر از 2 کاراکتر باشد!',
                 'slug.unique' => 'این نام مستعار قبلا ثبت شده است!'
@@ -186,12 +190,12 @@ class CategoryController extends Controller
 
         return $this->validate($request, [
             'name' => ['bail', 'required', 'max:50', 'min:2'],
-            'slug' => ['bail', 'required', 'max:50', 'min:2', 'unique:categories']
+            'slug' => ['bail', 'required', 'max:100', 'min:2', Rule::unique('categories')->whereNull('deleted_at')]
         ], [
             'name.required' => 'نام دسته بندی نمیتواند خالی باشد!',
             'name.max' => 'نام دسته بندی نمیتواند بیشتر از 50 کاراکتر باشد!',
             'name.min' => 'نام دسته بندی نمیتواند کمتر از 2 کاراکتر باشد!',
-            'slug.required' => 'نام دسته بندی نمیتواند خالی باشد!',
+            'slug.required' => 'نام مستعار دسته بندی نمیتواند خالی باشد!',
             'slug.max' => 'نام دسته بندی نمیتواند بیشتر از 50 کاراکتر باشد!',
             'slug.min' => 'نام دسته بندی نمیتواند کمتر از 2 کاراکتر باشد!',
             'slug.unique' => 'این نام مستعار قبلا ثبت شده است!'
