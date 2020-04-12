@@ -39,4 +39,17 @@ trait Helper
     {
         return array_unique(array_values($array)) === ['null'];
     }
+
+    /**
+     * Filters null strings from an array
+     *
+     * @param  array  $array
+     * @return array
+     */
+    public function filter(array $array)
+    {
+        return array_values(array_filter($array, function ($k) use ($array) {
+            return $array[$k] !== 'null';
+        }, ARRAY_FILTER_USE_KEY));
+    }
 }
