@@ -106,4 +106,22 @@ class Product extends Model
     {
         return $this->hasMany(Comment::class, 'product_id');
     }
+
+    /**
+     * Returns a many-to-many relationship with Order
+     * @return Relation
+     */
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'order_product', 'product_id', 'order_id');
+    }
+
+    /**
+     * Returns a many-to-many relationship with User
+     * @return Relation
+     */
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'product_user', 'product_id', 'user_id');
+    }
 }

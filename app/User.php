@@ -86,4 +86,22 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class, 'user_id');
     }
+
+    /**
+     * Returns a one-to-many relationship with Order
+     * @return Relation
+     */
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'user_id');
+    }
+
+    /**
+     * Returns a many-to-many relationship with Product
+     * @return Relation
+     */
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'product_user', 'user_id', 'product_id');
+    }
 }
