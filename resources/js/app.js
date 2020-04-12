@@ -8,8 +8,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-import CreateProductComponent from "./components/CreateProductComponent";
-import EditProductComponent from "./components/EditProductComponent";
+import AdminProductComponent from "./components/AdminProductComponent";
 import SelectCityProvinceComponent from "./components/SelectCityProvinceComponent";
 import ProductComponent from "./components/ProductComponent";
 import Paginate from 'vuejs-paginate';
@@ -25,8 +24,7 @@ import Paginate from 'vuejs-paginate';
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('create-product-component', CreateProductComponent);
-Vue.component('edit-product-component', EditProductComponent);
+Vue.component('admin-product-component', AdminProductComponent);
 Vue.component('select-city-province-component', SelectCityProvinceComponent);
 Vue.component('product-component', ProductComponent);
 Vue.component('paginate', Paginate);
