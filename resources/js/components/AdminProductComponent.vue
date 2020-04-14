@@ -7,30 +7,23 @@
                 <option v-for="category in categories" :value="category.id">{{category.name}}</option>
             </select>
         </div>
+        <div class="form-group">
+            <label>برند</label>
+            <select name="brand_id" class="form-control">
+                <option v-if="!product" v-for="brand in brands" :value="brand.id">{{brand.title}}</option>
+                <option v-if="product" v-for="brand in brands" :selected="product.brand.id === brand.id" :value="brand.id">{{brand.title}}</option>
+            </select>
+        </div>
         <div v-if="flag">
             <div class="form-group" v-for="(attribute, index) in attributes">
                 <label>ویژگی {{attribute.title}}</label>
                 <select class="form-control" @change="addAttribute($event, index)">
                     <option value="null">انتخاب کنید...</option>
-                    <option v-if="!product" v-for="attributeValue in attribute.attribute_values"
-                            :value="attributeValue.id">{{attributeValue.title}}
-                    </option>
-                    <option v-if="product" v-for="attributeValue in attribute.attribute_values"
-                            :value="attributeValue.id"
-                            :selected="product.attribute_values[index] && product.attribute_values[index]['id'] === attributeValue.id">
-                        {{attributeValue.title}}
+                    <option v-if="!product" v-for="attributeValue in attribute.attribute_values" :value="attributeValue.id">{{attributeValue.title}}</option>
+                    <option v-if="product" v-for="attributeValue in attribute.attribute_values" :value="attributeValue.id" :selected="product.attribute_values[index] && product.attribute_values[index]['id'] === attributeValue.id">{{attributeValue.title}}
                     </option>
                 </select>
             </div>
-        </div>
-        <div class="form-group">
-            <label>برند</label>
-            <select name="brand_id" class="form-control">
-                <option v-if="!product" v-for="brand in brands" :value="brand.id">{{brand.title}}</option>
-                <option v-if="product" v-for="brand in brands" :selected="product.brand.id === brand.id"
-                        :value="brand.id">{{brand.title}}
-                </option>
-            </select>
         </div>
         <input type="hidden" name="attributes[]" :value="convertedAttribute">
     </div>

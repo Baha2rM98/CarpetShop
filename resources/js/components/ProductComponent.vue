@@ -51,10 +51,6 @@
                         </div>
                         <div class="button-group">
                             <a class="btn-primary" :href="url + '/cart/add/' + product.id"><span>افزودن به سبد</span></a>
-                            <div class="add-to-links">
-                                <br>
-                                <a href="" data-toggle="tooltip"> افزودن به علاقه مندی ها <i class="fa fa-heart"></i></a>
-                            </div>
                         </div>
                     </div>
                 </div>
