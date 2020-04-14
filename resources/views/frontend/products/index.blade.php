@@ -68,20 +68,12 @@
                                     @endif
                                 </li>
                             </ul>
-                            <div id="product">
-                                <br>
-                                <div class="cart">
-                                    <div>
-                                        <a href="{{route('cart.add', ['id' => $product->id])}}" type="button"
-                                           id="button-cart" class="btn btn-primary btn-lg">افزودن به سبد</a>
-                                    </div>
-                                    <div class="btn-group">
-                                        <button type="button" class="fa fa-heart" data-toggle="tooltip" style="color: goldenrod" title="افزودن به علاقه مندی ها" onClick="event.preventDefault();document.getElementById('favorite-add-{{$product->id}}').submit();"></button>
-                                        <form id="favorite-add-{{$product->id}}" action="{{route('favorite.add', ['id'=>$product->id])}}" method="post" style="display: none;">
-                                            @csrf
-                                        </form>
-                                    </div>
-                                </div>
+                            <a href="{{route('cart.add', ['id' => $product->id])}}" type="button" id="button-cart" class="btn btn-primary btn-lg">افزودن به سبد</a>
+                            <div class="btn-group btn" style="padding-right: 50px">
+                                <button type="button" class="fa fa-heart" data-toggle="tooltip" style="color: goldenrod" title="افزودن به علاقه مندی ها" onClick="event.preventDefault();document.getElementById('favorite-add-{{$product->id}}').submit();"></button>
+                                <form id="favorite-add-{{$product->id}}" action="{{route('favorite.add', ['id'=>$product->id])}}" method="post" style="display: none;">
+                                    @csrf
+                                </form>
                             </div>
                         </div>
                     </div>
