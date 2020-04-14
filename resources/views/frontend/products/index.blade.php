@@ -75,9 +75,11 @@
                                         <a href="{{route('cart.add', ['id' => $product->id])}}" type="button"
                                            id="button-cart" class="btn btn-primary btn-lg">افزودن به سبد</a>
                                     </div>
-                                    <div>
-                                        <a href="" data-toggle="tooltip" style="margin-right: 50px"> افزودن به علاقه
-                                            مندی ها <i class="fa fa-heart"></i></a>
+                                    <div class="btn-group">
+                                        <button type="button" class="fa fa-heart" data-toggle="tooltip" style="color: goldenrod" title="افزودن به علاقه مندی ها" onClick="event.preventDefault();document.getElementById('favorite-add-{{$product->id}}').submit();"></button>
+                                        <form id="favorite-add-{{$product->id}}" action="{{route('favorite.add', ['id'=>$product->id])}}" method="post" style="display: none;">
+                                            @csrf
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -187,11 +189,14 @@
                                     @endif
                                 </div>
                                 <div class="button-group">
-                                    <a class="btn-primary" href="{{route('cart.add', ['id' => $product->id])}}"><span>افزودن به سبد</span></a>
+                                    <a class="btn-primary"
+                                       href="{{route('cart.add', ['id' => $product->id])}}"><span>افزودن به سبد</span></a>
                                     <div class="add-to-links">
                                         <br>
-                                        <a href="" data-toggle="tooltip"> افزودن به علاقه مندی ها <i
-                                                    class="fa fa-heart"></i></a>
+                                        <button type="button" class="fa fa-heart" data-toggle="tooltip" style="color: goldenrod" title="افزودن به علاقه مندی ها" onClick="event.preventDefault();document.getElementById('favorite-add-{{$product->id}}').submit();"></button>
+                                        <form id="favorite-add-{{$product->id}}" action="{{route('favorite.add', ['id'=>$product->id])}}" method="post" style="display: none;">
+                                            @csrf
+                                        </form>
                                     </div>
                                 </div>
                             </div>

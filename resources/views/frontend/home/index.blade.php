@@ -64,8 +64,10 @@
                                                href="{{route('cart.add', ['id' => $product->id])}}"><span>افزودن به سبد</span></a>
                                             <div class="add-to-links">
                                                 <br>
-                                                <a href="" data-toggle="tooltip"> افزودن به علاقه مندی ها <i
-                                                            class="fa fa-heart"></i></a>
+                                                <button type="button" class="fa fa-heart" data-toggle="tooltip" style="color: goldenrod" title="افزودن به علاقه مندی ها" onClick="event.preventDefault();document.getElementById('favorite-add-{{$product->id}}').submit();"></button>
+                                                <form id="favorite-add-{{$product->id}}" action="{{route('favorite.add', ['id'=>$product->id])}}" method="post" style="display: none;">
+                                                    @csrf
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
