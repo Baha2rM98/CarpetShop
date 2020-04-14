@@ -71,6 +71,9 @@ Route::domain(Helper::getApplicationSubDomain())->group(function () {
 
 
         Route::post('/comment/{id}', 'Backend\CommentController@confirmComment')->name('comment.confirmation');
+
+
+        Route::get('/orders', 'Backend\OrderController@getOrders')->name('order.index');
     });
 });
 
@@ -107,6 +110,16 @@ Route::middleware('auth')->group(function () {
 
 
     Route::post('/post-comment/{productId}', 'Frontend\CommentController@saveComment')->name('comment.post');
+
+
+    Route::post('/favorite/add/{id}', 'Frontend\UserController@addToFavorite')->name('favorite.add');
+
+
+    Route::get('/favorites', 'Frontend\UserController@getFavorites')->name('favorite.index');
+
+
+    Route::post('/favorite/delete/{id}', 'Frontend\UserController@deleteFromFavorites')->name('favorite.delete');
+    
 
     // Checkout
 });
