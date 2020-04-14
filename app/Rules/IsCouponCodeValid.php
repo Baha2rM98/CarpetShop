@@ -26,8 +26,8 @@ class IsCouponCodeValid implements Rule
      */
     public function passes($attribute, $value)
     {
-        $query = Coupon::where('code', $value)->first();
-        return !is_null($query) && $query->status === 1;
+        $coupon = Coupon::where('code', $value)->first();
+        return !is_null($coupon) && $coupon->status === 1;
     }
 
     /**
