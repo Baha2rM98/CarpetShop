@@ -29,23 +29,17 @@
             <h3 class="subtitle">{{$user->name . ' ' . $user->last_name. ' '}}</h3>
             <div class="list-group">
                 <ul class="list-item">
-                    <li><a href="">فراموشی رمز عبور</a></li>
-                    <li><a href="">لیست آدرس ها</a></li>
-                    <li><a href="">لیست علاقه مندی</a></li>
-                    <li><a href="">تاریخچه سفارشات</a></li>
-                    <li><a href="">امتیازات خرید</a></li>
-                    <li><a href="">بازگشت</a></li>
-                    <li><a href="">تراکنش ها</a></li>
-                    <li><a href="">پرداخت های تکرار شونده</a></li>
+                    <li><a >ویرایش پروفایل</a></li>
+                    <li><a >لیست آدرس ها</a></li>
+                    <li><a href="{{route('favorite.index')}}">لیست علاقه مندی</a></li>
+                    <li><a >تاریخچه سفارشات</a></li>
                 </ul>
             </div>
         </aside>
-        <!--Middle Part Start-->
         <div id="content" class="col-sm-9">
             <div class="alert alert-success">
                 <p>{{$user->name . ' ' . $user->last_name. ' '}}عزیز به حساب کاربری خود خوش آمدید!</p>
             </div>
         </div>
-        <!--Middle Part End -->
     </div>
 @endsection
