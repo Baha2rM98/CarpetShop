@@ -21,10 +21,10 @@ Route::domain(Helper::getApplicationSubDomain())->group(function () {
     Route::middleware(['auth:admin', 'throttle:80,1'])->group(function () {
 
 
-        Route::get('/categories', 'Backend\ProductController@apiVueJsGetCategories');
+        Route::get('/categories', 'Admin\ProductController@apiVueJsGetCategories');
 
 
-        Route::post('/category/attributes', 'Backend\ProductController@apiVueJsGetCategoryAttributes');
+        Route::post('/category/attributes', 'Admin\ProductController@apiVueJsGetCategoryAttributes');
     });
 });
 
@@ -38,14 +38,14 @@ Route::middleware('throttle:80,1')->group(function () {
     Route::get('/provinces', 'Auth\RegisterController@getAllProvinces');
 
 
-    Route::get('/category/{id}/products', 'Frontend\ProductController@apiVueJsGetProductsByCategory');
+    Route::get('/category/{id}/products', 'Shop\ProductController@apiVueJsGetProductsByCategory');
 
 
-    Route::get('/category/{id}/products-sorted/{sort}', 'Frontend\ProductController@apiVueJsGetSortedProductsByCategory');
+    Route::get('/category/{id}/products-sorted/{sort}', 'Shop\ProductController@apiVueJsGetSortedProductsByCategory');
 
 
-    Route::get('/category/{id}/attributes', 'Frontend\ProductController@apiVueJsGetCategoryAttribute');
+    Route::get('/category/{id}/attributes', 'Shop\ProductController@apiVueJsGetCategoryAttribute');
 
 
-    Route::get('/category/{id}/filtered-products/{attributes}/{sort}', 'Frontend\ProductController@apiVueJsGetFilteredProducts');
+    Route::get('/category/{id}/filtered-products/{attributes}/{sort}', 'Shop\ProductController@apiVueJsGetFilteredProducts');
 });
