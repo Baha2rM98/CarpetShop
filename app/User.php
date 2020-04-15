@@ -91,9 +91,9 @@ class User extends Authenticatable
      * Returns a one-to-many relationship with Order
      * @return Relation
      */
-    public function order()
+    public function orders()
     {
-        return $this->belongsTo(Order::class, 'user_id');
+        return $this->hasMany(Order::class, 'user_id');
     }
 
     /**
