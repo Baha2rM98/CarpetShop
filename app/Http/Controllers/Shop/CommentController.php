@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Shop;
 
 use App\Comment;
 use App\Http\Controllers\Controller;

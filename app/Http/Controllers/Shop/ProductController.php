@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Shop;
 
 use App\AttributeGroup;
 use App\Category;
@@ -41,7 +41,7 @@ class ProductController extends Controller
             $query->whereIn('categories.id', $product->categories);
         })->get();
 
-        return view('frontend.products.index', compact('menus', 'product', 'relatedProducts', 'comments'));
+        return view('shop.products.index', compact('menus', 'product', 'relatedProducts', 'comments'));
     }
 
     /**
@@ -61,7 +61,7 @@ class ProductController extends Controller
 
         // We get products by their categories by api vus js
 
-        return view('frontend.categories.index', compact('menus', 'category'));
+        return view('shop.categories.index', compact('menus', 'category'));
     }
 
     /*

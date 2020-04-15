@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Shop;
 
 use App\Cart;
 use App\Category;
@@ -23,7 +23,7 @@ class CartController extends Controller
     {
         $menus = Category::all();
         $cart = Session::has('cart') ? Session::get('cart') : null;
-        return view('frontend.cart.index', compact('menus', 'cart'));
+        return view('shop.cart.index', compact('menus', 'cart'));
     }
 
     /**

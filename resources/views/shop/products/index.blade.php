@@ -1,4 +1,4 @@
-@extends('frontend.layout.master')
+@extends('shop.layout.master')
 <title>مشخصات، قیمت و خرید {{' '}} {{$product->title}}</title>
 @section('menu')
     <nav id="menu" class="navbar">

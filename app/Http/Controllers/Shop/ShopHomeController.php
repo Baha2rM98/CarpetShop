@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Shop;
 
 use App\Category;
 use App\Http\Controllers\Controller;
@@ -20,6 +20,6 @@ class ShopHomeController extends Controller
         $products = Product::orderByDesc('created_at')->get();
         $menus = Category::all();
 
-        return view('frontend.home.index', compact('products', 'menus'));
+        return view('shop.home.index', compact('products', 'menus'));
     }
 }

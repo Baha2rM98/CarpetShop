@@ -1,4 +1,4 @@
-@extends('frontend.layout.master')
+@extends('shop.layout.master')
 
 @section('menu')
     <nav id="menu" class="navbar">

@@ -1,4 +1,4 @@
-@extends('frontend.layout.master')
+@extends('shop.layout.master')
 <title>پروفایل - لیست علاقه مندی ها | فروشگاه اینترنتی کارپت مارکت</title>
 @section('menu')
     <nav id="menu" class="navbar">

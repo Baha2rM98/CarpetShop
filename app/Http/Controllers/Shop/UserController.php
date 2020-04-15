@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Shop;
 
 use App\Category;
 use App\Http\Controllers\Controller;
@@ -23,7 +23,7 @@ class UserController extends Controller
         $menus = Category::all();
         $user = Auth::user();
 
-        return view('frontend.dashboard.index', compact('user', 'menus'));
+        return view('shop.dashboard.index', compact('user', 'menus'));
     }
 
     /**
@@ -40,7 +40,7 @@ class UserController extends Controller
             $query->where('user_id', $request->user()->id);
         })->paginate(10);
 
-        return view('frontend.dashboard.favorites-list', compact('products', 'menus'));
+        return view('shop.dashboard.favorites-list', compact('products', 'menus'));
     }
 
     /**
