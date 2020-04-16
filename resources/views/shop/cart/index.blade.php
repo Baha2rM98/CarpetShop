@@ -24,7 +24,7 @@
 @endsection
 
 @section('content')
-    <div class="col-sm-12" id="app">
+    <div class="col-sm-12">
         <h1 class="title">سبد خرید</h1>
         @if(is_null($cart))
             <div>
@@ -106,26 +106,6 @@
                 </div>
             </div>
         </div>
-{{--        <div class="panel panel-default">--}}
-{{--            <div class="panel-heading">--}}
-{{--                <h4 class="panel-title">محاسبه هزینه ی حمل و نقل</h4>--}}
-{{--            </div>--}}
-{{--            <div id="collapse-shipping" class="panel-collapse collapse in">--}}
-{{--                <div class="panel-body">--}}
-{{--                    <p>مقصد خود را جهت براورد وارد کنید:</p>--}}
-{{--                    <form class="form-horizontal">--}}
-{{--                        <select-city-province-component></select-city-province-component>--}}
-{{--                        <div class="form-group required">--}}
-{{--                            <label class="col-sm-2 control-label" for="input-postcode">کد پستی</label>--}}
-{{--                            <div class="col-sm-10">--}}
-{{--                                <input type="text" name="postcode" value="" placeholder="کد پستی" id="input-postcode" class="form-control" />--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <input type="button" value="محاسبه هزینه" id="button-quote" data-loading-text="بارگذاری ..." class="btn btn-primary" />--}}
-{{--                    </form>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
         <div class="row">
             <div class="col-sm-4 col-sm-offset-8">
                 <table class="table table-bordered">
@@ -154,12 +134,8 @@
         </div>
         <div class="buttons">
             <div class="pull-left"><a href="{{url('/')}}" class="btn btn-default">ادامه خرید</a></div>
-            <div class="pull-right"><a href="" class="btn btn-primary">تسویه حساب</a></div>
+            <div class="pull-right"><a href="{{route('payment.verified')}}" class="btn btn-primary">تسویه حساب</a></div>
         </div>
         @endif
     </div>
-@endsection
-
-@section('script-vuejs')
-    <script src="{{asset('/admin/js/app.js')}}"></script>
 @endsection
