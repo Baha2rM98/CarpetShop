@@ -10,22 +10,22 @@ class Cart
     public $items = null;
 
     /**
-     * @var int Quantity of each item
+     * @var int Quantity items
      */
     public $totalQuantity = 0;
 
     /**
-     * @var double Pure price of each item
+     * @var double Pure price of items
      */
     public $totalPurePrice = 0;
 
     /**
-     * @var double Price of each item
+     * @var double Price of items
      */
     public $totalPrice = 0;
 
     /**
-     * @var double Discount price of each item
+     * @var double Discount price of items
      */
     public $totalDiscountPrice = 0;
 
