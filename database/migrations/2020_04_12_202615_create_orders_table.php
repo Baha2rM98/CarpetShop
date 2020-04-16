@@ -15,13 +15,18 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('pure_price');
+            $table->string('discount_price')->nullable();
             $table->string('price');
-            $table->tinyInteger('status');
-            $table->uuid('uuid');
+            $table->bigInteger('coupon_id')->unsigned()->nullable();
+            $table->foreign('coupon_id')->references('id')->on('coupons');
+            $table->string('coupon_discount')->nullable();
             $table->string('order_code');
-            $table->string('product_postcode');
+            $table->string('product_postcode')->nullable();
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->uuid('uuid');
+            $table->tinyInteger('status');
             $table->timestamps();
             $table->softDeletes();
         });
