@@ -39,8 +39,8 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-//        $this->middleware(['guest', 'throttle:80,1'])->except('logout');
-        $this->middleware('guest')->except('logout');
+        $this->middleware(['guest', 'throttle:80,1'])->except('logout');
+//        $this->middleware('guest')->except('logout');
     }
 
     /**
