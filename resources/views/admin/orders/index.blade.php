@@ -25,7 +25,7 @@
                         @foreach($orders as $order)
                             <tr>
                                 <td class="text-center">{{$order->id}}</td>
-                                <td class="text-center">{{$order->amount}}</td>
+                                <td class="text-center">{{$order->price}}</td>
                                 @if($order->status === 0)
                                     <td class="text-center"><span class="label label-danger">پرداخت نشده</span></td>
                                 @else
