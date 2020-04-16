@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Helper\Helper;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,20 +12,6 @@ use App\Helper\Helper;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-
-Route::domain(Helper::getApplicationSubDomain())->group(function () {
-
-
-    Route::middleware(['auth:admin', 'throttle:80,1'])->group(function () {
-
-
-        Route::get('/categories', 'Admin\ProductController@apiVueJsGetCategories');
-
-
-        Route::post('/category/attributes', 'Admin\ProductController@apiVueJsGetCategoryAttributes');
-    });
-});
 
 
 Route::middleware('throttle:80,1')->group(function () {
