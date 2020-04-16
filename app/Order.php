@@ -6,6 +6,18 @@ use App\Helper\CustomSoftDeletes\CustomSoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
+/**
+ * @property mixed price
+ * @property mixed status
+ * @property mixed uuid
+ * @property mixed order_code
+ * @property mixed product_postcode
+ * @property mixed user_id
+ * @property mixed pure_price
+ * @property mixed discount_price
+ * @property mixed coupon_id
+ * @property mixed coupon_discount
+ */
 class Order extends Model
 {
     use CustomSoftDeletes;
@@ -33,5 +45,14 @@ class Order extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Returns a one-to-many relationship with Coupon
+     * @return Relation
+     */
+    public function coupon()
+    {
+        return $this->belongsTo(Coupon::class);
     }
 }

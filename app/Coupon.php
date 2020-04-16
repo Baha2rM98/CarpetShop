@@ -40,4 +40,13 @@ class Coupon extends Model
     {
         return $this->belongsToMany(User::class, 'coupon_user', 'coupon_id', 'user_id');
     }
+
+    /**
+     * Returns a one-to-many relationship with Order
+     * @return Relation
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'coupon_id');
+    }
 }
