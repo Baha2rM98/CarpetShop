@@ -32,12 +32,11 @@ class CouponController extends Controller
         $user = $request->user();
         $session = $request->session();
 
-        if ($session->get($user->email) === false){
+        if ($session->get($user->email) === false) {
             return back()->with(['usedCoupon' => 'شما مجاز به استفاده بیش از 1 کد تخفیف در هر سفارش نمی باشید!']);
         }
 
         if (!$this->userHasCoupon($request)) {
-
             $coupon = Coupon::where('code', $request->input('code'))->first();
             if (is_null($coupon)) {
                 Session::flash('usedCoupon', 'ابتدا کد تخفیف را وارد کنید!');
