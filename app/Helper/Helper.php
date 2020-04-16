@@ -52,4 +52,15 @@ trait Helper
             return $array[$k] !== 'null';
         }, ARRAY_FILTER_USE_KEY));
     }
+
+    /**
+     * Provides current timestamp to generate unique code
+     *
+     * @return string
+     */
+    public function timestamp()
+    {
+        list($uSecond, $second) = explode(' ', microtime());
+        return (string) ($second + ($uSecond * 1000000));
+    }
 }
