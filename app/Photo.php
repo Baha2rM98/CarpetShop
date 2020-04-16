@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property mixed original_name
  * @property mixed path
- * @property mixed user_id
  * @property mixed id
  */
 class Photo extends Model
