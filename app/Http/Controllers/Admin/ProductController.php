@@ -220,35 +220,7 @@ class ProductController extends Controller
      */
     private function generateSKU()
     {
-        mt_srand($this->seeder());
-        $sku = 'mcp-'.str_shuffle(substr(strval(mt_rand(0, mt_getrandmax())), 0, 8));
-        if ($this->ifSKUExists($sku)) {
-            return $this->generateSKU();
-        }
-
-        return $sku;
-    }
-
-    /**
-     * Provides a strong seeder to generate sku
-     *
-     * @return string
-     */
-    private function seeder()
-    {
-        list($uSecond, $second) = explode(' ', microtime());
-        return (string) ($second + $uSecond * 1000000);
-    }
-
-    /** Checks if generated sku exists already
-     *
-     * @param  string  $sku
-     *
-     * @return bool
-     */
-    private function ifSKUExists($sku)
-    {
-        return Product::where('sku', $sku)->exists();
+        return 'cmp-'.$this->timestamp();
     }
 
     /**
