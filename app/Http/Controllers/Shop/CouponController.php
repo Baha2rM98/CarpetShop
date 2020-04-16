@@ -15,6 +15,11 @@ use Illuminate\Validation\ValidationException;
 class CouponController extends Controller
 {
     /**
+     * @var bool Number of coupon applies for each order
+     */
+    private $isFirstOrder = true;
+
+    /**
      * Applies coupon for authenticated user
      *
      * @param  Request  $request
@@ -24,21 +29,34 @@ class CouponController extends Controller
     public function applyCoupon(Request $request)
     {
         $this->couponValidator($request);
+        $user = $request->user();
+        $session = $request->session();
+
+        if ($session->get($user->email) === false){
+            return back()->with(['usedCoupon' => 'شما مجاز به استفاده بیش از 1 کد تخفیف در هر سفارش نمی باشید!']);
+        }
+
         if (!$this->userHasCoupon($request)) {
+
             $coupon = Coupon::where('code', $request->input('code'))->first();
             if (is_null($coupon)) {
                 Session::flash('usedCoupon', 'ابتدا کد تخفیف را وارد کنید!');
                 return back();
             }
+
+            $this->isFirstOrder = false;
+            $session->put($user->email, $this->isFirstOrder);
             $cart = Session::has('cart') ? Session::get('cart') : null;
             $cart = new Cart($cart);
             $cart->addCoupon($coupon);
-            $request->session()->put('cart', $cart);
-            $user = $request->user();
+            $session->put('cart', $cart);
             $user->coupons()->attach([$coupon->id]);
+
             return back();
         }
+
         Session::flash('usedCoupon', 'این کد تخفیف قبلا استفاده شده است!');
+
         return back();
     }
 
