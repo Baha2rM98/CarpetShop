@@ -58,8 +58,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile/favorite/delete/{id}', 'Shop\UserController@deleteFromFavorites')->name('favorite.delete');
 
 
-    Route::get('/payment-verified', 'Shop\OrderController@paymentVerified')->name('payment.verified');
+    Route::get('/order/verification', 'Shop\OrderController@orderVerification')->name('order.verified');
 
 
-    // Checkout
+    Route::get('/checkout/{id}', 'Shop\PaymentController@paymentVerification')->name('payment.verified');
 });
+//Route::get('/t' , function () {
+//   return \Illuminate\Support\Facades\Session::all();
+//});
