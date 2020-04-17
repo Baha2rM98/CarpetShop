@@ -6,10 +6,12 @@ use App\Coupon;
 use App\Order;
 use App\Helper\Helper;
 use App\Http\Controllers\Controller;
+use App\Payments\PaymentRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 use Throwable;
 
 class OrderController extends Controller
@@ -18,10 +20,10 @@ class OrderController extends Controller
 
     /**
      * @param  Request  $request
-     * @return RedirectResponse
+     * @return RedirectResponse|View
      * @throws Throwable
      */
-    public function paymentVerified(Request $request)
+    public function orderVerification(Request $request)
     {
         $cart = Session::has('cart') ? Session::get('cart') : null;
         if (is_null($cart)) {
@@ -35,28 +37,50 @@ class OrderController extends Controller
 
         $user = $request->user();
 
-        $order = new Order();
-        $order->pure_price = $cart->totalPurePrice;
-        $order->discount_price = $cart->totalDiscountPrice;
-        $order->price = $cart->totalPrice;
-        $coupon = Coupon::whereHas('users', function ($query) use ($user) {
-            $query->where('user_id', $user->id);
-        })->latest()->take(1)->first();
-        $order->coupon_id = $coupon ? $coupon->id : null;
-        $order->coupon_discount = $coupon ? $coupon->price : null;
-        $order->order_code = $this->generateOrderCode();
-        $order->user_id = $user->id;
-        $order->uuid = Str::uuid();
+        if (!$user->whereHas('orders', function ($query) {
+            $query->where('status', 0);
+        })->exists()) {
+            $order = new Order();
+            $order->pure_price = $cart->totalPurePrice;
+            $order->discount_price = $cart->totalDiscountPrice;
+            $order->price = $cart->totalPrice;
+            $coupon = Coupon::whereHas('users', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            })->latest()->take(1)->first();
+            $order->coupon_id = $coupon ? $coupon->id : null;
+            $order->coupon_discount = $coupon ? $coupon->price : null;
+            $order->order_code = $this->generateOrderCode();
+            $order->user_id = $user->id;
+            $order->uuid = Str::uuid();
+            $order->saveOrFail();
+            $order->products()->attach($products);
 
-        //
-        $order->status = 1;
-        //
+            $paymentRequest = new PaymentRequest([
+                'merchantId' => 'X',
+                'price' => $order->price,
+                'description' => 'فروشگاه کارپت مارکت'
+            ], $order->id);
+            $paymentRequest->enableSandBox();
+            $result = $paymentRequest->sendPaymentInfo();
+            if ($result->Status == 100) {
+                return redirect()->to($paymentRequest->linkToGateway($result->Authority));
+            }
+            return view('errors.payment-request-error');
+        }
 
-        $order->saveOrFail();
-        $order->products()->attach($products);
-        $request->session()->forget(['cart', $user->email]);
+        $unpaidOrder = Order::where('user_id', $user->id)->latest()->take(1)->first();
 
-        return redirect()->route('user.dashboard');
+        $paymentRequest = new PaymentRequest([
+            'merchantId' => 'X',
+            'price' => $unpaidOrder->price,
+            'description' => 'فروشگاه کارپت مارکت'
+        ], $unpaidOrder->id);
+        $paymentRequest->enableSandBox();
+        $result = $paymentRequest->sendPaymentInfo();
+        if ($result->Status == 100) {
+            return redirect()->to($paymentRequest->linkToGateway($result->Authority));
+        }
+        return view('errors.payment-request-error');
     }
 
     /**
