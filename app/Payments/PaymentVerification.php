@@ -44,7 +44,7 @@ class PaymentVerification
      * Receive payment information from zarinpal gateway
      *
      * @param  string  $status
-     * @return array|bool
+     * @return object|array|bool
      * @throws SoapFault
      */
     public function receivePaymentInfo($status)
