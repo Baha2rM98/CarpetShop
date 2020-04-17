@@ -169,7 +169,7 @@
             <div class="container">
                 <div id="powered" class="clearfix">
                     <div class="powered_text pull-left flip">
-                        <p>کلیه حقوق محفوظ است © Digi Carpet</p>
+                        <p>کلیه حقوق محفوظ است © Carpet Market</p>
                     </div>
                     <div class="social pull-right flip"> <a href="#" target="_blank"> <img data-toggle="tooltip" src="/image/socialicons/facebook.png" alt="Facebook" title="Facebook"></a></div>
                 </div>
