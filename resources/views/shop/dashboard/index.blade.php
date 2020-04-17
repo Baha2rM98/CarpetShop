@@ -25,6 +25,11 @@
 
 @section('content')
     <div class="row">
+        @if(\Illuminate\Support\Facades\Session::has('success'))
+            <div class="alert alert-success">
+                <div>{{session('success')}}</div>
+            </div>
+        @endif
         <aside id="column-right" class="col-sm-3 hidden-xs">
             <h3 class="subtitle">{{$user->name . ' ' . $user->last_name. ' '}}</h3>
             <div class="list-group">
