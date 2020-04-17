@@ -26,7 +26,7 @@ class CreateOrdersTable extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->uuid('uuid');
-            $table->tinyInteger('status');
+            $table->boolean('status')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });
