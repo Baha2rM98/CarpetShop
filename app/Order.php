@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
  * @property mixed discount_price
  * @property mixed coupon_id
  * @property mixed coupon_discount
+ * @property mixed id
  */
 class Order extends Model
 {
@@ -54,5 +55,14 @@ class Order extends Model
     public function coupon()
     {
         return $this->belongsTo(Coupon::class);
+    }
+
+    /**
+     * Returns a one-to-one relationship with Payment
+     * @return Relation
+     */
+    public function payment()
+    {
+        return $this->hasOne(Payment::class, 'order_id');
     }
 }
