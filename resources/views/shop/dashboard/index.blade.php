@@ -11,7 +11,8 @@
                         <div class="dropdown-menu">
                             @foreach($menus as $menu)
                                 <ul class="dropdown-menu">
-                                    <li><a href="{{route('category.index', ['slug' => $menu->slug])}}">{{$menu->name}}</a>
+                                    <li>
+                                        <a href="{{route('category.index', ['slug' => $menu->slug])}}">{{$menu->name}}</a>
                                     </li>
                                 </ul>
                             @endforeach
@@ -25,19 +26,21 @@
 
 @section('content')
     <div class="row">
+        <br>
         @if(\Illuminate\Support\Facades\Session::has('success'))
             <div class="alert alert-success">
                 <div>{{session('success')}}</div>
             </div>
         @endif
+        <br>
         <aside id="column-right" class="col-sm-3 hidden-xs">
             <h3 class="subtitle">{{$user->name . ' ' . $user->last_name. ' '}}</h3>
             <div class="list-group">
                 <ul class="list-item">
-                    <li><a >ویرایش پروفایل</a></li>
-                    <li><a >لیست آدرس ها</a></li>
+                    <li><a>ویرایش پروفایل</a></li>
+                    <li><a>لیست آدرس ها</a></li>
                     <li><a href="{{route('favorite.index')}}">لیست علاقه مندی</a></li>
-                    <li><a >تاریخچه سفارشات</a></li>
+                    <li><a>تاریخچه سفارشات</a></li>
                 </ul>
             </div>
         </aside>
