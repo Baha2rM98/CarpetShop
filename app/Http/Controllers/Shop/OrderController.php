@@ -19,8 +19,20 @@ class OrderController extends Controller
     use Helper;
 
     /**
+     * Returns failure view
+     *
+     * @return View
+     */
+    public function orderFailure()
+    {
+        return view('errors.payment-request-error');
+    }
+
+    /**
+     * Verifies and save users's order
+     *
      * @param  Request  $request
-     * @return RedirectResponse|View
+     * @return RedirectResponse
      * @throws Throwable
      */
     public function orderVerification(Request $request)
@@ -37,8 +49,8 @@ class OrderController extends Controller
 
         $user = $request->user();
 
-        if (!$user->whereHas('orders', function ($query) {
-            $query->where('status', 0);
+        if (!Order::whereHas('user', function ($query) use ($user) {
+            $query->where([['user_id', '=', $user->id], ['status', '=', 0]]);
         })->exists()) {
             $order = new Order();
             $order->pure_price = $cart->totalPurePrice;
@@ -65,7 +77,7 @@ class OrderController extends Controller
             if ($result->Status == 100) {
                 return redirect()->to($paymentRequest->linkToGateway($result->Authority));
             }
-            return view('errors.payment-request-error');
+            return redirect()->route('order.failure');
         }
 
         $unpaidOrder = Order::where('user_id', $user->id)->latest()->take(1)->first();
@@ -80,7 +92,7 @@ class OrderController extends Controller
         if ($result->Status == 100) {
             return redirect()->to($paymentRequest->linkToGateway($result->Authority));
         }
-        return view('errors.payment-request-error');
+        return redirect()->route('order.failure');
     }
 
     /**

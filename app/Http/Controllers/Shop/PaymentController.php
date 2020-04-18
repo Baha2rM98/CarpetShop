@@ -52,7 +52,7 @@ class PaymentController extends Controller
             $request->session()->forget(['cart', $request->user()->email]);
 
             return redirect()->route('user.dashboard')->with([
-                'success' => 'پرداخت شما با موفقیت انجام شد! میتواند تاریخچه سفارشات خود را مشاهده نمایید.'
+                'success' => 'پرداخت شما با موفقیت انجام شد! می توانید تاریخچه سفارشات خود را مشاهده نمایید.'
             ]);
         }
 
