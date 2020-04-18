@@ -127,6 +127,24 @@
                 </div>
             </div>
             <div class="row">
+                <br>
+                <br>
+                <div class="text-info info">
+                    <p style="color: #c68d1e; font-size: large">توجه 1: چنانچه خرید قبلی شما ناموفق بوده باشد، سیستم
+                        هنگام ارسال اطلاعات به بانک اطلاعات خرید قبلی را صادر میکند،</p>
+                    <p style="color: #c68d1e; font-size: large"> لذا هنگام خرید از پرداخت قبلی خود اطمینان حاصل
+                        فرمایید.</p>
+                </div>
+                <br>
+                <br>
+                <div class="text-info info">
+                    <p style="color: #c68d1e; font-size: large">توجه 2: آدرس پیشفرض شما جهت ارسال محصولات اولین آدرسی
+                        است که در سیستم ثبت نموده اید، لذا</p>
+                    <p style="color: #c68d1e; font-size: large">در صورت لزوم ابتدا آدرس خود را ویرایش نموده و سپس به
+                        خرید خود ادامه دهید.</p>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-sm-4 col-sm-offset-8">
                     <table class="table table-bordered">
                         <tbody>
@@ -145,7 +163,8 @@
                         @if(\Illuminate\Support\Facades\Auth::check() && \Illuminate\Support\Facades\Session::get('cart')->coupon)
                             <tr>
                                 <td class="text-right">
-                                    <strong>{{\Illuminate\Support\Facades\Session::get('cart')->coupon['coupon']->title}}</strong>
+                                    <strong>کد
+                                        تخفیف: {{\Illuminate\Support\Facades\Session::get('cart')->coupon['coupon']->title}}</strong>
                                 </td>
                                 <td class="text-right">{{\Illuminate\Support\Facades\Session::get('cart')->couponDiscount}}
                                     تومان
