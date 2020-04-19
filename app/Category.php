@@ -47,7 +47,7 @@ class Category extends Model
      */
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'category_product', 'category_id', 'product_id');
+        return $this->belongsToMany(Product::class, 'category_product', 'category_id', 'product_id')->withTimestamps();
     }
 
     /**
@@ -57,6 +57,6 @@ class Category extends Model
     public function attributeGroups()
     {
         return $this->belongsToMany(AttributeGroup::class, 'attributegroup_category', 'category_id',
-            'attribute_group_id');
+            'attribute_group_id')->withTimestamps();
     }
 }

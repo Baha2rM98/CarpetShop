@@ -75,7 +75,7 @@ class User extends Authenticatable
      */
     public function coupons()
     {
-        return $this->belongsToMany(Coupon::class, 'coupon_user', 'user_id', 'coupon_id');
+        return $this->belongsToMany(Coupon::class, 'coupon_user', 'user_id', 'coupon_id')->withTimestamps();
     }
 
     /**
@@ -102,6 +102,6 @@ class User extends Authenticatable
      */
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'product_user', 'user_id', 'product_id');
+        return $this->belongsToMany(Product::class, 'product_user', 'user_id', 'product_id')->withTimestamps();
     }
 }

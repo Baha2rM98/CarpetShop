@@ -66,7 +66,7 @@ class Product extends Model
      */
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'category_product', 'product_id', 'category_id');
+        return $this->belongsToMany(Category::class, 'category_product', 'product_id', 'category_id')->withTimestamps();
     }
 
     /**
@@ -85,7 +85,7 @@ class Product extends Model
     public function attributeValues()
     {
         return $this->belongsToMany(AttributeValue::class, 'attributevalue_product', 'product_id',
-            'attribute_value_id');
+            'attribute_value_id')->withTimestamps();
     }
 
     /**
@@ -95,7 +95,7 @@ class Product extends Model
     public function photos()
     {
         return $this->belongsToMany(Photo::class, 'photo_product', 'product_id',
-            'photo_id');
+            'photo_id')->withTimestamps();
     }
 
     /**
@@ -113,7 +113,7 @@ class Product extends Model
      */
     public function orders()
     {
-        return $this->belongsToMany(Order::class, 'order_product', 'product_id', 'order_id');
+        return $this->belongsToMany(Order::class, 'order_product', 'product_id', 'order_id')->withTimestamps();
     }
 
     /**
@@ -122,6 +122,6 @@ class Product extends Model
      */
     public function users()
     {
-        return $this->belongsToMany(User::class, 'product_user', 'product_id', 'user_id');
+        return $this->belongsToMany(User::class, 'product_user', 'product_id', 'user_id')->withTimestamps();
     }
 }

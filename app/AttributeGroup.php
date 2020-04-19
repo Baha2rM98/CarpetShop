@@ -56,6 +56,6 @@ class AttributeGroup extends Model
      */
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'attributegroup_category', 'attribute_group_id', 'category_id');
+        return $this->belongsToMany(Category::class, 'attributegroup_category', 'attribute_group_id', 'category_id')->withTimestamps();
     }
 }

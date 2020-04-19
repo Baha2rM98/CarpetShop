@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
  * @property mixed coupon_id
  * @property mixed coupon_discount
  * @property mixed id
+ * @property mixed address_id
  */
 class Order extends Model
 {
@@ -35,7 +36,7 @@ class Order extends Model
      */
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'order_product', 'order_id', 'product_id');
+        return $this->belongsToMany(Product::class, 'order_product', 'order_id', 'product_id')->withTimestamps();
     }
 
     /**
