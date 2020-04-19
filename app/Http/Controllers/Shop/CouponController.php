@@ -45,7 +45,7 @@ class CouponController extends Controller
 
             $this->isFirstOrder = false;
             $session->put($user->email, $this->isFirstOrder);
-            $cart = Session::has('cart') ? Session::get('cart') : null;
+            $cart = Session::get('cart');
             $cart = new Cart($cart);
             $cart->addCoupon($coupon);
             $session->put('cart', $cart);

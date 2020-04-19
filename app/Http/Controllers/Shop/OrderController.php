@@ -37,7 +37,7 @@ class OrderController extends Controller
      */
     public function orderVerification(Request $request)
     {
-        $cart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = Session::get('cart');
         if (is_null($cart)) {
             return back()->with(['emptyCart' => 'سبد خرید شما خالی است!']);
         }
@@ -63,7 +63,6 @@ class OrderController extends Controller
             $order->coupon_discount = $coupon ? $coupon->price : null;
             $order->order_code = $this->generateOrderCode();
             $order->user_id = $user->id;
-            $order->uuid = Str::uuid();
             $order->saveOrFail();
             $order->products()->attach($products);
 

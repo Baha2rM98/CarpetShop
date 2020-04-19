@@ -22,7 +22,7 @@ class CartController extends Controller
     public function getCart()
     {
         $menus = Category::all();
-        $cart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = Session::get('cart');
         return view('shop.cart.index', compact('menus', 'cart'));
     }
 
@@ -37,7 +37,7 @@ class CartController extends Controller
     public function addToCart(Request $request, $id)
     {
         $product = Product::with('photos')->whereId($id)->first();
-        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
         $cart->add($product, $product->id);
         $request->session()->put('cart', $cart);
@@ -55,7 +55,7 @@ class CartController extends Controller
     public function removeItem(Request $request, $id)
     {
         $product = Product::findOrFail($id);
-        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
         $cart->remove($product, $product->id);
         $request->session()->put('cart', $cart);
