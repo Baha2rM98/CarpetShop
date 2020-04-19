@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 /**
  * @property mixed price
  * @property mixed status
- * @property mixed uuid
  * @property mixed order_code
  * @property mixed product_postcode
  * @property mixed user_id
