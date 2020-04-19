@@ -24,21 +24,21 @@ class PaymentController extends Controller
      */
     public function paymentVerification(Request $request, $id)
     {
-        $cart = $request->session()->get('cart');
-
         $authority = $request->input('Authority');
         $status = $request->input('Status');
 
-        $paymentVerification = new PaymentVerification([
-            'merchantId' => 'X',
-            'price' => $cart->totalPrice,
-            'authority' => $authority
-        ]);
+        $order = Order::findOrFail($id);
+
+        $paymentVerification = new PaymentVerification(
+            [
+                'merchantId' => env('merchant_id'),
+                'price' => $order->price,
+                'authority' => $authority
+            ]);
 
         $paymentVerification->enableSandBox();
         $result = $paymentVerification->receivePaymentInfo($status);
         if ($result) {
-            $order = Order::findOrFail($id);
             $order->status = 1;
             $order->saveOrFail();
 
@@ -49,7 +49,7 @@ class PaymentController extends Controller
             $payment->order_id = $id;
             $payment->saveOrFail();
 
-            $request->session()->forget(['cart', $request->user()->email]);
+            $request->session()->forget([$request->user()->email, 'cart', 'applied']);
 
             return redirect()->route('user.dashboard')->with([
                 'success' => 'پرداخت شما با موفقیت انجام شد! می توانید تاریخچه سفارشات خود را مشاهده نمایید.'
