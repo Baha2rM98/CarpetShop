@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
  * @property mixed province_id
  * @property mixed city_id
  * @property mixed user_id
+ * @property mixed primary
  */
 class Address extends Model
 {
@@ -45,5 +46,23 @@ class Address extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Returns a one-to-many relationship with Province
+     * @return Relation
+     */
+    public function province()
+    {
+        return $this->belongsTo(Province::class);
+    }
+
+    /**
+     * Returns a one-to-many relationship with City
+     * @return Relation
+     */
+    public function city()
+    {
+        return $this->belongsTo(City::class);
     }
 }
