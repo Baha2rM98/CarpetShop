@@ -130,17 +130,17 @@
                 <br>
                 <br>
                 <div class="text-info info">
-                    <p style="color: #c68d1e; font-size: large">توجه 1: چنانچه خرید قبلی شما ناموفق بوده باشد، سیستم
+                    <p style="color: #c68d1e; font-size: larger">توجه 1: چنانچه خرید قبلی شما ناموفق بوده باشد، سیستم
                         هنگام ارسال اطلاعات به بانک اطلاعات خرید قبلی را صادر میکند،</p>
-                    <p style="color: #c68d1e; font-size: large"> لذا هنگام خرید از پرداخت قبلی خود اطمینان حاصل
+                    <p style="color: #c68d1e; font-size: larger"> لذا هنگام خرید از پرداخت قبلی خود اطمینان حاصل
                         فرمایید.</p>
                 </div>
                 <br>
                 <br>
                 <div class="text-info info">
-                    <p style="color: #c68d1e; font-size: large">توجه 2: آدرس پیشفرض شما جهت ارسال محصولات اولین آدرسی
-                        است که در سیستم ثبت نموده اید، لذا</p>
-                    <p style="color: #c68d1e; font-size: large">در صورت لزوم ابتدا آدرس خود را ویرایش نموده و سپس به
+                    <p style="color: #c68d1e; font-size: larger">توجه 2: آدرس پیشفرض شما جهت ارسال محصولات آدرس اصلی
+                        در پروفایل شما است، لذا در صورت لزوم ابتدا آدرس خود</p>
+                    <p style="color: #c68d1e; font-size: larger"> را ویرایش نموده و سپس به
                         خرید خود ادامه دهید.</p>
                 </div>
             </div>
