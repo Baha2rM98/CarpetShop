@@ -10,7 +10,6 @@ use App\Payments\PaymentRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 use Throwable;
 
@@ -56,41 +55,50 @@ class OrderController extends Controller
             $order->pure_price = $cart->totalPurePrice;
             $order->discount_price = $cart->totalDiscountPrice;
             $order->price = $cart->totalPrice;
-            $coupon = Coupon::whereHas('users', function ($query) use ($user) {
-                $query->where('user_id', $user->id);
-            })->latest()->take(1)->first();
-            $order->coupon_id = $coupon ? $coupon->id : null;
-            $order->coupon_discount = $coupon ? $coupon->price : null;
+            if (Session::get('applied')) {
+                $coupon = Coupon::whereHas('users', function ($query) {
+                    $query->where('user_id', 3);
+                })->orderByDesc('created_at')->first();
+                $order->coupon_id = $coupon ? $coupon->id : null;
+                $order->coupon_discount = $coupon ? $coupon->price : null;
+            }
             $order->order_code = $this->generateOrderCode();
             $order->user_id = $user->id;
+            $order->address_id = $user->addresses()->where('primary', 1)->first()->id;
             $order->saveOrFail();
             $order->products()->attach($products);
 
-            $paymentRequest = new PaymentRequest([
-                'merchantId' => 'X',
-                'price' => $order->price,
-                'description' => 'فروشگاه کارپت مارکت'
-            ], $order->id);
+            Session::put($user->email, false);
+
+            $paymentRequest = new PaymentRequest(
+                [
+                    'merchantId' => env('merchant_id'),
+                    'price' => $order->price,
+                    'description' => 'فروشگاه کارپت مارکت'
+                ], $order->id);
             $paymentRequest->enableSandBox();
             $result = $paymentRequest->sendPaymentInfo();
             if ($result->Status == 100) {
                 return redirect()->to($paymentRequest->linkToGateway($result->Authority));
             }
+
             return redirect()->route('order.failure');
         }
 
-        $unpaidOrder = Order::where('user_id', $user->id)->latest()->take(1)->first();
+        $unpaidOrder = Order::where([['user_id', '=', $user->id], ['status', '=', 0]])->first();
 
-        $paymentRequest = new PaymentRequest([
-            'merchantId' => 'X',
-            'price' => $unpaidOrder->price,
-            'description' => 'فروشگاه کارپت مارکت'
-        ], $unpaidOrder->id);
+        $paymentRequest = new PaymentRequest(
+            [
+                'merchantId' => env('merchant_id'),
+                'price' => $unpaidOrder->price,
+                'description' => 'فروشگاه کارپت مارکت'
+            ], $unpaidOrder->id);
         $paymentRequest->enableSandBox();
         $result = $paymentRequest->sendPaymentInfo();
         if ($result->Status == 100) {
             return redirect()->to($paymentRequest->linkToGateway($result->Authority));
         }
+
         return redirect()->route('order.failure');
     }
 

@@ -15,6 +15,11 @@ use Illuminate\Validation\ValidationException;
 class CouponController extends Controller
 {
     /**
+     * @var bool Checks if coupon code applied
+     */
+    private $applied = false;
+
+    /**
      * @var bool Number of coupon applies for each order
      */
     private $isFirstOrder = true;
@@ -43,8 +48,9 @@ class CouponController extends Controller
                 return back();
             }
 
+            $this->applied = true;
             $this->isFirstOrder = false;
-            $session->put($user->email, $this->isFirstOrder);
+            $session->put([$user->email => $this->isFirstOrder, 'applied' => $this->applied]);
             $cart = Session::get('cart');
             $cart = new Cart($cart);
             $cart->addCoupon($coupon);
