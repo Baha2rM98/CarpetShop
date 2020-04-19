@@ -25,7 +25,8 @@ class CreateOrdersTable extends Migration
             $table->string('product_postcode')->nullable();
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
-            $table->uuid('uuid');
+            $table->bigInteger('address_id')->unsigned();
+            $table->foreign('address_id')->references('id')->on('addresses');
             $table->boolean('status')->default(false);
             $table->timestamps();
             $table->softDeletes();

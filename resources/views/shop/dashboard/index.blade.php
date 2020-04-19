@@ -34,11 +34,12 @@
         @endif
         <br>
         <aside id="column-right" class="col-sm-3 hidden-xs">
-            <h3 class="subtitle">{{$user->name . ' ' . $user->last_name. ' '}}</h3>
+            <h3 class="subtitle"><a href="{{route('user.dashboard')}}">{{$user->name . ' ' . $user->last_name. ' '}}</a></h3>
             <div class="list-group">
                 <ul class="list-item">
                     <li><a>ویرایش پروفایل</a></li>
-                    <li><a>لیست آدرس ها</a></li>
+                    <li><a href="{{route('address.index')}}">لیست آدرس ها</a></li>
+                    <li><a href="{{route('address.create')}}">اضافه کردن آدرس</a></li>
                     <li><a href="{{route('favorite.index')}}">لیست علاقه مندی</a></li>
                     <li><a>تاریخچه سفارشات</a></li>
                 </ul>
