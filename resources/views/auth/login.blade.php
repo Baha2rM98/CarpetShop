@@ -1,5 +1,5 @@
 @extends('shop.layout.master')
-
+<title>ورود | فروشگاه اینترنتی کارپت مارکت</title>
 @section('menu')
     <nav id="menu" class="navbar">
         <div class="navbar-header"><span class="visible-xs visible-sm"> منو <b></b></span></div>
@@ -62,7 +62,7 @@
                             </span>
                         @endif
                         <br/>
-                        <a href="">فراموشی رمز عبور</a></div>
+                        <a href="{{route('recovery')}}">فراموشی رمز عبور</a></div>
                     <input type="submit" value="ورود" class="btn btn-primary" />
                     </form>
                 </div>
