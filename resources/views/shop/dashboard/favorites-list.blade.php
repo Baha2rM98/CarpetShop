@@ -1,5 +1,5 @@
 @extends('shop.layout.master')
-<title>پروفایل - لیست علاقه مندی ها | فروشگاه اینترنتی کارپت مارکت</title>
+<title>پروفایل - علاقه مندی ها | فروشگاه اینترنتی کارپت مارکت</title>
 @section('menu')
     <nav id="menu" class="navbar">
         <div class="navbar-header"><span class="visible-xs visible-sm"> منو <b></b></span></div>
@@ -29,7 +29,7 @@
             <h3 class="subtitle"><a href="{{route('user.dashboard')}}">{{$user->name . ' ' . $user->last_name. ' '}}</a></h3>
             <div class="list-group">
                 <ul class="list-item">
-                    <li><a href="">ویرایش پروفایل</a></li>
+                    <li><a href="{{route('profile.edit')}}">ویرایش پروفایل</a></li>
                     <li><a href="{{route('address.index')}}">لیست آدرس ها</a></li>
                     <li><a href="{{route('address.create')}}">اضافه کردن آدرس</a></li>
                     <li><a href="{{route('favorite.index')}}">لیست علاقه مندی</a></li>
