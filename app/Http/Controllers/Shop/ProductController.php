@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Product;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\URL;
 use Illuminate\View\View;
 
 class ProductController extends Controller
@@ -83,7 +84,7 @@ class ProductController extends Controller
             $query->where('categories.id', $id);
         })->paginate(10);
 
-        $baseUrl = env('app_url');
+        $baseUrl = URL::to('/');
 
         return response()->json(['products' => $products, 'url' => $baseUrl], 200);
     }
