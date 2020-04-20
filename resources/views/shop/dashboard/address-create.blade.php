@@ -1,5 +1,5 @@
 @extends('shop.layout.master')
-<title>پروفایل - آدرس ها | فروشگاه اینترنتی کارپت مارکت</title>
+<title>پروفایل - ایجاد آدرس | فروشگاه اینترنتی کارپت مارکت</title>
 @section('menu')
     <nav id="menu" class="navbar">
         <div class="navbar-header"><span class="visible-xs visible-sm"> منو <b></b></span></div>
@@ -31,7 +31,7 @@
             </h3>
             <div class="list-group">
                 <ul class="list-item">
-                    <li><a href="">ویرایش پروفایل</a></li>
+                    <li><a href="{{route('profile.edit')}}">ویرایش پروفایل</a></li>
                     <li><a href="{{route('address.index')}}">لیست آدرس ها</a></li>
                     <li><a href="{{route('address.create')}}">اضافه کردن آدرس</a></li>
                     <li><a href="{{route('favorite.index')}}">لیست علاقه مندی</a></li>
@@ -66,7 +66,7 @@
                     </div>
                     <div class="form-group">
                         <label for="name">کدپستی</label>
-                        <input type="text" name="post_code" class="form-control" placeholder="کدپستی را وارد کنید...">
+                        <input type="number" name="post_code" class="form-control" placeholder="کدپستی را وارد کنید...">
                     </div>
                     <div class="form-group">
                         <label for="name">استان</label>

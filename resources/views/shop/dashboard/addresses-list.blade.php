@@ -31,7 +31,7 @@
             </h3>
             <div class="list-group">
                 <ul class="list-item">
-                    <li><a href="">ویرایش پروفایل</a></li>
+                    <li><a href="{{route('profile.edit')}}">ویرایش پروفایل</a></li>
                     <li><a href="{{route('address.index')}}">لیست آدرس ها</a></li>
                     <li><a href="{{route('address.create')}}">اضافه کردن آدرس</a></li>
                     <li><a href="{{route('favorite.index')}}">لیست علاقه مندی</a></li>
