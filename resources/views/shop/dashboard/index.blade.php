@@ -41,7 +41,7 @@
                     <li><a href="{{route('address.index')}}">لیست آدرس ها</a></li>
                     <li><a href="{{route('address.create')}}">اضافه کردن آدرس</a></li>
                     <li><a href="{{route('favorite.index')}}">لیست علاقه مندی</a></li>
-                    <li><a>تاریخچه سفارشات</a></li>
+                    <li><a href="{{route('order.index')}}">تاریخچه سفارشات</a></li>
                 </ul>
             </div>
         </aside>

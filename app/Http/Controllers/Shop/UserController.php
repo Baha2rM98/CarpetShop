@@ -6,8 +6,12 @@ use App\Address;
 use App\Category;
 use App\City;
 use App\Http\Controllers\Controller;
+use App\Order;
+use App\OrderProduct;
+use App\Payment;
 use App\Product;
 use App\Province;
+use BlackPlatinum\Zarinpal\Zarinpal;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -253,6 +257,115 @@ class UserController extends Controller
         $user->saveOrFail();
 
         return redirect()->route('user.dashboard')->with(['success' => 'پروفایل شما با موفقیت به روزرسانی شد!']);
+    }
+
+    /**
+     * Shows user's order list
+     *
+     * @param  Request  $request
+     * @return View|Factory
+     */
+    public function getOrders(Request $request)
+    {
+        $menus = Category::all();
+
+        $user = $request->user();
+
+        $orders = Order::with('products', 'address.province', 'address.city')
+            ->where('user_id', $user->id)->paginate(10);
+
+        return view('shop.dashboard.orders-index', compact('menus', 'user', 'orders'));
+    }
+
+    /**
+     * Redirects user to payment gateway to complete unpaid orders
+     *
+     * @param  int  $id
+     * @return RedirectResponse
+     * @throws \SoapFault
+     */
+    public function reckoningUnpaid($id)
+    {
+        $order = Order::findOrFail($id);
+
+        $paymentRequest = new Zarinpal(
+            'request',
+            [
+                'price' => $order->price,
+                'description' => 'فروشگاه کارپت مارکت',
+                'callbackUri' => 'profile/checkout',
+                'orderId' => $order->id
+            ], true
+        );
+        $result = $paymentRequest->sendPaymentInfoToGateway();
+        if ($result->Status == 100) {
+            return redirect()->to($paymentRequest->linkToGateway($result->Authority));
+        }
+
+        return redirect()->route('order.failure');
+    }
+
+    /**
+     * Verifies unpaid order payment
+     *
+     * @param  Request  $request
+     * @param  int  $id
+     * @return RedirectResponse
+     * @throws Throwable
+     * @throws \SoapFault
+     */
+    public function paymentVerification(Request $request, $id)
+    {
+        $authority = $request->input('Authority');
+        $status = $request->input('Status');
+
+        $order = Order::findOrFail($id);
+
+        $paymentResponse = new Zarinpal(
+            'response',
+            [
+                'price' => $order->price,
+                'authority' => $authority
+            ], true
+        );
+        $result = $paymentResponse->receivePaymentInfoFromGateway($status);
+        if ($result) {
+            $order->status = 1;
+            $order->saveOrFail();
+
+            $payment = new Payment();
+            $payment->authority = $authority;
+            $payment->status = $status;
+            $payment->refId = $result->RefID;
+            $payment->order_id = $id;
+            $payment->saveOrFail();
+
+            return redirect()->route('order.index')->with(['ok' => 'پرداخت شما با موفقیت انجام شد!']);
+        }
+
+        return redirect()->route('order.index')->with(['error' => 'خطایی در پرداخت شما به وجود آمده است، لطفا مجددا تلاش کنید.']);
+    }
+
+    /**
+     * Deletes unpaid orders
+     *
+     * @param  int  $id
+     * @return RedirectResponse
+     */
+    public function removeUnpaidOrder($id)
+    {
+        $order = Order::findOrFail($id);
+
+        $pivots = OrderProduct::where('order_id', $id)->get();
+        $productIds = [];
+        foreach ($pivots as $pivot) {
+            array_push($productIds, $pivot->product_id);
+        }
+
+        $order->products()->detach($productIds);
+        $order->delete();
+
+        return back()->with(['ok' => 'سفارش شما یا موفقیت حذف شد!']);
     }
 
     /**
