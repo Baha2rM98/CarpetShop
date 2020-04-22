@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Helper\CustomSoftDeletes\CustomSoftDeletes;
+use Hekmatinasser\Verta\Verta;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
@@ -36,7 +37,7 @@ class Order extends Model
      */
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'order_product', 'order_id', 'product_id')->withTimestamps();
+        return $this->belongsToMany(Product::class, 'order_product', 'order_id', 'product_id')->withPivot('quantity')->withTimestamps();
     }
 
     /**
@@ -58,11 +59,31 @@ class Order extends Model
     }
 
     /**
+     * Returns a one-to-many relationship with Address
+     * @return Relation
+     */
+    public function address()
+    {
+        return $this->belongsTo(Address::class);
+    }
+
+    /**
      * Returns a one-to-one relationship with Payment
      * @return Relation
      */
     public function payment()
     {
         return $this->hasOne(Payment::class, 'order_id');
+    }
+
+    /**
+     * Converts gregorian date format to jalali
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getCreatedAtAttribute($value)
+    {
+        return (new Verta($value))->format('%d %B %Y');
     }
 }
