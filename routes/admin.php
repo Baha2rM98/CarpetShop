@@ -70,7 +70,7 @@ Route::middleware('web')->group(function () {
         Route::post('/comment/{id}', 'Admin\CommentController@confirmComment')->name('comment.confirmation');
 
 
-        Route::get('/orders', 'Admin\OrderController@getOrders')->name('order.index');
+        Route::get('/orders', 'Admin\OrderController@getOrders')->name('admin.order.index');
     });
 });
 
