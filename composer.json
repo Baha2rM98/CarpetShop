@@ -10,11 +10,12 @@
   "require": {
     "php": "^7.2",
     "ext-soap": "*",
+    "blackplatinum/zarinpal": "^1.0",
     "fideloper/proxy": "^4.3",
+    "hekmatinasser/verta": "^1.10",
     "laravel/framework": "^7.0",
     "laravel/tinker": "^2.2",
-    "laravel/ui": "^2.0",
-    "hekmatinasser/verta": "^1.10"
+    "laravel/ui": "^2.0"
   },
   "require-dev": {
     "facade/ignition": "^2.0",
