@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Shop;
 
-use App\Coupon;
+use App\CouponUser;
 use App\Order;
 use App\Helper\Helper;
 use App\Http\Controllers\Controller;
-use App\Payments\PaymentRequest;
+use BlackPlatinum\Zarinpal\Zarinpal;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -56,9 +56,9 @@ class OrderController extends Controller
             $order->discount_price = $cart->totalDiscountPrice;
             $order->price = $cart->totalPrice;
             if (Session::get('applied')) {
-                $coupon = Coupon::whereHas('users', function ($query) {
-                    $query->where('user_id', 3);
-                })->orderByDesc('created_at')->first();
+                $coupon = CouponUser::where('user_id', $user->id)
+                    ->join('coupons', 'coupons.id', 'coupon_user.coupon_id')
+                    ->orderByDesc('coupon_user.created_at')->first();
                 $order->coupon_id = $coupon ? $coupon->id : null;
                 $order->coupon_discount = $coupon ? $coupon->price : null;
             }
@@ -70,14 +70,16 @@ class OrderController extends Controller
 
             Session::put($user->email, false);
 
-            $paymentRequest = new PaymentRequest(
+            $paymentRequest = new Zarinpal(
+                'request',
                 [
-                    'merchantId' => env('merchant_id'),
                     'price' => $order->price,
-                    'description' => 'فروشگاه کارپت مارکت'
-                ], $order->id);
-            $paymentRequest->enableSandBox();
-            $result = $paymentRequest->sendPaymentInfo();
+                    'description' => 'فروشگاه کارپت مارکت',
+                    'callbackUri' => 'checkout',
+                    'orderId' => $order->id
+                ], true
+            );
+            $result = $paymentRequest->sendPaymentInfoToGateway();
             if ($result->Status == 100) {
                 return redirect()->to($paymentRequest->linkToGateway($result->Authority));
             }
@@ -87,14 +89,16 @@ class OrderController extends Controller
 
         $unpaidOrder = Order::where([['user_id', '=', $user->id], ['status', '=', 0]])->first();
 
-        $paymentRequest = new PaymentRequest(
+        $paymentRequest = new Zarinpal(
+            'request',
             [
-                'merchantId' => env('merchant_id'),
                 'price' => $unpaidOrder->price,
-                'description' => 'فروشگاه کارپت مارکت'
-            ], $unpaidOrder->id);
-        $paymentRequest->enableSandBox();
-        $result = $paymentRequest->sendPaymentInfo();
+                'description' => 'فروشگاه کارپت مارکت',
+                'callbackUri' => 'checkout',
+                'orderId' => $unpaidOrder->id
+            ], true
+        );
+        $result = $paymentRequest->sendPaymentInfoToGateway();
         if ($result->Status == 100) {
             return redirect()->to($paymentRequest->linkToGateway($result->Authority));
         }

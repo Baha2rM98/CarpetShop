@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Shop;
 use App\Http\Controllers\Controller;
 use App\Order;
 use App\Payment;
-use App\Payments\PaymentVerification;
+use BlackPlatinum\Zarinpal\Zarinpal;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use SoapFault;
@@ -29,15 +29,14 @@ class PaymentController extends Controller
 
         $order = Order::findOrFail($id);
 
-        $paymentVerification = new PaymentVerification(
+        $paymentResponse = new Zarinpal(
+            'response',
             [
-                'merchantId' => env('merchant_id'),
                 'price' => $order->price,
                 'authority' => $authority
-            ]);
-
-        $paymentVerification->enableSandBox();
-        $result = $paymentVerification->receivePaymentInfo($status);
+            ], true
+        );
+        $result = $paymentResponse->receivePaymentInfoFromGateway($status);
         if ($result) {
             $order->status = 1;
             $order->saveOrFail();
@@ -51,13 +50,17 @@ class PaymentController extends Controller
 
             $request->session()->forget([$request->user()->email, 'cart', 'applied']);
 
-            return redirect()->route('user.dashboard')->with([
-                'success' => 'پرداخت شما با موفقیت انجام شد! می توانید تاریخچه سفارشات خود را مشاهده نمایید.'
-            ]);
+            return redirect()->route('user.dashboard')->with(
+                [
+                    'success' => 'پرداخت شما با موفقیت انجام شد! می توانید تاریخچه سفارشات خود را مشاهده نمایید.'
+                ]
+            );
         }
 
-        return redirect()->route('cart.cart')->with([
-            'fail' => 'خطایی در پرداخت شما به وجود آمده است، لطفا مجددا تلاش کنید.'
-        ]);
+        return redirect()->route('cart.cart')->with(
+            [
+                'fail' => 'خطایی در پرداخت شما به وجود آمده است، لطفا مجددا تلاش کنید.'
+            ]
+        );
     }
 }
