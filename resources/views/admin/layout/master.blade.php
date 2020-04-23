@@ -137,7 +137,7 @@
                     </a>
                 </li>
                 <li class="treeview">
-                    <a href="{{route('order.index')}}">
+                    <a href="{{route('admin.order.index')}}">
                         <i class="fa fa-list-ol"></i>
                         <span>سفارشات</span>
                     </a>
