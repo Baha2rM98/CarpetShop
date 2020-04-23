@@ -51,6 +51,7 @@
                             <th class="text-center">شماره تماس تحویل گیرنده</th>
                             <th class="text-center">تعداد مرسوله</th>
                             <th class="text-center">کد مرسوله</th>
+                            <th class="text-center">تخفیف کوپن</th>
                             <th class="text-center">مبلغ قابل پرداخت</th>
                             <th class="text-center">تاریخ ثبت سغارش</th>
                             <th class="text-center">آدرس</th>
@@ -72,7 +73,7 @@
                         @foreach($orders as $order)
                             @php $count = 0 @endphp
                             <tr>
-                                <td class="text-center"><a href="">{{$order->order_code}}</a></td>
+                                <td class="text-center"><a href="{{route('order.details', ['id'=>$order->id])}}">{{$order->order_code}}</a></td>
                                 @if($order->status === 1)
                                     <td class="text-center"><span class="label label-success">پرداخت شده</span></td>
                                 @else
@@ -85,6 +86,11 @@
                                 @endforeach
                                 <td class="text-center">{{$count}}</td>
                                 <td class="text-center">{{$order->product_postcode}}</td>
+                                @if(isset($order->coupon_discount))
+                                <td class="text-center">{{$order->coupon_discount}}</td>
+                                @else
+                                    <td class="text-center">ندارد</td>
+                                @endif
                                 <td class="text-center">{{$order->price}}</td>
                                 <td class="text-center">{{$order->created_at}}</td>
                                 <td class="text-center">{{$order->address->province->name.' - '.$order->address->city->name.' - '.$order->address->address}}</td>
