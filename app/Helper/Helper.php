@@ -26,7 +26,7 @@ trait Helper
      */
     public static function getApplicationSubDomain()
     {
-        return 'admin.'.parse_url(env('app_url'), PHP_URL_HOST);
+        return 'panel.'.parse_url(env('app_url'), PHP_URL_HOST);
     }
 
     /**
