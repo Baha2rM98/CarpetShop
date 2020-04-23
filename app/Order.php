@@ -6,6 +6,7 @@ use App\Helper\CustomSoftDeletes\CustomSoftDeletes;
 use Hekmatinasser\Verta\Verta;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property mixed price

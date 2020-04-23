@@ -2,8 +2,9 @@
 
 namespace App;
 
-use App\Helper\CustomSoftDeletes\CustomSoftDeletes;
+use BlackPlatinum\SoftDeletesFix;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property mixed original_name

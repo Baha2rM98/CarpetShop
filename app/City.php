@@ -5,6 +5,7 @@ namespace App;
 use App\Helper\CustomSoftDeletes\CustomSoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class City extends Model
 {
