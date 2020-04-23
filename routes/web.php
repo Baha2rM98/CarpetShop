@@ -101,6 +101,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/orders', 'Shop\UserController@getOrders')->name('order.index');
 
 
+    Route::get('/profile/order/{id}/products', 'Shop\UserController@getOrderDetails')->name('order.details');
+
+
     Route::get('/profile/reckoning/{id}', 'Shop\UserController@reckoningUnpaid')->name('reckoning.unpaid');
 
 
