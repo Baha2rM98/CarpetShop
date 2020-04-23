@@ -278,6 +278,24 @@ class UserController extends Controller
     }
 
     /**
+     * Shows order's products
+     *
+     * @param  Request  $request
+     * @param  int  $id
+     * @return View|Factory
+     */
+    public function getOrderDetails(Request $request, $id)
+    {
+        $menus = Category::all();
+
+        $user = $request->user();
+
+        $order = Order::with('products.photos')->whereId($id)->first();
+
+        return view('shop.dashboard.order-details', compact('menus', 'user', 'order'));
+    }
+
+    /**
      * Redirects user to payment gateway to complete unpaid orders
      *
      * @param  int  $id
@@ -365,7 +383,7 @@ class UserController extends Controller
         $order->products()->detach($productIds);
         $order->delete();
 
-        return back()->with(['ok' => 'سفارش شما یا موفقیت حذف شد!']);
+        return back()->with(['ok' => 'سفارش شما با موفقیت حذف شد!']);
     }
 
     /**
