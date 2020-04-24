@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Storage;
  */
 class Product extends Model
 {
-    use CustomSoftDeletes;
+//    use SoftDeletesFix;
     use Helper;
     use SoftDeletes;
 

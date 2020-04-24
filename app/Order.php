@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Helper\CustomSoftDeletes\CustomSoftDeletes;
+use BlackPlatinum\SoftDeletesFix;
 use Hekmatinasser\Verta\Verta;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -23,7 +23,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Order extends Model
 {
-    use CustomSoftDeletes;
+//    use SoftDeletesFix;
+    use SoftDeletes;
 
     /**
      * The attributes that should be mutated to dates.

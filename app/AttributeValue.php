@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Helper\CustomSoftDeletes\CustomSoftDeletes;
+use BlackPlatinum\SoftDeletesFix;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,7 +13,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class AttributeValue extends Model
 {
-    use CustomSoftDeletes;
+//    use SoftDeletesFix;
+    use SoftDeletes;
 
     /**
      * The attributes that should be mutated to dates

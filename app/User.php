@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Helper\CustomSoftDeletes\CustomSoftDeletes;
+use BlackPlatinum\SoftDeletesFix;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -20,7 +20,8 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable;
-    use CustomSoftDeletes;
+//    use SoftDeletesFix;
+    use SoftDeletes;
 
     /**
      * The attributes that should be mutated to dates

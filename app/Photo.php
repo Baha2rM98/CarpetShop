@@ -13,7 +13,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Photo extends Model
 {
-    use CustomSoftDeletes;
+//    use SoftDeletesFix;
+    use SoftDeletes;
 
     /**
      * The attributes that should be mutated to dates
