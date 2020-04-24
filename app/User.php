@@ -3,6 +3,7 @@
 namespace App;
 
 use BlackPlatinum\SoftDeletesFix;
+use Hekmatinasser\Verta\Verta;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -105,5 +106,16 @@ class User extends Authenticatable
     public function products()
     {
         return $this->belongsToMany(Product::class, 'product_user', 'user_id', 'product_id')->withTimestamps();
+    }
+
+    /**
+     * Converts gregorian date format to jalali
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getCreatedAtAttribute($value)
+    {
+        return (new Verta($value))->formatJalaliDatetime();
     }
 }
