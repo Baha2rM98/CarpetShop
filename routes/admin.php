@@ -37,6 +37,15 @@ Route::middleware('web')->group(function () {
         Route::get('/', 'Admin\AdminController@dashboard')->name('admin.dashboard');
 
 
+        Route::get('/latest/orders', 'Admin\AdminController@latestOrders')->name('admin.latest.orders.index');
+
+
+        Route::get('/latest/comments', 'Admin\AdminController@latestComments')->name('admin.latest.comments.index');
+
+
+        Route::get('/registered/users', 'Admin\AdminController@registeredUsers')->name('registered.users');
+
+
         Route::resource('/categories', 'Admin\CategoryController');
 
 
@@ -71,6 +80,9 @@ Route::middleware('web')->group(function () {
 
 
         Route::get('/orders', 'Admin\OrderController@getOrders')->name('admin.order.index');
+
+
+        Route::get('/order/{id}/products', 'Admin\OrderController@getOrderDetails')->name('admin.order.products');
     });
 });
 
