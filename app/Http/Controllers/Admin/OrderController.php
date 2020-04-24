@@ -17,9 +17,12 @@ class OrderController extends Controller
      */
     public function getOrders()
     {
-        $orders = Order::withTrashed()->with('products', 'payment', 'coupon', 'user', 'address.province',
-            'address.city')
-            ->paginate(10);
+        $orders = Order::withTrashed()->with([
+            'products', 'payment', 'coupon', 'address.province', 'address.city',
+            'user' => function ($query) {
+                $query->withTrashed();
+            }
+        ])->paginate(10);
 
         return view('admin.orders.index', compact('orders'));
     }
