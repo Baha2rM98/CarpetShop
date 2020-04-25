@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use App\Order;
@@ -76,5 +77,25 @@ class AdminController extends Controller
         $users = User::withTrashed()->paginate(10);
 
         return view('admin.users.index', compact('users'));
+    }
+
+    /**
+     * Changes user status (Enable, Disable)
+     *
+     * @param  int  $id
+     * @return RedirectResponse
+     * @throws \Exception
+     */
+    public function changeUserStatus($id)
+    {
+        $user = User::withTrashed()->find($id);
+
+        if (is_null($user->deleted_at)) {
+            $user->delete();
+            return back()->with(['ok' => 'وضعیت کاربر '."[$user->name".' '."$user->last_name]".' تغییر کرد!']);
+        }
+
+        $user->restore();
+        return back()->with(['ok' => 'وضعیت کاربر '."[$user->name".' '."$user->last_name]".' تغییر کرد!']);
     }
 }

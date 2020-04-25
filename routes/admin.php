@@ -46,6 +46,9 @@ Route::middleware('web')->group(function () {
         Route::get('/registered/users', 'Admin\AdminController@registeredUsers')->name('registered.users');
 
 
+        Route::patch('/user/{id}/change', 'Admin\AdminController@changeUserStatus')->name('change.user.status');
+
+
         Route::resource('/categories', 'Admin\CategoryController');
 
 

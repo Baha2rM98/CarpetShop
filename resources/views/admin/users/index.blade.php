@@ -17,9 +17,15 @@
                             <th class="text-center">شماره تماس</th>
                             <th class="text-center">ایمیل</th>
                             <th class="text-center">تاریخ عضویت</th>
+                            <th class="text-center">تغییر وضعیت</th>
                         </tr>
                         </thead>
                         <tbody>
+                        @if(\Illuminate\Support\Facades\Session::has('ok'))
+                            <div class="alert alert-success">
+                                <div>{{session('ok')}}</div>
+                            </div>
+                        @endif
                         @foreach($users as $user)
                             <tr>
                                 @if(isset($user->deleted_at))
@@ -32,6 +38,15 @@
                                 <td class="text-center">{{$user->phone_number}}</td>
                                 <td class="text-center">{{$user->email}}</td>
                                 <td class="text-center">{{$user->created_at}}</td>
+                                    <td class="text-center">
+                                        <div class="display-inline-block">
+                                            <form method="post" action="{{route('change.user.status', ['id' => $user->id])}}">
+                                                @csrf
+                                                <input type="hidden" name="_method" value="PATCH">
+                                                <button type="submit" class="btn btn-primary">تغییر وضعیت</button>
+                                            </form>
+                                        </div>
+                                    </td>
                             </tr>
                         @endforeach
                         </tbody>
