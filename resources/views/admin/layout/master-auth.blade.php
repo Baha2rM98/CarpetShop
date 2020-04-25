@@ -61,14 +61,8 @@
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
                 <li class="treeview">
-                    <a href="{{route('admin.register.form')}}">
-                        <i class="fa fa-4x"></i>
-                        <span>ثبت نام</span>
-                    </a>
-                </li>
-                <li class="treeview">
                     <a href="{{route('admin.login.form')}}">
-                        <i class="fa fa-4x"></i>
+                        <i class="ion ion-person"></i>
                         <span>ورود</span>
                     </a>
                 </li>
