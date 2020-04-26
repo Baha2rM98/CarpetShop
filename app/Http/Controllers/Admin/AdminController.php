@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use App\Order;
@@ -84,7 +87,7 @@ class AdminController extends Controller
      *
      * @param  int  $id
      * @return RedirectResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function changeUserStatus($id)
     {
@@ -97,5 +100,46 @@ class AdminController extends Controller
 
         $user->restore();
         return back()->with(['ok' => 'وضعیت کاربر '."[$user->name".' '."$user->last_name]".' تغییر کرد!']);
+    }
+
+    /**
+     * Shows admin's managing view
+     *
+     * @param  Request  $request
+     * @return View
+     * @throws AuthorizationException
+     */
+    public function adminsIndex(Request $request)
+    {
+        $this->authorize('manipulate', $request->user('admin'));
+
+        $admins = Admin::withTrashed()->where('super_admin', '!=', 1)->paginate(10);
+
+        return view('admin.admins.index', compact('admins'));
+    }
+
+    /**
+     * Changes admin status (Enable, Disable)
+     *
+     * @param  Request  $request
+     * @param  int  $id
+     * @return RedirectResponse
+     * @throws AuthorizationException
+     */
+    public function changeAdminStatus(Request $request, $id)
+    {
+        $demanderAdmin = $request->user('admin');
+
+        $this->authorize('manipulate', $demanderAdmin);
+
+        $admin = Admin::withTrashed()->find($id);
+
+        if (is_null($admin->deleted_at)) {
+            $admin->delete();
+            return back()->with(['ok' => 'وضعیت ادمین '."[$admin->name".' '."$admin->last_name]".' تغییر کرد!']);
+        }
+
+        $admin->restore();
+        return back()->with(['ok' => 'وضعیت ادمین '."[$admin->name".' '."$admin->last_name]".' تغییر کرد!']);
     }
 }
