@@ -18,7 +18,8 @@
                     <div class="icon">
                         <i class="ion ion-bag"></i>
                     </div>
-                    <a href="{{route('admin.latest.orders.index')}}" class="small-box-footer"><i class="fa fa-arrow-circle-left"></i> مشاهده </a>
+                    <a href="{{route('admin.latest.orders.index')}}" class="small-box-footer"><i
+                                class="fa fa-arrow-circle-left"></i> مشاهده </a>
                 </div>
             </div>
             <div class="col-lg-3 col-xs-6">
@@ -30,7 +31,8 @@
                     <div class="icon">
                         <i class="fa fa-comments"></i>
                     </div>
-                    <a href="{{route('admin.latest.comments.index')}}" class="small-box-footer"><i class="fa fa-arrow-circle-left"></i> مشاهده </a>
+                    <a href="{{route('admin.latest.comments.index')}}" class="small-box-footer"><i
+                                class="fa fa-arrow-circle-left"></i> مشاهده </a>
                 </div>
             </div>
             <div class="col-lg-3 col-xs-6">
@@ -42,22 +44,21 @@
                     <div class="icon">
                         <i class="ion ion-person"></i>
                     </div>
-                    <a href="{{route('registered.users')}}" class="small-box-footer"><i class="fa fa-arrow-circle-left"></i> مشاهده </a>
+                    <a href="{{route('registered.users')}}" class="small-box-footer"><i
+                                class="fa fa-arrow-circle-left"></i> مشاهده </a>
                 </div>
             </div>
-            @if($admin->super_admin === 1)
-                <div class="col-lg-3 col-xs-6">
-                    <div class="small-box bg-red">
-                        <div class="inner">
-                            <h3>{{$admins}}</h3>
-                            <p>مدیریت ادمین ها</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-person-add"></i>
-                        </div>
-                        <a href="" class="small-box-footer"><i class="fa fa-arrow-circle-left"></i> مشاهده </a></div>
-                </div>
-            @endif
+            <div class="col-lg-3 col-xs-6">
+                <div class="small-box bg-red">
+                    <div class="inner">
+                        <h3>{{$admins}}</h3>
+                        <p>مدیریت ادمین ها</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-person-add"></i>
+                    </div>
+                    <a href="{{route('admins.index')}}" class="small-box-footer"><i class="fa fa-arrow-circle-left"></i> مشاهده </a></div>
+            </div>
         </div>
     </section>
 @endsection

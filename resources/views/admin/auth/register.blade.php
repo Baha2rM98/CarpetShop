@@ -1,5 +1,5 @@
-@extends('admin.layout.master-auth')
-<title>صفحه مدیریت ثبت نام</title>
+@extends('admin.layout.master-register')
+<title>صفحه مدیریت فروشگاه - ایجاد ادمین جدید</title>
 @section('content')
     <div class="row" style="margin-right: 50px;">
         <!--Middle Part Start-->
@@ -8,7 +8,7 @@
             <form class="form-horizontal" method="post" action="{{route('admin.register')}}">
                 @csrf
                 <fieldset id="account">
-                    <legend>اطلاعات شخصی</legend>
+                    <legend>اطلاعات شخصی ادمین</legend>
                     <div class="form-group required">
                         <label for="input-firstname" class="col-sm-2 control-label">نام</label>
                         <div class="col-sm-10">
