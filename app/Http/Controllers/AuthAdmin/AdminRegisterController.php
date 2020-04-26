@@ -4,9 +4,11 @@ namespace App\Http\Controllers\AuthAdmin;
 
 use App\Admin;
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
@@ -18,22 +20,15 @@ use Throwable;
 class AdminRegisterController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
      * Shows admin registration form
      *
      * @return View|Factory
+     * @throws AuthorizationException
      */
     public function showRegistrationForm()
     {
+        $this->authorize('manipulate', Auth::guard('admin')->user());
+
         return view('admin.auth.register');
     }
 
@@ -47,14 +42,17 @@ class AdminRegisterController extends Controller
      */
     public function register(Request $request)
     {
+        $this->authorize('manipulate', $request->user('admin'));
+
         $this->validator($request);
 
         $admin = new Admin($request->all());
         $admin->password = Hash::make($request->input('password'));
+        $admin->super_admin = 0;
         $admin->saveOrFail();
 
-        Session::flash('ok', 'ثبت نام با موفقیت انجام شد. لطفا حساب کاربری خود را تاییید نمایید.');
-        return redirect()->route('admin.login.form');
+        Session::flash('ok', 'ادمین جدید با موفقیت ذخیره شد!');
+        return redirect()->route('admins.index');
     }
 
     /**
