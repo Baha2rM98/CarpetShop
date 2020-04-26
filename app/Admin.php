@@ -3,13 +3,16 @@
 namespace App;
 
 use BlackPlatinum\SoftDeletesFix;
+use Hekmatinasser\Verta\Verta;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 /**
- * @property string password
+ * @property mixed password
+ * @property mixed id
+ * @property mixed super_admin
  */
 class Admin extends Authenticatable
 {
@@ -54,4 +57,15 @@ class Admin extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Converts gregorian date format to jalali
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getCreatedAtAttribute($value)
+    {
+        return (new Verta($value))->formatJalaliDatetime();
+    }
 }
