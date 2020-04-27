@@ -100,7 +100,7 @@ class ResetPasswordController extends Controller
         try {
             decrypt($email);
         } catch (RuntimeException $exception) {
-            return redirect()->route('login');
+            abort(404);
         }
 
         $menus = Category::all();
