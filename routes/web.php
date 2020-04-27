@@ -68,7 +68,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/change/password', 'Auth\ResetPasswordController@editPassword')->name('password.edit');
 
 
-    Route::post('/profile/change/password', 'Auth\ResetPasswordController@updatePassword')->name('password.update');
+    Route::post('/profile/change/password', 'Auth\ResetPasswordController@updatePassword')->name('password.update.post');
 
 
     Route::post('/profile/favorite/add/{id}', 'Shop\UserController@addToFavorite')->name('favorite.add');

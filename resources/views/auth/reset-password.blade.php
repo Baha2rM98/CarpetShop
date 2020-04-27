@@ -58,7 +58,7 @@
                 @endif
             </div>
             <div class="col-md-6 col-md-offset-3">
-                <form method="post" action="{{route('password.update')}}">
+                <form method="post" action="{{route('password.update.post')}}">
                     @csrf
                     <div class="form-group required">
                         <label for="name">رمزعبور قدیمی</label>
