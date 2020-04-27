@@ -60,7 +60,8 @@ class ResetPasswordController extends Controller
         $resetPassword->token = encrypt($code);
         $resetPassword->saveOrFail();
 
-        return redirect()->route('admin.verify.code')->with(['ok' => "کد بازیابی برای شماره {$phone} ارسال شد."]);
+        return redirect()->route('admin.verify.code', ['id' => $resetPassword->id])
+            ->with(['ok' => "کد بازیابی برای شماره {$phone} ارسال شد."]);
     }
 
     /**
@@ -77,10 +78,12 @@ class ResetPasswordController extends Controller
      * Verifies recovery code
      *
      * @param  Request  $request
+     * @param  int  $id
      * @return RedirectResponse
      * @throws Throwable
+     * @throws ValidationException
      */
-    public function codeVerification(Request $request)
+    public function codeVerification(Request $request, $id)
     {
         $this->validate($request, ['vCode' => 'required'],
             ['vCode.required' => 'ابتدا کد بازیابی را وارد کنید!']);
@@ -101,7 +104,7 @@ class ResetPasswordController extends Controller
             }
         }
 
-        PasswordReset::orderByDesc('created_at')->first()->update(['expired' => 1]);
+        PasswordReset::whereId($id)->update(['expired' => 1]);
         return redirect()->route('admin.recover.pass')->with(['error' => 'کد وارد شده معتبر نیست، مجددا تلاش کنید.']);
     }
 

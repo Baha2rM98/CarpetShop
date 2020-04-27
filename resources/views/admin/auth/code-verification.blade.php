@@ -24,7 +24,7 @@
             @endif
             <h3 class="title" style="color: #1d2124;">کد ارسال شده را وارد کنید :</h3>
             <form class="form-horizontal" style="margin-top: 50px" method="post"
-                  action="{{route('admin.verify.code.back')}}">
+                  action="{{route('admin.verify.code.back', ['id'=>request('id')])}}">
                 @csrf
                 <div class="form-group required">
                     <label for="input-phone" class="col-sm-2 control-label" style="color: #1d2124">کد بازیابی</label>
