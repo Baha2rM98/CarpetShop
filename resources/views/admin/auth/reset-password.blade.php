@@ -3,21 +3,19 @@
 @section('content')
     <div class="row" style="margin-right: 50px;">
         <div class="col-sm-9" id="content">
-            @if(\Illuminate\Support\Facades\Session::has('error'))
-                <div class="alert alert-warning" style="margin-top: 40px">
-                    <div>{{session('error')}}</div>
-                </div>
+            @if($errors->any())
+                <ul>
+                    <div class="alert alert-warning">
+                        @foreach($errors->all() as $error)
+                            <ul>{{$error}}</ul>
+                        @endforeach
+                    </div>
+                </ul>
             @endif
             <h3 class="title" style="color: #1d2124;">بازیابی رمزعبور :</h3>
-            <form class="form-horizontal" style="margin-top: 50px" method="post" action="">
+            <form class="form-horizontal" style="margin-top: 50px" method="post"
+                  action="{{route('admin.reset.pass.post', ['token' => request('token')])}}">
                 @csrf
-                <div class="form-group required">
-                    <label for="name">رمزعبور قدیمی</label>
-                    <input type="password" name="old_password" class="form-control"
-                           placeholder="رمزعبور قدیمی را وارد کنید...">
-                </div>
-                <br>
-                <br>
                 <div class="form-group required">
                     <label for="name">رمزعبور جدید</label>
                     <input type="password" name="new_password" class="form-control"
