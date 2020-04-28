@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Category;
 use App\Http\Controllers\Controller;
+use App\Token;
 use App\User;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -73,6 +74,7 @@ class ResetPasswordController extends Controller
      *
      * @param  Request  $request
      * @return RedirectResponse
+     * @throws \Throwable
      */
     public function verifyEmail(Request $request)
     {
@@ -86,7 +88,9 @@ class ResetPasswordController extends Controller
             return back()->with(['failure' => 'ایمیل وارد شده در پایگاه داده سیستم موجود نمی باشد!']);
         }
 
-        return redirect()->route('recover.password.view', ['email' => encrypt($email)]);
+        $token = encrypt($email);
+        (new Token(['token' => $token]))->saveOrFail();
+        return redirect()->route('recover.password.view', ['email' => $token]);
     }
 
     /**
@@ -102,6 +106,11 @@ class ResetPasswordController extends Controller
         } catch (RuntimeException $exception) {
             abort(404);
         }
+
+        if (Token::where('token', $email)->first()->expired === 1) {
+            abort(404);
+        }
+        Token::where('token', $email)->first()->update(['expired' => 1]);
 
         $menus = Category::all();
 
