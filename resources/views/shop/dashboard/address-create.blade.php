@@ -66,7 +66,7 @@
                     </div>
                     <div class="form-group">
                         <label for="name">کدپستی</label>
-                        <input type="number" name="post_code" class="form-control" placeholder="کدپستی را وارد کنید...">
+                        <input type="text" name="post_code" class="form-control" placeholder="کدپستی را وارد کنید...">
                     </div>
                     <div class="form-group">
                         <label for="name">استان</label>

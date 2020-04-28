@@ -67,12 +67,12 @@
                     </div>
                     <div class="form-group">
                         <label for="name">شماره تلفن</label>
-                        <input type="number" name="phone_number" class="form-control" value="{{$user->phone_number}}"
+                        <input type="tel" name="phone_number" class="form-control" value="{{$user->phone_number}}"
                                placeholder="شماره تلفن را وارد کنید...">
                     </div>
                     <div class="form-group">
                         <label for="name">کدملی</label>
-                        <input type="number" name="national_code" class="form-control" value="{{$user->national_code}}"
+                        <input type="text" name="national_code" class="form-control" value="{{$user->national_code}}"
                                placeholder="کدملی را وارد کنید...">
                     </div>
                     <button type="submit" class="btn btn-primary pull-left">ویرایش</button>

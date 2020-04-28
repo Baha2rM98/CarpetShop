@@ -42,7 +42,7 @@
                 <div class="col-sm-6">
                     <h2 class="subtitle">مشتری قبلی</h2>
                     <p><strong>من از قبل مشتری شما هستم</strong></p>
-                    <form method="post" action="{{route('login')}}">
+                    <form method="post" action="{{route('user.login')}}">
                         @csrf
                     <div class="form-group">
                         <label class="control-label" for="input-email">آدرس ایمیل</label>

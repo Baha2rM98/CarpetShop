@@ -45,7 +45,7 @@
                         @csrf
                         <div class="form-group">
                             <label class="control-label" for="input-email">آدرس ایمیل</label>
-                            <input type="text" name="email" value="" placeholder="آدرس ایمیل" class="form-control" />
+                            <input type="email" name="email" value="" placeholder="آدرس ایمیل" class="form-control" />
                         </div>
                         <input type="submit" value="بررسی" class="btn btn-primary" />
                     </form>
