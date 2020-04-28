@@ -2,8 +2,13 @@
 <title>صفحه مدیریت فروشگاه - داشبورد</title>
 @section('content')
     <br>
+    @if(\Illuminate\Support\Facades\Session::has('ok'))
+        <div class="alert alert-success">
+            <div>{{session('ok')}}</div>
+        </div>
+    @endif
     <section class="content-header">
-        <h1>داشبورد</h1>
+        <a href="{{route('admin.profile.view')}}"><h2>پروفایل</h2></a>
     </section>
     <br>
     <br>
