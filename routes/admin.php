@@ -16,12 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('web')->group(function () {
 
 
-    Route::get('/register', 'AuthAdmin\AdminRegisterController@showRegistrationForm')->name('admin.register.form');
-
-
-    Route::post('/register', 'AuthAdmin\AdminRegisterController@register')->name('admin.register');
-
-
     Route::get('/login', 'AuthAdmin\AdminLoginController@showLoginForm')->name('admin.login.form');
 
 
@@ -29,6 +23,24 @@ Route::middleware('web')->group(function () {
 
 
     Route::post('/logout', 'AuthAdmin\AdminLoginController@logout')->name('admin.logout');
+
+
+    Route::get('/recovery', 'AuthAdmin\ResetPasswordController@recoverPasswordView')->name('admin.recover.pass');
+
+
+    Route::post('/recovery/send/code', 'AuthAdmin\ResetPasswordController@sendVerificationCode')->name('admin.send.Vcode');
+
+
+    Route::get('/recovery/code/verification/{id}', 'AuthAdmin\ResetPasswordController@codeVerificationView')->name('admin.verify.code');
+
+
+    Route::post('/recovery/code/verification/{id}', 'AuthAdmin\ResetPasswordController@codeVerification')->name('admin.verify.code.back');
+
+
+    Route::get('/reset/password/{token}', 'AuthAdmin\ResetPasswordController@resetPasswordView')->name('admin.reset.pass');
+
+
+    Route::post('/reset/password/{token}', 'AuthAdmin\ResetPasswordController@resetPassword')->name('admin.reset.pass.post');
 
 
     Route::middleware('auth:admin')->group(function () {
@@ -47,6 +59,18 @@ Route::middleware('web')->group(function () {
 
 
         Route::patch('/user/{id}/change', 'Admin\AdminController@changeUserStatus')->name('change.user.status');
+
+
+        Route::get('/admins', 'Admin\AdminController@adminsIndex')->name('admins.index');
+
+
+        Route::patch('/admin/{id}/change', 'Admin\AdminController@changeAdminStatus')->name('change.admin.status');
+
+
+        Route::get('/admins/register', 'AuthAdmin\AdminRegisterController@showRegistrationForm')->name('admin.register.form');
+
+
+        Route::post('/admins/register', 'AuthAdmin\AdminRegisterController@register')->name('admin.register');
 
 
         Route::resource('/categories', 'Admin\CategoryController');
@@ -86,6 +110,18 @@ Route::middleware('web')->group(function () {
 
 
         Route::get('/order/{id}/products', 'Admin\OrderController@getOrderDetails')->name('admin.order.products');
+
+
+        Route::get('/profile', 'Admin\AdminController@profileView')->name('admin.profile.view');
+
+
+        Route::post('/edit/profile', 'Admin\AdminController@profileUpdate')->name('admin.profile.update');
+
+
+        Route::get('/profile/reset/password', 'AuthAdmin\ResetPasswordController@profileUpdatePasswordView')->name('profile.update.pass.view');
+
+
+        Route::post('/profile/reset/password', 'AuthAdmin\ResetPasswordController@profileUpdatePassword')->name('admin.profile.update.pass.real');
     });
 });
 
