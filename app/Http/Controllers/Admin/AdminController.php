@@ -9,6 +9,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use App\Order;
 use App\User;
@@ -141,5 +142,59 @@ class AdminController extends Controller
 
         $admin->restore();
         return back()->with(['ok' => 'وضعیت ادمین '."[$admin->name".' '."$admin->last_name]".' تغییر کرد!']);
+    }
+
+    /**
+     * Shows admin profile view
+     *
+     * @param  Request  $request
+     * @return View|Factory
+     */
+    public function profileView(Request $request)
+    {
+        $admin = $request->user('admin');
+
+        return view('admin.dashboard.profile-edit', compact('admin'));
+    }
+
+    /**
+     * Updates admin's profile
+     *
+     * @param  Request  $request
+     * @return RedirectResponse
+     * @throws ValidationException
+     */
+    public function profileUpdate(Request $request)
+    {
+        $this->profileValidator($request);
+
+        $admin = $request->user('admin');
+        $admin->fill($request->all());
+        $admin->saveOrFail();
+
+        return redirect()->route('admin.dashboard')->with(['ok' => 'پروفایل شما با موفقیت به روزرسانی شد!']);
+    }
+
+    /**
+     * Validates profile data
+     *
+     * @param  Request  $request
+     * @return array
+     * @throws ValidationException
+     */
+    private function profileValidator(Request $request)
+    {
+        return $this->validate($request, [
+            'name' => ['bail', 'required'],
+            'last_name' => ['bail', 'required'],
+            'phone_number' => ['bail', 'required', 'numeric', 'digits_between:11,11', 'regex:/09[0-9]{9}/u']
+        ], [
+            'name.required' => 'عبارت نام نمیتواند خالی باشد!',
+            'last_name.required' => 'عبارت نام خانوادگی نمیتواند خالی باشد!',
+            'phone_number.required' => 'عبارت شماره تلفن نمیتواند خالی باشد!',
+            'phone_number.numeric' => 'شماره تلفن وارد شده معتبر نیست!',
+            'phone_number.digits_between' => 'شماره تلفن وارد شده معتبر نیست!',
+            'phone_number.regex' => 'شماره تلفن وارد شده معتبر نیست!'
+        ]);
     }
 }
