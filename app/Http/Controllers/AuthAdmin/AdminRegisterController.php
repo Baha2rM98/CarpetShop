@@ -68,7 +68,7 @@ class AdminRegisterController extends Controller
             'name' => ['bail', 'required'],
             'last_name' => ['bail', 'required'],
             'email' => ['bail', 'required', 'email', Rule::unique('admins')->whereNull('deleted_at')],
-            'phone_number' => ['bail', 'required', 'numeric', 'digits_between:11,11'],
+            'phone_number' => ['bail', 'required', 'numeric', 'digits_between:11,11', 'regex:/09[0-9]{9}/u'],
             'password' => ['bail', 'required', 'min:8'],
             'password_confirmation' => ['bail', 'required', 'same:password']
         ], [
@@ -80,6 +80,7 @@ class AdminRegisterController extends Controller
             'phone_number.required' => 'عبارت شماره تلفن نمیتواند خالی باشد!',
             'phone_number.numeric' => 'شماره تلفن وارد شده معتبر نیست!',
             'phone_number.digits_between' => 'شماره تلفن وارد شده معتبر نیست!',
+            'phone_number.regex' => 'شماره تلفن وارد شده معتبر نیست!',
             'password.required' => 'عبارت رمز عبور نمیتواند خالی باشد!',
             'password.min' => 'رمز عبور وارد شده نمیتواند کمتر از 8 کاراکتر باشد!',
             'password_confirmation.required' => 'عبارت تایید رمز عبور نمیتواند خالی باشد!',

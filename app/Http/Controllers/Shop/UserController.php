@@ -398,17 +398,19 @@ class UserController extends Controller
         return $this->validate($request, [
             'name' => ['bail', 'required'],
             'last_name' => ['bail', 'required'],
-            'phone_number' => ['bail', 'required', 'numeric', 'digits_between:11,11'],
-            'national_code' => ['bail', 'required', 'numeric', 'digits_between:10,10']
+            'phone_number' => ['bail', 'required', 'numeric', 'digits_between:11,11', 'regex:/09[0-9]{9}/u'],
+            'national_code' => ['bail', 'required', 'numeric', 'digits_between:10,10', 'regex:/00[0-9]{8}/u']
         ], [
             'name.required' => 'عبارت نام نمیتواند خالی باشد!',
             'last_name.required' => 'عبارت نام خانوادگی نمیتواند خالی باشد!',
             'phone_number.required' => 'عبارت شماره تلفن نمیتواند خالی باشد!',
             'phone_number.numeric' => 'شماره تلفن وارد شده معتبر نیست!',
             'phone_number.digits_between' => 'شماره تلفن وارد شده معتبر نیست!',
+            'phone_number.regex' => 'شماره تلفن وارد شده معتبر نیست!',
             'national_code.required' => 'عبارت کدملی نمیتواند خالی باشد!',
             'national_code.numeric' => 'کد ملی وارد شده معتبر نیست!',
-            'national_code.digits_between' => 'کد ملی وارد شده معتبر نیست!'
+            'national_code.digits_between' => 'کد ملی وارد شده معتبر نیست!',
+            'national_code.regex' => 'کد ملی وارد شده معتبر نیست!'
         ]);
     }
 
