@@ -12,6 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Illuminate\View\Factory;
 use Illuminate\View\View;
 use Throwable;
 
@@ -152,6 +153,42 @@ class ResetPasswordController extends Controller
         $admin->saveOrFail();
 
         return redirect()->route('admin.login.form')->with(['ok' => 'رمزعبور شما با موفقیت بازیابی شد!']);
+    }
+
+    /**
+     * Shows update password view
+     *
+     * @return View|Factory
+     */
+    public function profileUpdatePasswordView()
+    {
+        return view('admin.auth.reset-password-from-profile');
+    }
+
+    /**
+     * Updates admin's password
+     *
+     * @param  Request  $request
+     * @return RedirectResponse
+     * @throws ValidationException
+     */
+    public function profileUpdatePassword(Request $request)
+    {
+        $this->passwordValidator($request);
+
+        $admin = $request->user('admin');
+
+        $oldPass = $request->input('old_password');
+        $newPass = $request->input('new_password');
+
+        if (!Hash::check($oldPass, $admin->password)) {
+            return back()->with(['error' => 'رمزعبور وارد شده صحیح نمی باشد!']);
+        }
+
+        $admin->password = Hash::make($newPass);
+        $admin->saveOrFail();
+
+        return redirect()->route('admin.dashboard')->with(['ok' => 'رمزعبور شما با موفقیت به روزرسانی شد!']);
     }
 
     /**
