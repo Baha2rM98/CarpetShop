@@ -20,8 +20,7 @@
                 <select class="form-control" @change="addAttribute($event, index)">
                     <option value="null">انتخاب کنید...</option>
                     <option v-if="!product" v-for="attributeValue in attribute.attribute_values" :value="attributeValue.id">{{attributeValue.title}}</option>
-                    <option v-if="product" v-for="attributeValue in attribute.attribute_values" :value="attributeValue.id" :selected="product.attribute_values[index] && product.attribute_values[index]['id'] === attributeValue.id">{{attributeValue.title}}
-                    </option>
+                    <option v-if="product" v-for="attributeValue in attribute.attribute_values" :value="attributeValue.id" :selected="product.attribute_values[index] && product.attribute_values[index]['id'] === attributeValue.id">{{attributeValue.title}}</option>
                 </select>
             </div>
         </div>
@@ -50,7 +49,7 @@
                 console.log(err)
             });
             if (this.product) {
-                console.log(this.product);
+                // console.log(this.product);
                 for (let i = 0; i < this.product.categories.length; i++) {
                     this.selectedCategories.push(this.product.categories[i].id)
                 }
