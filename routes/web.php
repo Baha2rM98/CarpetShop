@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,8 +23,19 @@ Route::get('/product/{sku}', 'Shop\ProductController@getProduct')->name('product
 Route::get('/category/{slug}/products', 'Shop\ProductController@getProductsByCategory')->name('category.index');
 
 
-Auth::routes();
+Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+
+
 Route::post('/register', 'Auth\RegisterController@register')->name('user.register');
+
+
+Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
+
+
+Route::post('/login', 'Auth\LoginController@login')->name('user.login');
+
+
+Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
 
 Route::get('/recovery', 'Auth\ResetPasswordController@recoveryView')->name('recovery');
@@ -50,6 +60,8 @@ Route::get('/cart', 'Shop\CartController@getCart')->name('cart.cart');
 
 
 Route::middleware('auth')->group(function () {
+
+
     Route::post('/apply-coupon', 'Shop\CouponController@applyCoupon')->name('coupon.apply');
 
 
