@@ -3,7 +3,7 @@
 namespace App;
 
 use App\Helper\Helper;
-use BlackPlatinum\SoftDeletesFix;
+//use BlackPlatinum\SoftDeletesFix;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\SoftDeletes;

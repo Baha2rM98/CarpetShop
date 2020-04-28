@@ -2,7 +2,7 @@
 
 namespace App;
 
-use BlackPlatinum\SoftDeletesFix;
+//use BlackPlatinum\SoftDeletesFix;
 use Hekmatinasser\Verta\Verta;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;

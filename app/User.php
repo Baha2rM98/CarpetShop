@@ -2,7 +2,7 @@
 
 namespace App;
 
-use BlackPlatinum\SoftDeletesFix;
+//use BlackPlatinum\SoftDeletesFix;
 use Hekmatinasser\Verta\Verta;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\Relation;
