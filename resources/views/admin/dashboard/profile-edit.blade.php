@@ -35,6 +35,11 @@
                         <input type="tel" name="phone_number" class="form-control" value="{{$admin->phone_number}}"
                                placeholder="شماره تلفن را وارد کنید...">
                     </div>
+                    <div class="form-group">
+                        <label for="name">ایمیل</label>
+                        <input type="email" name="email" class="form-control" value="{{$admin->email}}"
+                               placeholder="ایمیل را وارد کنید...">
+                    </div>
                     <button type="submit" class="btn btn-primary pull-left">ویرایش</button>
                 </form>
                 <a class="btn btn-info pull-right" href="{{route('profile.update.pass.view')}}">تغییر رمزعبور</a>

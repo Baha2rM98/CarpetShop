@@ -9,6 +9,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use App\Order;
@@ -187,14 +188,18 @@ class AdminController extends Controller
         return $this->validate($request, [
             'name' => ['bail', 'required'],
             'last_name' => ['bail', 'required'],
-            'phone_number' => ['bail', 'required', 'numeric', 'digits_between:11,11', 'regex:/09[0-9]{9}/u']
+            'phone_number' => ['bail', 'required', 'numeric', 'digits_between:11,11', 'regex:/09[0-9]{9}/u'],
+            'email' => ['bail', 'required', 'email', Rule::unique('admins')->ignore($request->user('admin')->id, 'id')->whereNull('deleted_at')]
         ], [
             'name.required' => 'عبارت نام نمیتواند خالی باشد!',
             'last_name.required' => 'عبارت نام خانوادگی نمیتواند خالی باشد!',
             'phone_number.required' => 'عبارت شماره تلفن نمیتواند خالی باشد!',
             'phone_number.numeric' => 'شماره تلفن وارد شده معتبر نیست!',
             'phone_number.digits_between' => 'شماره تلفن وارد شده معتبر نیست!',
-            'phone_number.regex' => 'شماره تلفن وارد شده معتبر نیست!'
+            'phone_number.regex' => 'شماره تلفن وارد شده معتبر نیست!',
+            'email.required' => 'ایمیل نمیتواند خالی باشد!',
+            'email.email' => 'شماره تلفن وارد شده معتبر نیست!',
+            'email.unique' => 'این ایمیل قبلا ثبت شده است!',
         ]);
     }
 }
