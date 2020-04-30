@@ -20,8 +20,8 @@ class SMS
         try {
 //            $apiKey = env('API_KEY');
 //            $sender = env('SMS_SENDER');
-            $apiKey = env('7A52765046754A573557446130373167365A5561756450416C6438793232464D415047774B49434659416B3D');
-            $sender = env('1000596446');
+            $apiKey = '7A52765046754A573557446130373167365A5561756450416C6438793232464D415047774B49434659416B3D';
+            $sender = '1000596446';
             $panel = new KavenegarApi($apiKey);
             $panel->Send($sender, $receiver, $message);
         } catch (ApiException $apiException) {
