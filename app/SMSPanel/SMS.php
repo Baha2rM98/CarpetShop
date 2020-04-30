@@ -44,7 +44,8 @@ class SMS
     public static function forceSend($template, $receiver, $token)
     {
         try {
-            $apiKey = env('API_KEY');
+//            $apiKey = env('API_KEY');
+            $apiKey = '7A52765046754A573557446130373167365A5561756450416C6438793232464D415047774B49434659416B3D';
             $panel = new KavenegarApi($apiKey);
             $panel->VerifyLookup($receiver, $token, '', '', $template);
             return true;
