@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Helper\Helper;
+//use App\Helper\Helper;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
@@ -88,8 +88,18 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapAdminRoutes()
     {
-        Route::domain(Helper::getApplicationSubDomain())
+        Route::domain($this->getApplicationSubDomain())
             ->namespace($this->namespace)
             ->group(base_path('routes/admin.php'));
+    }
+
+    /**
+     * Returns application sub domain url
+     *
+     * @return string
+     */
+    private function getApplicationSubDomain()
+    {
+        return 'panel.'.parse_url(env('APP_URL'), PHP_URL_HOST);
     }
 }

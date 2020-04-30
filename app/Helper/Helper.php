@@ -19,15 +19,17 @@ trait Helper
         return Str::replaceArray('/storage/'.$dir.'/', [''], $path);
     }
 
-    /**
-     * Returns application sub domain url
-     *
-     * @return string
-     */
-    public static function getApplicationSubDomain()
-    {
-        return 'panel.'.parse_url(env('app_url'), PHP_URL_HOST);
-    }
+    // This method moved to RouteServiceProvider.php
+
+//    /**
+//     * Returns application sub domain url
+//     *
+//     * @return string
+//     */
+//    public static function getApplicationSubDomain()
+//    {
+//        return 'panel.'.parse_url(env('app_url'), PHP_URL_HOST);
+//    }
 
     /**
      * Checks if all values of array is ['null']
