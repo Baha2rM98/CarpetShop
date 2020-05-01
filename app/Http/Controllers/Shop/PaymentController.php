@@ -29,13 +29,13 @@ class PaymentController extends Controller
 
         $order = Order::findOrFail($id);
 
-        $paymentResponse = new Zarinpal(
+        $paymentResponse = (new Zarinpal(
             'response',
             [
                 'price' => $order->price,
                 'authority' => $authority
             ], true
-        );
+        ))->setMerchantId('XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX');
         $result = $paymentResponse->receivePaymentInfoFromGateway($status);
         if ($result) {
             $order->status = 1;

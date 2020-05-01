@@ -70,15 +70,15 @@ class OrderController extends Controller
 
             Session::put($user->email, false);
 
-            $paymentRequest = new Zarinpal(
+            $paymentRequest = (new Zarinpal(
                 'request',
                 [
                     'price' => $order->price,
-                    'description' => 'فروشگاه کارپت مارکت',
+                    'description' => 'فروشگاه اینترنتی کارپت مارکت',
                     'callbackUri' => 'checkout',
                     'orderId' => $order->id
                 ], true
-            );
+            ))->setMerchantId('XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX');
             $result = $paymentRequest->sendPaymentInfoToGateway();
             if ($result->Status == 100) {
                 return redirect()->to($paymentRequest->linkToGateway($result->Authority));
@@ -89,15 +89,15 @@ class OrderController extends Controller
 
         $unpaidOrder = Order::where([['user_id', '=', $user->id], ['status', '=', 0]])->first();
 
-        $paymentRequest = new Zarinpal(
+        $paymentRequest = (new Zarinpal(
             'request',
             [
                 'price' => $unpaidOrder->price,
-                'description' => 'فروشگاه کارپت مارکت',
+                'description' => 'فروشگاه اینترنتی کارپت مارکت',
                 'callbackUri' => 'checkout',
                 'orderId' => $unpaidOrder->id
             ], true
-        );
+        ))->setMerchantId('XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX');
         $result = $paymentRequest->sendPaymentInfoToGateway();
         if ($result->Status == 100) {
             return redirect()->to($paymentRequest->linkToGateway($result->Authority));
