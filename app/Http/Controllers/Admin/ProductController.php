@@ -267,6 +267,6 @@ class ProductController extends Controller
             'categories', function ($query) use ($categories) {
             $query->where('categories.id', $categories);
         })->get();
-        return response()->json(['attributes' => $attributeGroup]);
+        return response()->json(['myAttributes' => $attributeGroup]);
     }
 }
