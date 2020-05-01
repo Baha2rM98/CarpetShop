@@ -15,7 +15,7 @@
             </select>
         </div>
         <div v-if="flag">
-            <div class="form-group" v-for="(attribute, index) in myAttributes">
+            <div class="form-group" v-for="(attribute, index) in attributes">
                 <label>ویژگی {{attribute.title}}</label>
                 <select class="form-control" @change="addAttribute($event, index)">
                     <option value="null">انتخاب کنید...</option>
@@ -24,7 +24,7 @@
                 </select>
             </div>
         </div>
-        <input type="hidden" name="attributes[]" :value="myConvertedAttribute">
+        <input type="hidden" name="attributes[]" :value="convertedAttribute">
     </div>
 </template>
 
@@ -35,9 +35,9 @@
                 categories: [],
                 selectedCategories: [],
                 flag: false,
-                myAttributes: [],
-                mySelectedAttribute: [],
-                myConvertedAttribute: []
+                attributes: [],
+                selectedAttribute: [],
+                convertedAttribute: []
             }
         },
         props: ['brands', 'product'],
@@ -54,11 +54,11 @@
                     this.selectedCategories.push(this.product.categories[i].id)
                 }
                 for (let i = 0; i < this.product.attribute_values.length; i++) {
-                    this.mySelectedAttribute.push({
+                    this.selectedAttribute.push({
                         'index': i,
                         'value': this.product.attribute_values[i].id
                     });
-                    this.myConvertedAttribute.push(this.product.attribute_values[i].id)
+                    this.convertedAttribute.push(this.product.attribute_values[i].id)
                 }
                 const load = 'ok';
                 this.onChange(null, load);
@@ -81,10 +81,10 @@
                 this.flag = false;
                 axios.post('/api/category/attributes', this.selectedCategories).then(res => {
                     if (this.product && load == null) {
-                        this.myConvertedAttribute = [];
-                        this.mySelectedAttribute = []
+                        this.convertedAttribute = [];
+                        this.selectedAttribute = []
                     }
-                    this.myAttributes = res.data.myAttributes;
+                    this.attributes = res.data.attributes;
                     this.flag = true
                 }).catch(err => {
                     console.log(err);
@@ -93,19 +93,19 @@
 
             },
             addAttribute: function (event, index) {
-                for (let i = 0; i < this.mySelectedAttribute.length; i++) {
-                    let current = this.mySelectedAttribute[i];
+                for (let i = 0; i < this.selectedAttribute.length; i++) {
+                    let current = this.selectedAttribute[i];
                     if (current.index === index) {
-                        this.mySelectedAttribute.splice(i, 1)
+                        this.selectedAttribute.splice(i, 1)
                     }
                 }
-                this.mySelectedAttribute.push({
+                this.selectedAttribute.push({
                     'index': index,
                     'value': event.target.value
                 });
-                this.myConvertedAttribute = [];
-                for (let i = 0; i < this.mySelectedAttribute.length; i++) {
-                    this.myConvertedAttribute.push(this.mySelectedAttribute[i].value)
+                this.convertedAttribute = [];
+                for (let i = 0; i < this.selectedAttribute.length; i++) {
+                    this.convertedAttribute.push(this.selectedAttribute[i].value)
                 }
             },
         }
