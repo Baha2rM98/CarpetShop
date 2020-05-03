@@ -1,2 +1,2 @@
 User-agent: *
-Disallow:
+Disallow: https://panel.carpetmarket.tk
