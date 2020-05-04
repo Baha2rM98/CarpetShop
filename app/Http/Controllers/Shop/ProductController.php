@@ -34,11 +34,16 @@ class ProductController extends Controller
             abort(404);
         }
 
+        $relatedProductIds = [];
+        foreach ($product->categories as $category) {
+            array_push($relatedProductIds, $category->id);
+        }
+
         $comments = Comment::with('user')->where([['product_id', '=', $product->id], ['visibility', '=', 1]])
             ->get();
 
-        $relatedProducts = Product::with('photos')->whereHas('categories', function ($query) use ($product) {
-            $query->whereIn('categories.id', $product->categories);
+        $relatedProducts = Product::with('photos')->whereHas('categories', function ($query) use ($relatedProductIds) {
+            $query->whereIn('category_product.category_id', $relatedProductIds);
         })->get();
 
         return view('shop.products.index', compact('menus', 'product', 'relatedProducts', 'comments'));
