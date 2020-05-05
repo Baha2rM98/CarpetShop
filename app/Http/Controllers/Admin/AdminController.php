@@ -57,7 +57,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Retrieves 20 latest orders
+     * Retrieves 20 latest comments
      *
      * @return View
      */

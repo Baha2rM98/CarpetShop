@@ -221,6 +221,10 @@ class UserController extends Controller
             return back()->with(['error' => 'آدرس اصلی شما نمی تواند حذف شود!']);
         }
 
+        if (Order::query()->where('address_id', $id)->exists()) {
+            return back()->with(['error' => 'سفارشاتی برای این آدرس ثبت شده است، قابل حذف نمی باشد!']);
+        }
+
         $address->delete();
 
         return redirect()->route('address.index')->with(['ok' => 'آدرس شما با موفقیت حذف شد!']);
@@ -306,7 +310,7 @@ class UserController extends Controller
     {
         $order = Order::findOrFail($id);
 
-        $paymentRequest = new Zarinpal(
+        $paymentRequest = (new Zarinpal(
             'request',
             [
                 'price' => $order->price,
@@ -314,7 +318,7 @@ class UserController extends Controller
                 'callbackUri' => 'profile/checkout',
                 'orderId' => $order->id
             ], true
-        );
+        ))->setMerchantId('XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX');
         $result = $paymentRequest->sendPaymentInfoToGateway();
         if ($result->Status == 100) {
             return redirect()->to($paymentRequest->linkToGateway($result->Authority));
@@ -339,13 +343,13 @@ class UserController extends Controller
 
         $order = Order::findOrFail($id);
 
-        $paymentResponse = new Zarinpal(
+        $paymentResponse = (new Zarinpal(
             'response',
             [
                 'price' => $order->price,
                 'authority' => $authority
             ], true
-        );
+        ))->setMerchantId('XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX');
         $result = $paymentResponse->receivePaymentInfoFromGateway($status);
         if ($result) {
             $order->status = 1;
