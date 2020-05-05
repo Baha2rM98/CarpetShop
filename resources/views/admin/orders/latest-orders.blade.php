@@ -54,11 +54,7 @@
                                     @else
                                         <td class="text-center"><span class="label label-danger">حذف شده</span></td>
                                     @endif
-                                    @if($order->status === 1)
-                                        <td class="text-center"><a href="{{route('admin.order.products', ['id'=>$order->id])}}">{{$order->order_code}}</a></td>
-                                    @else
-                                        <td class="text-center">{{$order->order_code}}</td>
-                                    @endif
+                                    <td class="text-center"><a href="{{route('admin.order.products', ['id'=>$order->id])}}">{{$order->order_code}}</a></td>
                                     @if($order->status === 1)
                                         <td class="text-center"><span class="label label-success">پرداخت شده</span></td>
                                     @else

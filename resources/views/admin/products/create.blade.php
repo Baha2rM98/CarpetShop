@@ -62,7 +62,7 @@
                                           placeholder="توضیحات محصول را وارد کنید..."></textarea>
                             </div>
                             <div class="form-group">
-                                <label for="photo">گالری تصاویر محصول</label>
+                                <label for="photo">گالری تصاویر محصول(فایل آپلود شده حتما باید از نوع عکس باشد و حجم آن حداکثر 4 مگابایت باشد.)</label>
                                 <input type="hidden" name="photo_id[]" id="product-photo">
                                 <div id="photo" class="dropzone"></div>
                             </div>
