@@ -2,13 +2,12 @@
 
 namespace App;
 
-//use BlackPlatinum\SoftDeletesFix;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class OrderProduct extends Model
 {
-//    use SoftDeletesFix;
     use SoftDeletes;
 
     /**
@@ -17,4 +16,16 @@ class OrderProduct extends Model
      * @var string
      */
     protected $table = 'order_product';
+
+    /**
+     * Perform any actions required after the model boots.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope('id', function (Builder $builder) {
+            $builder->orderBy('id', 'asc');
+        });
+    }
 }

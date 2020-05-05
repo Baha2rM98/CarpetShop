@@ -2,7 +2,7 @@
 
 namespace App;
 
-//use BlackPlatinum\SoftDeletesFix;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Coupon extends Model
 {
-//    use SoftDeletesFix;
     use SoftDeletes;
 
     /**
@@ -33,6 +32,18 @@ class Coupon extends Model
     protected $fillable = [
         'title', 'code', 'price', 'status'
     ];
+
+    /**
+     * Perform any actions required after the model boots.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope('id', function (Builder $builder) {
+            $builder->orderBy('id', 'asc');
+        });
+    }
 
     /**
      * Returns a many-to-many relationship with User

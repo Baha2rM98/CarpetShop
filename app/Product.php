@@ -3,7 +3,7 @@
 namespace App;
 
 use App\Helper\Helper;
-//use BlackPlatinum\SoftDeletesFix;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -23,7 +23,6 @@ use Illuminate\Support\Facades\Storage;
  */
 class Product extends Model
 {
-//    use SoftDeletesFix;
     use Helper;
     use SoftDeletes;
 
@@ -59,6 +58,18 @@ class Product extends Model
             }
             $product->photos()->delete();
             $product->comments()->delete();
+        });
+    }
+
+    /**
+     * Perform any actions required after the model boots.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope('id', function (Builder $builder) {
+            $builder->orderBy('id', 'asc');
         });
     }
 

@@ -2,7 +2,7 @@
 
 namespace App;
 
-//use BlackPlatinum\SoftDeletesFix;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Photo extends Model
 {
-//    use SoftDeletesFix;
     use SoftDeletes;
 
     /**
@@ -27,6 +26,18 @@ class Photo extends Model
      * @var string Public path
      */
     protected $uploads = '/storage/photos/';
+
+    /**
+     * Perform any actions required after the model boots.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope('id', function (Builder $builder) {
+            $builder->orderBy('id', 'asc');
+        });
+    }
 
     /** Returns symbolic link path of the photo
      *

@@ -2,9 +2,9 @@
 
 namespace App;
 
-//use BlackPlatinum\SoftDeletesFix;
 use Hekmatinasser\Verta\Verta;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -17,7 +17,6 @@ use Illuminate\Notifications\Notifiable;
 class Admin extends Authenticatable
 {
     use Notifiable;
-//    use SoftDeletesFix;
     use SoftDeletes;
 
     /**
@@ -57,6 +56,18 @@ class Admin extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Perform any actions required after the model boots.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope('id', function (Builder $builder) {
+            $builder->orderBy('id', 'asc');
+        });
+    }
 
     /**
      * Converts gregorian date format to jalali

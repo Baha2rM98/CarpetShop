@@ -2,7 +2,7 @@
 
 namespace App;
 
-//use BlackPlatinum\SoftDeletesFix;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -18,7 +18,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Address extends Model
 {
-//    use SoftDeletesFix;
     use SoftDeletes;
 
     /**
@@ -40,6 +39,18 @@ class Address extends Model
         'province_id',
         'city_id'
     ];
+
+    /**
+     * Perform any actions required after the model boots.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope('id', function (Builder $builder) {
+            $builder->orderBy('id', 'asc');
+        });
+    }
 
     /**
      * Returns a one-to-many relationship with User

@@ -2,7 +2,7 @@
 
 namespace App;
 
-//use BlackPlatinum\SoftDeletesFix;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -17,7 +17,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Category extends Model
 {
-//    use SoftDeletesFix;
     use SoftDeletes;
 
     /**
@@ -33,6 +32,18 @@ class Category extends Model
      * @var array
      */
     protected $fillable = ['parent_id', 'name', 'meta_title', 'meta_desc', 'meta_keywords'];
+
+    /**
+     * Perform any actions required after the model boots.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope('id', function (Builder $builder) {
+            $builder->orderBy('id', 'asc');
+        });
+    }
 
     /**
      * Returns children of each category recursively
