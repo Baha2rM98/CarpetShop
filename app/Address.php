@@ -48,7 +48,7 @@ class Address extends Model
     protected static function booted()
     {
         static::addGlobalScope('id', function (Builder $builder) {
-            $builder->orderBy('id', 'asc');
+            $builder->orderBy('addresses.id', 'asc');
         });
     }
 

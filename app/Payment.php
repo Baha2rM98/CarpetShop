@@ -32,7 +32,7 @@ class Payment extends Model
     protected static function booted()
     {
         static::addGlobalScope('id', function (Builder $builder) {
-            $builder->orderBy('id', 'asc');
+            $builder->orderBy('payments.id', 'asc');
         });
     }
 
