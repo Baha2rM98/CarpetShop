@@ -20,7 +20,7 @@ class CreateCommentsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->bigInteger('product_id')->unsigned();
             $table->foreign('product_id')->references('id')->on('products')->cascadeOnDelete();
-            $table->boolean('visibility')->default(false);
+            $table->tinyInteger('visibility')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

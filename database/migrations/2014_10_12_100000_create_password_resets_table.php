@@ -17,7 +17,7 @@ class CreatePasswordResetsTable extends Migration
             $table->bigIncrements('id');
             $table->string('phone')->index();
             $table->string('token');
-            $table->boolean('expired')->default(false);
+            $table->tinyInteger('expired')->default(0);
             $table->timestamps();
         });
     }

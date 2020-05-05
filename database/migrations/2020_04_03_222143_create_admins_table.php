@@ -15,7 +15,7 @@ class CreateAdminsTable extends Migration
     {
         Schema::create('admins', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->boolean('super_admin')->default(true);
+            $table->tinyInteger('super_admin')->default(1);
             $table->string('name');
             $table->string('last_name');
             $table->string('phone_number');

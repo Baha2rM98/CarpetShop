@@ -24,7 +24,7 @@ class CreateAddressesTable extends Migration
             $table->foreign('city_id')->references('id')->on('cities');
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
-            $table->boolean('primary')->default(true);
+            $table->tinyInteger('primary')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });
