@@ -12,6 +12,6 @@ class AttributeGroupsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(AttributeGroup::class, 20)->create();
+        factory(AttributeGroup::class, 50)->create();
     }
 }

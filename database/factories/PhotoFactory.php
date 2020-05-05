@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Photo::class, function (Faker $faker) {
     return [
-        'path' => $faker->word,
+        'path' => 'https://source.unsplash.com/random',
         'original_name' => $faker->word,
     ];
 });

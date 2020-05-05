@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Factory;
 
 $factory->define(Brand::class, function (Faker $faker) {
     return [
-        'title' => $faker->unique()->word,
-        'description' => $faker->text,
-        'photo_id' => $faker->numberBetween(1, 20)
+        'title' => $faker->unique()->word()
     ];
 });

@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(AttributeGroup::class, function (Faker $faker) {
     return [
-        'title' => $faker->title,
-        'type' => $faker->word
+        'title' => $faker->word(),
+        'type' => $faker->randomElement(['multiple', 'single'])
     ];
 });

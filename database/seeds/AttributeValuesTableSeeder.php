@@ -12,6 +12,6 @@ class AttributeValuesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(AttributeValue::class, 20)->create();
+        factory(AttributeValue::class, 50)->create();
     }
 }
