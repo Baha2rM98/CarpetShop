@@ -1,5 +1,1 @@
-# Online Carpet Shop
-
-### Powered By: [Laravel](https://laravel.com)
-
-#### Author: [Bahador Mirzazadeh](https://github.com/Baha2rM98)
+# An Online Carpet Store
